@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - Strela Amura</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Контакты</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                <li><a href="{% url 'login' %}">Авторизация</a></li>
+                <li><a href="{% url 'courses' %}">Курсы</a></li>
+                <li><a href="{% url 'contacts' %}">Контакты</a></li> <!-- Добавлено -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Свяжитесь с нами</h2>
+            <p>Вы можете связаться с нами по электронной почте: info@strelaamura.ru</p>
+            <p>Телефон: +7 (123) 456-78-90</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
+    </footer>
+</body>
+</html>

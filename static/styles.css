@@ -1,0 +1,94 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif; /* Основной шрифт */
+    margin: 0;
+    padding: 0;
+    background-color: #f9f3e9; /* Светлый нейтральный цвет фона */
+    background-image: url('/static/background4.jpg'); /* Путь к вашему фоновому изображению */
+    background-size: contain; /* Заполнение всего экрана */
+    background-position: center; /* Центрирование изображения */
+}
+
+header {
+    background-image: url('/static/image2.jpg'); /* Изображение для заголовка */
+    background-size: cover; /* Заполнение всего заголовка */
+    background-position: top; /* Отображение верхней части изображения */
+    color: #fff; /* Белый цвет для текста заголовка */
+    padding: 10px 0;
+    text-align: center;
+    text-shadow: 1px 1px 0 #000; /* Черная обводка для заголовка */
+    font-family: 'Playfair Display', serif; /* Шрифт для заголовка */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff; /* Белый цвет для навигационных ссылок */
+    text-decoration: none;
+    text-shadow: 1px 1px 0 #000; /* Черная обводка для навигационных ссылок */
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон для основного контента */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Тень для основного контента */
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #fff; /* Белый фон для формы */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700; /* Жирный шрифт для меток */
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background: #b3e8e1; /* Телесный цвет для кнопок */
+    color: #242626; /* Белый цвет текста на кнопках */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+form button:hover {
+    background: #67e9d8; /* Темнее телесный цвет при наведении */
+}
+
+footer {
+    background-image: url('/static/image2.jpg'); /* Изображение для подвала */
+    background-size: cover; /* Заполнение всего подвала */
+    background-position: bottom; /* Отображение нижней части изображения */
+    text-align: center;
+    padding: 10px 0;
+    color: #fff; /* Белый цвет для текста в подвале */
+    text-shadow: 1px 1px 0 #000; /* Черная обводка для текста в подвале */
+    width: 100%;
+}

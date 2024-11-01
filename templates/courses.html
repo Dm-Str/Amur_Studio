@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсы - Strela Amura</title>
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Доступные курсы</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                <li><a href="{% url 'login' %}">Авторизация</a></li>
+                <li><a href="{% url 'courses' %}">Курсы</a></li>
+                <li><a href="{% url 'contacts' %}">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Наши курсы</h2>
+            <ul>
+                <li>
+                    <h3>Курс по маникюру для начинающих</h3>
+                    <p>Научитесь основам маникюра и ухода за ногтями.</p>
+                </li>
+                <li>
+                    <h3>Курс по дизайну ногтей</h3>
+                    <p>Изучите техники дизайна и художественной росписи ногтей.</p>
+                </li>
+                <li>
+                    <h3>Курс по наращиванию ногтей</h3>
+                    <p>Освойте методы наращивания ногтей и работы с гелем.</p>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
+    </footer>
+</body>
+</html>
