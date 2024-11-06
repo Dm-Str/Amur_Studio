@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from nail_studio.validators import *
 
 
 class Courses(models.Model):
@@ -10,15 +11,15 @@ class Courses(models.Model):
     date_start_after_payment = models.DateField()
     date_end = models.DateField(blank=True, null=True)
     course_type = models.CharField(max_length=100, default='Базовый')
-    #image = models.ImageField(upload_to='images/') #???
+    image = models.ImageField(upload_to='images/')
 
 
 class Person(AbstractUser):
-    number = models.CharField(max_length=25, unique=True)
+    number = models.CharField(max_length=25, unique=True, validators=[validate_phone])
     location = models.CharField(max_length=50)
     experience = models.CharField(max_length=50, default='Нет') # стаж
     bonuses = models.IntegerField(default=0)
-    certificates = models.CharField(max_length=50, default='Отсутствуют') # картинка или техт???
+    certificates = models.ImageField(upload_to='certificates/')
     courses = models.ManyToManyField(Courses, related_name='persons')
 
 
@@ -30,21 +31,20 @@ class Discounts(models.Model):
     courses = models.ManyToManyField(Courses, related_name='discounts') # ???
 
 
-# лучше разбить на разные модели вопросы/ответы?
 class Questions(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=300)
     created_at = models.DateField(auto_now_add=True)
 
 
 class Answers(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=300)
     created_at = models.DateField(auto_now_add=True)
-    question = models.ManyToManyField(Questions, related_name='answers')
+    question = models.ForeignKey(Questions, related_name='answers', on_delete=models.CASCADE)
 
-# как хранить?
-# class StudentsWorkBasicCourse(models.Model):
-#     image = models.ImageField(upload_to='images/')
-#
-#
-# class StudentsWorkRetrainingCourse(models.Model):
-#     image = models.ImageField(upload_to='images/')
+
+class StudentsWorkBasicCourse(models.Model):
+    image = models.ImageField(upload_to='images/')
+
+
+class StudentsWorkRetrainingCourse(models.Model):
+    image = models.ImageField(upload_to='images/')

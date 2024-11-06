@@ -20,7 +20,8 @@
         </nav>
     </header>
     <main>
-        <form id="login-form">
+        <form method="post" id="login-form">
+            {% csrf_token %}
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
             <label for="password">Пароль:</label>
