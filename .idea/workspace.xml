@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77a695c3-d947-4f89-bce4-b3d125fc40ac" name="Changes" comment="Add registration">
-      <change afterPath="$PROJECT_DIR$/nail_studio/validators.py" afterDir="false" />
+    <list default="true" id="77a695c3-d947-4f89-bce4-b3d125fc40ac" name="Changes" comment="Add make login">
+      <change afterPath="$PROJECT_DIR$/templates/lk.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Amur_Studio/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Amur_Studio/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Amur_Studio/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Amur_Studio/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nail_studio/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/nail_studio/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nail_studio/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/nail_studio/apps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nail_studio/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/nail_studio/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nail_studio/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/nail_studio/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nail_studio/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/nail_studio/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
     </list>
@@ -24,8 +26,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -116,7 +118,9 @@
       <workItem from="1730501033793" duration="95000" />
       <workItem from="1730649008523" duration="10969000" />
       <workItem from="1730818876788" duration="44000" />
-      <workItem from="1730908347119" duration="6177000" />
+      <workItem from="1730908347119" duration="8993000" />
+      <workItem from="1731005601462" duration="11000" />
+      <workItem from="1731259744297" duration="9686000" />
     </task>
     <task id="LOCAL-00001" summary="Init commit">
       <option name="closed" value="true" />
@@ -142,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730659979990</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add make login">
+      <option name="closed" value="true" />
+      <created>1730914690490</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730914690490</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +175,7 @@
     <MESSAGE value="Init commit" />
     <MESSAGE value="Add templates" />
     <MESSAGE value="Add registration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add registration" />
+    <MESSAGE value="Add make login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add make login" />
   </component>
 </project>

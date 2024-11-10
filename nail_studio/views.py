@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render
 from nail_studio.models import Person
 
@@ -33,9 +33,14 @@ def make_login(request):
 
         if user and user.check_password(password):
             login(request, user)
-            return render(request, 'index.html')
+            return render(request, 'lk.html')
 
     return render(request, 'login.html')
+
+
+def make_logout(request):
+    logout(request)
+    return render(request, 'index.html')
 
 
 def courses(request):
@@ -44,3 +49,6 @@ def courses(request):
 
 def contacts(request):
     return render(request, 'contacts.html')
+
+def lk_user(request):
+    return render(request, 'lk.html')
