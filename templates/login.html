@@ -1,25 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Авторизация - Strela Amura</title>
-    <link rel="stylesheet" href="../static/styles.css">
-</head>
-<body>
-    <header>
-        <h1>Авторизация</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Главная</a></li>
-                <li><a href="{% url 'register' %}">Регистрация</a></li>
-                <li><a href="{% url 'make_login' %}">Авторизация</a></li>
-                <li><a href="{% url 'courses' %}">Курсы</a></li>
-                <li><a href="{% url 'contacts' %}">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
+{% extends "base.html" %}
+{% block title %}
+    Авторизация - Strela Amura
+{% endblock %}
+
+{% block style %}
+	<link rel="stylesheet" href="../static/styles.css">
+{% endblock %}
+
+{% block name %}
+	Авторизация
+{% endblock %}
+
+{% block content %}
+	 <main>
         <form method="post" id="login-form">
             {% csrf_token %}
             <label for="email">Email:</label>
@@ -29,8 +22,4 @@
             <button type="submit">Войти</button>
         </form>
     </main>
-    <footer>
-        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

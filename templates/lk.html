@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личный кабинет - Стрела Амура</title>
+{% extends "base.html" %}
+{% block title %}
+    Личный кабинет - Стрела Амура
+{% endblock %}
+
+{% block style %}
     <link rel="stylesheet" href="../static/styles.css">
-</head>
-<body>
-    <header>
-        <h1>Личный кабинет</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Главная</a></li>
-                <li><a href="{% url 'courses' %}">Курсы</a></li>
-{#                <li><a href="{% url 'profile' %}">Профиль</a></li>#}
-{#                <li><a href="{% url 'logout' %}">Выход</a></li>#}
-            </ul>
-        </nav>
-    </header>
+{% endblock %}
+
+{% block name %}
+	Личный кабинет
+{% endblock %}
+
+{% block content %}
     <main>
         <section>
             <h2>Добро пожаловать, {{ user.username }}!</h2>
@@ -42,9 +36,12 @@
                 {% endfor %}
             </ul>
         </section>
+    
+        <section>
+            <form method="post" action="{% url 'make_logout' %}">
+                {% csrf_token %}
+                <button type="submit">Выйти</button>
+            </form>
+        </section>
     </main>
-    <footer>
-        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

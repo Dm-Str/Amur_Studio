@@ -92,3 +92,12 @@ footer {
     text-shadow: 1px 1px 0 #000; /* Черная обводка для текста в подвале */
     width: 100%;
 }
+
+.error-messages {
+    color: red; /* Цвет текста */
+    background-color: #f8d7da; /* Светлый фон для выделения */
+    border: 1px solid #f5c6cb; /* Рамка для выделения */
+    padding: 10px; /* Отступы внутри блока */
+    margin: 20px 0; /* Отступы сверху и снизу */
+    border-radius: 5px; /* Закругленные углы */
+}

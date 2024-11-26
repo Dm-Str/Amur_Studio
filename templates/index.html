@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strela Amura - Главная</title>
+{% extends "base.html" %}
+    {% block title %}
+        Strela Amura - Главная
+    {% endblock %}
+
+    {% block style %}
     <link rel="stylesheet" href="../static/styles.css">
-</head>
-<body>
-    <header>
-        <h1>Добро пожаловать в Стрела Амура</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Главная</a></li>
-                <li><a href="{% url 'register' %}">Регистрация</a></li>
-                <li><a href="{% url 'make_login' %}">Авторизация</a></li>
-                <li><a href="{% url 'courses' %}">Курсы</a></li>
-                <li><a href="{% url 'contacts' %}">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
+    {% endblock %}
+
+
+{% block name %}
+    Добро пожаловать в Стрела Амура
+{% endblock %}
+
+{% block content %}
     <main>
         <section>
             <h2>Наши услуги</h2>
@@ -43,8 +37,4 @@
             <p>Не упустите возможность стать мастером маникюра! Запишитесь на курс уже сегодня и начните свой путь к успеху в индустрии красоты. Для получения дополнительной информации свяжитесь с нами по телефону или через форму обратной связи на нашем сайте.</p>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Курсы - Strela Amura</title>
-    <link rel="stylesheet" href="../static/styles.css">
-</head>
-<body>
-    <header>
-        <h1>Доступные курсы</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Главная</a></li>
-                <li><a href="{% url 'register' %}">Регистрация</a></li>
-                <li><a href="{% url 'make_login' %}">Авторизация</a></li>
-                <li><a href="{% url 'courses' %}">Курсы</a></li>
-                <li><a href="{% url 'contacts' %}">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
+{% extends "base.html" %}
+
+    {% block title %}
+        Курсы - Strela Amura
+    {% endblock %}
+
+    {% block style %}
+        <link rel="stylesheet" href="../static/styles.css">
+    {% endblock %}
+
+{% block name %}
+    Доступные курсы
+{% endblock %}
+
+{% block content %}
     <main>
         <section>
             <h2>Наши курсы</h2>
@@ -50,8 +44,4 @@
             </ul>
         </section>
     </main>
-    <footer>
-        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
-    </footer>
-</body>
-</html>
+{% endblock %}

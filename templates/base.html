@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style %}
+    	
+    {% endblock %}
+
+    <title>
+        {% block title %}
+        Title
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <header>
+        <h1>
+            {% block name %}
+                Нет данных
+            {% endblock %}
+        </h1>
+        
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                <li><a href="{% url 'make_login' %}">Авторизация</a></li>
+                <li><a href="{% url 'courses' %}">Курсы</a></li>
+                <li><a href="{% url 'lk_user' %}">Личный кабинет</a></li>
+                <li><a href="{% url 'contacts' %}">Контакты</a></li> <!-- Добавлено -->
+            </ul>
+        </nav>
+    </header>
+    {% block content %}
+    {% endblock %}
+    
+    {% block footer %}
+    <footer>
+        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
+    </footer>
+    {% endblock %}
+
+</body>
+</html>
