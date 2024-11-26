@@ -15,18 +15,18 @@ class Courses(models.Model):
     #location = models.CharField(default='Оффлайн')
     image = models.ImageField(upload_to='images/')
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
 
-    def __str__(self):
-        return self.title
-
 
 class Person(AbstractUser):
     # Исправить окно регистрации. Добавить имя фамилию.
-    # Нужно ли разбить сайт студии и сайт школы на разные приложения?
     # Добавить фильтр для пользователей которые не успели пройти курс за отведенное время.
+    username = models.CharField(max_length=45, unique=True, validators=[validate_name])
     number = models.CharField(max_length=25, unique=True, validators=[validate_phone], verbose_name='Телефон')
     location = models.CharField(max_length=50)
     experience = models.CharField(max_length=50, default='Нет') # стаж
@@ -35,9 +35,13 @@ class Person(AbstractUser):
     certificates = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
     courses = models.ManyToManyField(Courses, related_name='persons')
 
+    def __str__(self):
+        return self.username
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+        ordering = ('number',)
 
 
 class Discounts(models.Model):

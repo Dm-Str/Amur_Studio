@@ -3,10 +3,11 @@ import re
 
 
 def validate_name(value):
-    if not re.match(r"^[A-Za-zА-Яа-яЁё\s'-]+$", value):
-        raise ValidationError("Имя может содержать только буквы, пробелы, дефисы и апострофы.")
-    if not (1 < len(value) < 25):
-        raise ValidationError("Длина имени должна быть от 1 до 25 символов.")
+    if not re.match(r"^[A-Za-zА-Яа-яЁё0-9_-]+$", value):
+        raise ValidationError("Логин может содержать только буквы, цифры, дефисы и нижние подчеркивания.")
+
+    if not (1 < len(value) < 45):
+        raise ValidationError("Длина логина должна быть от 1 до 25 символов.")
 
 
 def validate_email(value):
@@ -15,10 +16,25 @@ def validate_email(value):
         raise ValidationError(f"{value} не является корректным адресом электронной почты.")
 
 
+def validate_first_name(value):
+    if not re.match(r"^[A-Za-zА-Яа-яЁё\s'-]+$", value):
+        raise ValidationError("Имя может содержать только буквы, пробелы, дефисы и апострофы.")
+    if not (1 < len(value) < 25):
+        raise ValidationError("Длина имени должна быть от 1 до 25 символов.")
+
+
+def validate_last_name(value):
+    if not re.match(r"^[A-Za-zА-Яа-яЁё\s'-]+$", value):
+        raise ValidationError("Фамилия может содержать только буквы, пробелы, дефисы и апострофы.")
+    if not (1 < len(value) < 35):
+        raise ValidationError("Длина фамилии должна быть от 1 до 25 символов.")
+
+
 def validate_phone(value):
-    phone_regex = r'^\d{10}$'
-    if not re.match(phone_regex, value):
-        raise ValidationError("Номер телефона должен содержать ровно 10 цифр.")
+    cleaned_value = re.sub(r'[^0-9+]', '', value)
+
+    if not re.match(r'^\+7\d{10}$', cleaned_value):
+        raise ValidationError("Номер телефона должен начинаться с +7 и содержать 10 цифр после кода страны.")
 
 
 def validate_password(value):
@@ -27,9 +43,6 @@ def validate_password(value):
 
     if not re.search(r'[A-Z]', value):
         raise ValidationError("Пароль должен содержать хотя бы одну заглавную букву.")
-
-    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', value):
-        raise ValidationError("Пароль должен содержать хотя бы один специальный символ.")
 
     if len(value) > 50:
         raise ValidationError("Пароль не должен превышать 50 символов.")

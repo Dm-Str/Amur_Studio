@@ -1,6 +1,9 @@
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from nail_studio.models import Person
+from nail_studio.validators import *
+from django.contrib import messages
 
 
 def index(request):
@@ -14,12 +17,31 @@ def register(request):
         phone = request.POST.get('phone')
         password = request.POST.get('password')
 
-        user = Person.objects.create_user(username=name,
-                                          email=email,
-                                          password=password,
-                                          number=phone)
-        login(request, user)
-        return render(request, 'index.html')
+        try:
+            validate_name(name)
+            validate_email(email)
+            validate_phone(phone)
+            validate_password(password)
+
+            user = Person.objects.create_user(username=name,
+                                              email=email,
+                                              number=phone,
+                                              password=password
+                                              )
+
+            login(request, user)
+            messages.success(request, 'Ваш аккаунт успешно создан!')
+            return render(request, 'lk.html')
+
+        except ValidationError as e:
+            for error in e.messages:
+                messages.error(request, error)
+            return render(request, 'register.html', {
+                'errors': e.messages,
+                'name': name,
+                'email': email,
+                'phone': phone
+            })
 
     if request.method == 'GET':
         return render(request, 'register.html')
@@ -50,5 +72,7 @@ def courses(request):
 def contacts(request):
     return render(request, 'contacts.html')
 
+
+@login_required
 def lk_user(request):
     return render(request, 'lk.html')
