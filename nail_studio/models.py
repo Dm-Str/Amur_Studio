@@ -27,6 +27,26 @@ class Courses(models.Model):
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
 
+    def get_description_short(self):
+        return self.description[:100]
+
+    get_description_short.short_description = 'Описание'
+
+
+class Lesson(models.Model):
+    course = models.ForeignKey(Courses, related_name='lessons', on_delete=models.CASCADE, verbose_name='Курс')
+    title = models.CharField(max_length=200, verbose_name='Название урока')
+    content = models.TextField(verbose_name='Содержание урока')
+    order = models.PositiveIntegerField(verbose_name='Порядок урока')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
+        ordering = ['order']
+
 
 class Person(AbstractUser):
     username = models.CharField(max_length=45, unique=True, validators=[validate_name], verbose_name='Логин')
@@ -52,12 +72,29 @@ class Person(AbstractUser):
         ordering = ('number',)
 
 
+class StudentCourseProgress(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='course_progress',
+                               verbose_name='Студент')
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='student_progress',
+                               verbose_name='Курс')
+    current_lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, verbose_name='Текущий урок')
+    progress = models.FloatField(default=0.0, verbose_name='Прогресс (%)')
+
+    def __str__(self):
+        return f"{self.person.username} - {self.course.title} - {self.current_lesson}"
+
+    class Meta:
+        verbose_name = 'Прогресс пользователя по курсу'
+
+
 class Discounts(models.Model):
+    courses = models.ManyToManyField(Courses, related_name='discounts')  # ???
     title = models.CharField(max_length=200, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     date_start = models.DateField(verbose_name='Начало скидки')
     date_end = models.DateField(blank=True, null=True, verbose_name='Конец скидки')
-    courses = models.ManyToManyField(Courses, related_name='discounts') # ???
+    discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Процент скидки',
+                                              default=0)
 
     def __str__(self):
         return self.title
@@ -71,7 +108,7 @@ class Certificates(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='certificates')
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='certificates')
     certificate_file = models.FileField(upload_to='certificates/', verbose_name='Файл сертификата')
-    # issued_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата выдачи')
+    issued_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата выдачи')
 
     class Meta:
         verbose_name = 'Сертификат'
