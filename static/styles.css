@@ -101,3 +101,28 @@ footer {
     margin: 20px 0; /* Отступы сверху и снизу */
     border-radius: 5px; /* Закругленные углы */
 }
+
+.hidden {
+    display: none;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-button {
+    margin: 5px 0; /* Отступы между кнопками */
+    padding: 10px; /* Отступы внутри кнопок */
+    background-color: #b3e8e1; /* Цвет фона кнопок */
+    color: #242626; /* Цвет текста на кнопках */
+    border: none; /* Убираем рамку */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Указатель при наведении */
+    text-align: left; /* Выравнивание текста */
+    width: 100%; /* Ширина кнопок на всю ширину контейнера */
+}
+
+.sidebar-button:hover {
+    background-color: #67e9d8; /* Цвет фона при наведении */
+}

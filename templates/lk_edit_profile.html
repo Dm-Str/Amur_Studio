@@ -16,8 +16,11 @@
 
 {% block content %}
     <main style="display: flex;">
-    
         <aside class="sidebar">
+            <h4 style="margin: 0; line-height: 1.2;">Логин: {{ user.username }}</h4>
+            <h4 style="margin: 0; line-height: 1.5;">Почта: {{ user.email }}</h4>
+            <h4 style="margin: 0; line-height: 1.5;">Телефон: {{ user.number }}</h4>
+
             <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
             <button class="sidebar-button" onclick="location.href='{% url 'my_reviews' %}'">Мои отзывы</button>
             <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
@@ -30,15 +33,20 @@
             </form>
         </aside>
 
-        <section style="flex: 1; padding: 20px;">
-            <h2>Текущий курс: {{ user.courses }}</h2>
-            <p>Информация о текущем прохождении курса маникюра:</p>
-            <ul>
-                <li>Статус: В процессе</li>
-                <li>Прогресс: 75%</li>
-                <li>Осталось занятий: 3</li>
-            </ul>
+        <section id="content-section" style="flex: 1; padding: 20px;">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Сохранить изменения</button>
+            </form>
         </section>
     </main>
-    
 {% endblock %}

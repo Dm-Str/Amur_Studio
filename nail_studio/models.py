@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.template.context_processors import media
+
 from nail_studio.validators import *
 
 
@@ -27,13 +29,18 @@ class Courses(models.Model):
 
 
 class Person(AbstractUser):
+    username = models.CharField(max_length=45, unique=True, validators=[validate_name], verbose_name='Логин')
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
-    username = models.CharField(max_length=45, validators=[validate_name], verbose_name='Логие')
+    date_of_birth = models.DateField(blank=True, null=True, verbose_name='День рождения')
+    country = models.CharField(max_length=50, blank=True, null=True, verbose_name='Страна')
+    city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
+    messenger= models.CharField(max_length=50, blank=True, null=True, verbose_name='Мессенджер')
     number = models.CharField(max_length=25, unique=True, validators=[validate_phone], verbose_name='Телефон')
-    experience = models.CharField(max_length=50, default='Нет') # оставить?
+    photo = models.ImageField(upload_to='media/', blank=True, null=True, verbose_name='Фото профиля')
+    experience = models.CharField(max_length=50, default='Нет', verbose_name='Опыт работы')
     bonuses = models.IntegerField(default=0, verbose_name='Бонусы')
-    certificates = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
+    certificate_image = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
     courses = models.ManyToManyField(Courses, related_name='persons', verbose_name='Курсы')
 
     def __str__(self):
@@ -133,8 +140,8 @@ class StudentsWorkBasicCourse(models.Model):
         verbose_name_plural = 'Работы студентов базового курс'
 
 
-class StudentsWorkAdvancedCourse(models.Model):
-    student = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='advanced_course_works',
+class StudentsWorkRetrainingCourse(models.Model):
+    student = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='retraining_course_works',
                                 verbose_name='Студент')
     image = models.ImageField(upload_to='images/', verbose_name='Фото работы')
 

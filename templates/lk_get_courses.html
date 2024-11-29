@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Личный кабинет - Стрела Амура
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock %}
+
+{% block name %}
+    Личный кабинет
+{% endblock %}
+
+{% block content %}
+    <main style="display: flex;">
+    
+        <aside class="sidebar">
+            <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'my_reviews' %}'">Мои отзывы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
+            <form method="post" action="{% url 'make_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="sidebar-button">Выйти из ЛК</button>
+            </form>
+        </aside>
+
+        <section style="flex: 1; padding: 20px;">
+            <div id="courseContainer">
+                {% if user_courses %}
+                    <ul>
+                        {% for course in user_courses %}
+                            <li>{{ course.title }} - Статус: Записан</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h4>У вас нет записанных курсов.</h4>
+                {% endif %}
+            </div>
+
+       
+            <div id="availableCourses">
+                <h3>Базовые курсы:</h3>
+                <ul>
+                    {% for course in all_courses %}
+                        {% if course.course_type == 'basic' %}
+                            <h3>{{ course.title }}</h3>
+                            <h4>{{ course.price }} руб.</h4>
+                            <p>{{ course.description }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+
+                <h3>Курсы повышения квалификации:</h3>
+                <ul>
+                    {% for course in all_courses %}
+                        {% if course.course_type == 'advanced' %}
+                            <h3>{{ course.title }}</h3>
+                            <h4>{{ course.price }} руб.</h4>
+                            <p>{{ course.description }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </main>
+{% endblock %}

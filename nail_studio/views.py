@@ -1,7 +1,9 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from nail_studio.models import Person
+from django.shortcuts import render, redirect
+
+from nail_studio.forms import PersonProfileForm
+from nail_studio.models import Person, Courses
 from nail_studio.validators import *
 from django.contrib import messages
 
@@ -66,11 +68,63 @@ def make_logout(request):
 
 
 def courses(request):
-    return render(request, 'courses.html')
+    all_courses = Courses.objects.all()
+    return render(request, 'courses.html', {
+        'all_courses': all_courses,
+    })
 
 
 def contacts(request):
     return render(request, 'contacts.html')
+
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = PersonProfileForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Профиль обновлен успешно!')
+            return render(request, 'lk_edit_profile.html')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+
+    else:
+        form = PersonProfileForm(instance=request.user)
+        return render(request, 'lk_edit_profile.html', {'form': form})
+
+
+def get_bonuses(request):
+    return render(request, 'lk.html')
+
+
+def my_reviews(request):
+    return render(request, 'lk.html')
+
+
+def get_notifications(request):
+    return render(request, 'lk.html')
+
+
+def change_password(request):
+    return render(request, 'lk.html')
+
+
+def get_training(request):
+    user_courses = request.user.courses.all()
+    if not user_courses:
+        return redirect('courses')
+
+    # all_courses = Courses.objects.all()
+    # return render(request, 'lk_get_courses.html', {
+    #     'user_courses': user_courses,
+    #     'all_courses': all_courses,
+    # })
+
+
+def get_help(request):
+    return render(request, 'lk.html')
 
 
 @login_required
