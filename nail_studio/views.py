@@ -1,6 +1,6 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses
@@ -74,6 +74,17 @@ def courses(request):
     })
 
 
+def course_detail(request, course_id):
+    course = get_object_or_404(Courses, pk=course_id)
+    return render(request, 'course_detail.html', {'course': course})
+
+
+@login_required
+def enroll_course(request, course_id):
+    course = get_object_or_404(Courses, pk=course_id)
+    return render(request, 'lk_get_courses.html')
+
+
 def contacts(request):
     return render(request, 'contacts.html')
 
@@ -81,22 +92,22 @@ def contacts(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        form = PersonProfileForm(request.POST, instance=request.user)
+        form = PersonProfileForm(request.POST, request.FILES, instance=request.user)
 
         if form.is_valid():
             form.save()
             messages.success(request, 'Профиль обновлен успешно!')
-            return render(request, 'lk_edit_profile.html')
+            return render(request, 'lk_edit_profile.html', {'form': form})
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
 
     else:
         form = PersonProfileForm(instance=request.user)
-        return render(request, 'lk_edit_profile.html', {'form': form})
+    return render(request, 'lk_edit_profile.html', {'form': form})
 
 
 def get_bonuses(request):
-    return render(request, 'lk.html')
+    return render(request, 'lk_get_bonuses.html')
 
 
 def my_reviews(request):
@@ -115,6 +126,7 @@ def get_training(request):
     user_courses = request.user.courses.all()
     if not user_courses:
         return redirect('courses')
+    return render(request, 'lk_get_courses.html')
 
     # all_courses = Courses.objects.all()
     # return render(request, 'lk_get_courses.html', {
