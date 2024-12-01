@@ -82,7 +82,23 @@ def course_detail(request, course_id):
 @login_required
 def enroll_course(request, course_id):
     course = get_object_or_404(Courses, pk=course_id)
-    return render(request, 'lk_get_courses.html')
+    return render(request, 'lk_submit_course.html', {'course': course})
+
+
+@login_required
+def submit_course(request, course_id):
+    course = get_object_or_404(Courses, pk=course_id)
+    user = request.user
+
+    if request.method == 'POST':
+        if course in user.courses.all():
+            return render(request, 'lk_submit_course.html', {
+                'course': course,
+                'error': 'Вы уже записаны на этот курс!'
+            })
+
+        user.courses.add(course)
+        return render(request, 'index.html')
 
 
 def contacts(request):

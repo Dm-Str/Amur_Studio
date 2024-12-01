@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Личный кабинет - Стрела Амура
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock %}
+
+{% block name %}
+    Личный кабинет
+{% endblock %}
+
+{% block content %}
+    <main style="display: flex;">
+        <aside class="sidebar">
+            <div class="profile-container">
+                <div>
+                    <h4 style="margin: 0; line-height: 1.2;">Логин: {{ user.username }}</h4>
+                    <h4 style="margin: 0; line-height: 1.5;">Почта: {{ user.email }}</h4>
+                    <h4 style="margin: 0; line-height: 1.5;">Телефон: {{ user.number }}</h4>
+                </div>
+                {% if user.photo %}
+                    <img src="{{ user.photo.url }}" alt="Фото пользователя">
+                {% else %}
+                    <img src="{% static 'default_profile_picture.jpg' %}" alt="Фото пользователя">
+                {% endif %}
+            </div>
+
+            <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'my_reviews' %}'">Мои отзывы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
+            <form method="post" action="{% url 'make_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="sidebar-button">Выйти из ЛК</button>
+            </form>
+        </aside>
+
+        <section id="content-section" style="flex: 1; padding: 20px;">
+            {% if messages %}
+                <ul class="messages">
+                
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                
+                </ul>
+            {% endif %}
+
+            <h2>Информация о курсе</h2>
+            <div class="course-info" style="border: 1px solid #ccc; padding: 20px; margin-bottom: 20px;">
+                <p>{{ course.title|safe }}</p>
+                <p><strong>Тип курса:</strong> {{ course.get_course_type_display }}</p>  <!-- Предполагается, что у вас есть поле type в модели Courses -->
+                <p><strong>Кол-во уроков:</strong> {{ course.lessons.count }}</p>
+                <p><strong>Стоимость:</strong> {{ course.price }} руб.</p>  <!-- Предполагается, что у вас есть поле price в модели Courses -->
+                
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
+            
+                <form method="post" action="{% url 'submit_course' course.id %}">  <!-- Убедитесь, что URL правильный -->
+                    {% csrf_token %}
+                    <button type="submit">Поступить на курс!</button>
+                </form>
+            
+            </div>
+        
+        </section>
+    </main>
+{% endblock %}
