@@ -16,20 +16,8 @@
 
 {% block content %}
     <main style="display: flex;">
+    
         <aside class="sidebar">
-            <div class="profile-container">
-                <div>
-                    <h4 style="margin: 0; line-height: 1.2;">Логин: {{ user.username }}</h4>
-                    <h4 style="margin: 0; line-height: 1.5;">Почта: {{ user.email }}</h4>
-                    <h4 style="margin: 0; line-height: 1.5;">Телефон: {{ user.number }}</h4>
-                </div>
-                {% if user.photo %}
-                    <img src="{{ user.photo.url }}" alt="Фото пользователя">
-                {% else %}
-                    <img src="{% static 'default_profile_picture.jpg' %}" alt="Фото пользователя">
-                {% endif %}
-            </div>
-
             <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
             <button class="sidebar-button" onclick="location.href='{% url 'my_reviews' %}'">Мои отзывы</button>
             <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
@@ -42,20 +30,15 @@
             </form>
         </aside>
 
-        <section id="content-section" style="flex: 1; padding: 20px;">
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Сохранить изменения</button>
-            </form>
+        <section style="flex: 1; padding: 20px;">
+            <h2>Текущий курс: {{ user.courses }}</h2>
+            <p>Сумма бонусов: {{ user.bonuses }}</p>
+            <ul>
+                <li>Статус: В процессе</li>
+                <li>Прогресс: 75%</li>
+                <li>Осталось занятий: 3</li>
+            </ul>
         </section>
     </main>
+    
 {% endblock %}

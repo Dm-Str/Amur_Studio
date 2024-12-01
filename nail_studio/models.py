@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.template.context_processors import media
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 from nail_studio.validators import *
 
@@ -19,6 +20,8 @@ class Courses(models.Model):
     date_end = models.DateField(blank=True, null=True, verbose_name='Конец курса')
     course_type = models.CharField(max_length=30, choices=COURSE_TYPES, default='basic', verbose_name='Тип курса')
     image = models.ImageField(upload_to='images/', verbose_name='Изображение курса')
+    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(300, 200)],
+                                     format='JPEG', options={'quality': 85})
 
     def __str__(self):
         return self.title
@@ -47,6 +50,11 @@ class Lesson(models.Model):
         verbose_name_plural = 'Уроки'
         ordering = ['order']
 
+    def get_description_lesson(self):
+        return self.content[:100]
+
+    get_description_lesson.short_description = 'Содержание урока'
+
 
 class Person(AbstractUser):
     username = models.CharField(max_length=45, unique=True, validators=[validate_name], verbose_name='Логин')
@@ -57,7 +65,7 @@ class Person(AbstractUser):
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
     messenger= models.CharField(max_length=50, blank=True, null=True, verbose_name='Мессенджер')
     number = models.CharField(max_length=25, unique=True, validators=[validate_phone], verbose_name='Телефон')
-    photo = models.ImageField(upload_to='media/', blank=True, null=True, verbose_name='Фото профиля')
+    photo = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name='Фото профиля')
     experience = models.CharField(max_length=50, default='Нет', verbose_name='Опыт работы')
     bonuses = models.IntegerField(default=0, verbose_name='Бонусы')
     certificate_image = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')

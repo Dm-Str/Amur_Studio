@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block style %}
-    	
-    {% endblock %}
-
     <title>
         {% block title %}
         Title
         {% endblock %}
     </title>
+    {% load static %} <!-- Загрузка тега static -->
+    {% block style %}
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        
+{#        <link rel="preconnect" href="https://fonts.googleapis.com">#}
+{#    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>#}
+{#    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Monsieur+La+Doulaise&family=Nosifer&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">#}
+{#    <link rel="stylesheet" href="../static/styles.css">#}
+        
+    {% endblock %}
 </head>
 <body>
     <header>
@@ -20,11 +26,11 @@
                 Нет данных
             {% endblock %}
         </h1>
-        
+
         <nav>
             <ul>
                 <li><a href="{% url 'index' %}">Главная</a></li>
-{#                <li><a href="{% url 'make_login' %}">Авторизация</a></li>#}
+                {# <li><a href="{% url 'make_login' %}">Авторизация</a></li> #}
                 <li><a href="{% url 'courses' %}">Курсы</a></li>
                 <li><a href="{% url 'register' %}">Регистрация</a></li>
                 <li><a href="{% url 'lk_user' %}">Личный кабинет</a></li>
@@ -34,12 +40,11 @@
     </header>
     {% block content %}
     {% endblock %}
-    
+
     {% block footer %}
     <footer>
         <p>&copy; 2023 Strela Amura. Все права защищены.</p>
     </footer>
     {% endblock %}
-
 </body>
 </html>

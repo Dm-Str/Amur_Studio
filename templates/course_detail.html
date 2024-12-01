@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    {{ course.title }} - Strela Amura
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section>
+            <div class="course-detail">
+                <h1>{{ course.title|safe }}</h1>
+                <img src="{{ course.image_thumbnail.url }}" alt="{{ course.title }}" class="course-image">
+                <h6 class="course-price">{{ course.price }} руб.</h6>
+                <p><strong>Тип курсов:</strong> {{ course.get_course_type_display }}</p>
+                <p><strong>Направление:</strong> {{ course.direction }}</p>
+                <p><strong>Продолжительность:</strong> {{ course.duration }}</p>
+                <p class="course-description">{{ course.description|safe }}</p>
+                
+                <a href="{% url 'enroll_course' course.id %}" class="btn btn-primary">Записаться на курс</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

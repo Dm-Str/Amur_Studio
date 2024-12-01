@@ -1,13 +1,14 @@
 from django.contrib import admin
 from nail_studio.models import *
-from nail_studio.views import courses
 
 
 @admin.register(Courses)
 class CoursesPanel(admin.ModelAdmin):
-    fields = ('title', 'description', 'price', 'date_start_after_payment', 'date_end', 'course_type')
-    list_display = ('title', 'description', 'price', 'date_start_after_payment', 'date_end', 'course_type')
-    list_display_links = ('title', 'description', 'price', 'date_start_after_payment', 'date_end', 'course_type')
+    fields = ('title', 'description', 'price', 'date_start_after_payment', 'date_end', 'course_type', 'image')
+    list_display = ('title', 'get_description_short', 'price', 'course_type',
+                    'date_start_after_payment', 'date_end')
+    list_display_links = ('title', 'get_description_short', 'price', 'course_type',
+                          'date_start_after_payment', 'date_end')
     list_filter = ('title', 'date_start_after_payment', 'course_type' , 'price')
 
     empty_value_display = '-пустой-'
@@ -35,6 +36,32 @@ class PersonPanel(admin.ModelAdmin):
 
     get_courses.short_description = 'Курсы'
 
+@admin.register(Lesson)
+class LessonPanel(admin.ModelAdmin):
+    fields = ('course', 'title', 'content', 'order')
+    list_display = ('course', 'title', 'get_description_lesson', 'order')
+    list_display_links = ('course','title', 'get_description_lesson', 'order')
+    list_filter = ('course', 'course__course_type', 'title', 'order')
+
+    empty_value_display = '-пустой-'
+    list_per_page = 64
+    list_max_show_all = 4
+
+    search_fields = ('course__course_type', 'title',)
+
+
+@admin.register(StudentCourseProgress)
+class StudentCourseProgressAdmin(admin.ModelAdmin):
+    fields = ('person', 'course', 'progress')
+    list_display = ('person', 'course', 'progress')
+    list_display_links = ('person', 'course', 'progress')
+    list_filter = ('person', 'course')
+
+    empty_value_display = '-пустой-'
+    list_per_page = 64
+    list_max_show_all = 4
+
+    search_fields = ('course__title',)
 
 
 @admin.register(Discounts)
