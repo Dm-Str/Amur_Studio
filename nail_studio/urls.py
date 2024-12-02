@@ -24,5 +24,7 @@ urlpatterns = [
     path('lk_user/', views.change_password, name='change_password'),
     path('lk_user/get_training/', views.get_training, name="get_training"),
     path('lk_user/', views.get_help, name="get_help"),
+    path('lk_user/learning/course/<int:course_id>', views.continue_learning, name="continue_learning"),
+    path('lesson/<int:lesson_id>/', views.lesson_detail, name='lesson_detail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -135,8 +135,9 @@ footer {
     flex-direction: column;
 }
 
+
+
 .sidebar-button {
-    margin: 5px 0; /* Отступы между кнопками */
     padding: 10px; /* Отступы внутри кнопок */
     background-color: #b3e8e1; /* Цвет фона кнопок */
     color: #242626; /* Цвет текста на кнопках */
@@ -144,13 +145,17 @@ footer {
     border-radius: 5px; /* Закругленные углы */
     cursor: pointer; /* Указатель при наведении */
     text-align: left; /* Выравнивание текста */
-    width: 100%; /* Ширина кнопок на всю ширину контейнера */
+    width: 200px; /* Установите фиксированную ширину для кнопок */
+    margin: 5px 0; /* Отступы между кнопками */
 }
 
 .sidebar-button:hover {
     background-color: #67e9d8; /* Цвет фона при наведении */
 }
 
+.sidebar-button:focus {
+    outline: none; /* Убираем обводку при фокусе */
+}
 .course-container {
     display: flex;
     flex-wrap: wrap;
@@ -240,8 +245,8 @@ footer {
 }
 
 .btn {
-    background-color: #007bff; /* Цвет кнопки */
-    color: white; /* Цвет текста кнопки */
+    background-color: #b3e8e1; /* Цвет кнопки */
+    color: black; /* Цвет текста кнопки */
     padding: 10px 20px; /* Отступы внутри кнопки */
     border: none; /* Убираем рамку */
     border-radius: 0.3rem; /* Закругление углов кнопки */
@@ -252,7 +257,7 @@ footer {
 }
 
 .btn:hover {
-    background-color: #0056b3; /* Цвет кнопки при наведении (темнее) */
+    background-color: #67e9d8; /* Цвет кнопки при наведении (темнее) */
 }
 
 .btn:focus {
@@ -273,17 +278,6 @@ footer {
     margin-right: 20px; /* Отступ справа от фото */
 }
 
-/* styles.css */
-
-.sidebar {
-    display: flex;
-    flex-direction: column; /* Вертикальное расположение кнопок */
-}
-
-.sidebar-button {
-    width: 200px; /* Установите фиксированную ширину для кнопок */
-    margin: 5px 0; /* Отступы между кнопками */
-}
 
 .profile-container {
     display: flex;
@@ -297,4 +291,3 @@ footer {
     border-radius: 50%; /* Круглая форма */
     margin-left: 20px; /* Отступ слева от фото */
 }
-

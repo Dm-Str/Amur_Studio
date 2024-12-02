@@ -1,0 +1,192 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Задаем высоту body на 100% высоты окна */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between; /* Размещаем элементы по краям */
+    align-items: center; /* Центрируем по вертикали */
+    padding: 10px 20px; /* Отступы вокруг блока */
+    background-color: #a8efd4; /* Цвет фона заголовка */
+    color: #151515; /* Цвет текста */
+    position: fixed; /* Фиксированное положение */
+    top: 0; /* Прикрепляем к верхней части окна */
+    left: 0; /* Прикрепляем к левому краю */
+    right: 0; /* Прикрепляем к правому краю */
+    z-index: 1000; /* Устанавливаем высокий z-index, чтобы заголовок был поверх других элементов */
+    border-bottom-left-radius: 15px; /* Закругление нижнего левого угла */
+    border-bottom-right-radius: 15px; /* Закругление нижнего правого угла */
+    height: 40px;
+}
+
+/*.logo {*/
+/*    font-size: 1.5rem; !* Размер шрифта для логотипа *!*/
+/*}*/
+
+.logo img {
+    width: 70px; /* Ширина аватара */
+    height: 58px; /* Высота аватара */
+    border-radius: 30%; /* Круглая форма аватара */
+}
+
+.user-avatar img {
+    width: 70px; /* Ширина аватара */
+    height: 58px; /* Высота аватара */
+    border-radius: 30%; /* Круглая форма аватара */
+
+}
+
+.user-avatar a {
+    display: inline-block; /* Позволяет задать размеры и отступы */
+    margin-right: 10px; /* Отступ между текстом и аватаром */
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    color: #ffffff; /* Цвет текста ссылки */
+    background-color: #2d9a9e; /* Цвет фона кнопки */
+    padding: 10px 15px; /* Внутренние отступы */
+    border-radius: 5px; /* Закругление углов */
+    font-family: Arial, sans-serif; /* Шрифт текста */
+    font-size: 13px; /* Размер шрифта */
+    font-weight: bold; /* Жирность текста */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.user-avatar a:hover {
+    background-color: #a8efd4; /* Цвет фона при наведении */
+}
+
+
+.user-avatar {
+    display: flex; /* Включаем Flexbox для выравнивания элементов */
+    align-items: center; /* Центрируем элементы по вертикали */
+}
+
+.container {
+    display: flex;
+    padding: 10px;
+    height:calc(100vh - 60px);
+    margin-top: 10px;
+}
+
+.sidebar {
+    width: 250px; /* Ширина боковой панели */
+    background-color: #dcd9d9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    position: fixed; /* Фиксированное положение */
+    top: 50px; /* Отступ от верхней части страницы (высота заголовка) */
+    bottom: 20px; /* Отступ от нижней части страницы */
+    overflow-y: auto; /* Прокрутка, если содержимое превышает высоту */
+}
+
+.course-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.lesson-list {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0;
+}
+
+.lesson-list li {
+    margin: 10px 0; /* Отступы между уроками */
+}
+
+.lesson-list a {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #2d9a9e; /* Цвет ссылок */
+    border: 2px solid #c6c4c4; /* Черный контур */
+    padding: 5px 10px; /* Внутренние отступы для создания пространства между текстом и контуром */
+    border-radius: 4px; /* Закругление углов (по желанию) */
+    display: inline-block; /* Позволяет задать размеры и отступы */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.lesson-list a:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Цвет фона при наведении (по желанию) */
+}
+
+.main-content {
+    flex-grow: 1; /* Занимает оставшееся пространство */
+    background-color: #ffffff;
+    padding: 20px; /* Уменьшаем отступы для лучшего использования пространства */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Устанавливаем вертикальное направление для содержимого */
+    width: max-content;
+    height: max-content;
+    margin-left: 300px;
+    margin-top: 10px;
+    box-sizing: border-box; /* Учитывает отступы и границы в общей ширине и высоте */
+}
+
+.video-container {
+    width: 100%; /* Занимает всю ширину родительского контейнера */
+    max-width: 800px; /* Ограничивает максимальную ширину */
+    margin: 0 auto; /* Центрирует контейнер */
+    float: left; /* Выравнивание контейнера вправо */
+}
+
+.responsive-video {
+    width: 100%; /* Занимает всю ширину контейнера */
+    height: auto; /* Высота автоматически подстраивается */
+}
+
+.images-container {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет изображениям обтекать */
+    gap: 10px; /* Промежуток между изображениями */
+}
+
+.lesson-image {
+    width: 30%;
+    height: auto; /* Высота автоматически подстраивается */
+    border-radius: 5px; /* Закругление углов (по желанию) */
+}
+
+
+.assignment {
+    width: 100%;
+    margin-top: 30px; /* Отступ сверху для задания */
+}
+
+textarea {
+    width: 100%; /* Занимает всю ширину родителя */
+    height: 74px; /* Высота текстового поля */
+    margin-top: 10px; /* Отступ сверху для текстового поля */
+}
+
+button {
+    background-color: #a8efd4; /* Цвет кнопки */
+    color: #151515; /* Цвет текста на кнопке */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer; /* Указатель при наведении на кнопку */
+}
+
+button:hover {
+    background-color: #08e5ed; /* Темнее при наведении */
+}
+
+button:focus {
+    outline: none; /* Убираем обводку при фокусе */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Добавляем тень при фокусе */
+}
+
+.button-container {
+    display: flex; /* Используем flexbox для выравнивания кнопок */
+    justify-content: flex-start; /* Выравнивание кнопок по левому краю */
+    margin-top: 10px; /* Отступ сверху для кнопок */
+}
+
+.button-container button {
+    margin-right: 10px; /* Отступ между кнопками */
+}

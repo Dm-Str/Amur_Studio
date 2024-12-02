@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from nail_studio.forms import PersonProfileForm
-from nail_studio.models import Person, Courses
+from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson
 from nail_studio.validators import *
 from django.contrib import messages
 
@@ -98,7 +98,7 @@ def submit_course(request, course_id):
             })
 
         user.courses.add(course)
-        return render(request, 'index.html')
+        return render(request, 'lk_get_courses.html')
 
 
 def contacts(request):
@@ -144,11 +144,45 @@ def get_training(request):
         return redirect('courses')
     return render(request, 'lk_get_courses.html')
 
-    # all_courses = Courses.objects.all()
-    # return render(request, 'lk_get_courses.html', {
-    #     'user_courses': user_courses,
-    #     'all_courses': all_courses,
-    # })
+
+@login_required
+def continue_learning(request, course_id):
+    course = get_object_or_404(Courses, pk=course_id)
+
+    progress = StudentCourseProgress.objects.filter(course=course, person=request.user).first()
+
+    if not progress:
+        first_lesson = course.lessons.first()
+        progress = StudentCourseProgress.objects.create(person=request.user, course=course, current_lesson=first_lesson, progress=1.0)
+
+    current_lesson = progress.current_lesson
+
+    lessons = course.lessons.all()
+
+    user = Person.objects.get(pk=request.user.id)
+
+    context = {
+        'course': course,
+        'progress': progress,
+        'current_lesson': current_lesson,
+        'lessons': lessons,
+        'user': user
+    }
+
+    return render(request, 'lk_continue_learning.html', context)
+
+
+@login_required
+def lesson_detail(request, lesson_id):
+    current_lesson = get_object_or_404(Lesson, id=lesson_id)
+    course = current_lesson.course
+
+    context = {
+        'current_lesson': current_lesson,
+        'course': course,
+        'lessons': course.lessons.all(),
+    }
+    return render(request, 'lk_continue_learning.html', context)
 
 
 def get_help(request):

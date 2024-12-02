@@ -40,7 +40,10 @@ class Lesson(models.Model):
     course = models.ForeignKey(Courses, related_name='lessons', on_delete=models.CASCADE, verbose_name='Курс')
     title = models.CharField(max_length=200, verbose_name='Название урока')
     content = models.TextField(verbose_name='Содержание урока')
+    home_work = models.TextField(blank=True, null=True, verbose_name='Домашнее задание')
     order = models.PositiveIntegerField(verbose_name='Порядок урока')
+    image = models.ImageField(upload_to='lesson_images/', blank=True, null=True, verbose_name='Изображение')
+    video = models.FileField(upload_to='lesson_videos/', blank=True, null=True, verbose_name='Видео')
 
     def __str__(self):
         return self.title

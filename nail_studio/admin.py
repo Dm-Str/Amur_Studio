@@ -38,7 +38,7 @@ class PersonPanel(admin.ModelAdmin):
 
 @admin.register(Lesson)
 class LessonPanel(admin.ModelAdmin):
-    fields = ('course', 'title', 'content', 'order')
+    fields = ('course', 'title', 'content', 'home_work', 'image', 'video', 'order')
     list_display = ('course', 'title', 'get_description_lesson', 'order')
     list_display_links = ('course','title', 'get_description_lesson', 'order')
     list_filter = ('course', 'course__course_type', 'title', 'order')
