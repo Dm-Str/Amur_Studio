@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block name %}
-    Регистрация
+    
 {% endblock %}    
 
 {% block content %}
     <main>
         <form method="post" id="registration-form" novalidate>
             {% csrf_token %}
-        
+            <h3>Регистрация</h3>
             <label for="name">Логин:</label>
             <input type="text" id="name" name="name" value="{{ name }}" required>
             

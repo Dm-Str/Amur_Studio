@@ -153,7 +153,8 @@ def continue_learning(request, course_id):
 
     if not progress:
         first_lesson = course.lessons.first()
-        progress = StudentCourseProgress.objects.create(person=request.user, course=course, current_lesson=first_lesson, progress=1.0)
+        progress = StudentCourseProgress.objects.create(person=request.user, course=course,
+                                                        current_lesson=first_lesson, progress=1.0)
 
     current_lesson = progress.current_lesson
 

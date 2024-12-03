@@ -9,9 +9,9 @@ document.getElementById('login-form').addEventListener('submit', function (event
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log("DOM полностью загружен"); // Отладочное сообщение
-    document.getElementById('profile-toggle').addEventListener('click', function(event) {
+    document.getElementById('profile-toggle').addEventListener('click', function (event) {
         event.preventDefault(); // Предотвращаем переход по ссылке
         const menu = document.getElementById('profile-menu');
         console.log("Кнопка нажата"); // Отладочное сообщение

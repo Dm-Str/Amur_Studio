@@ -11,30 +11,50 @@
     {% load static %} <!-- Загрузка тега static -->
     {% block style %}
         <link rel="stylesheet" href="{% static 'styles.css' %}">
-        
+
 {#        <link rel="preconnect" href="https://fonts.googleapis.com">#}
 {#    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>#}
 {#    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Monsieur+La+Doulaise&family=Nosifer&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">#}
 {#    <link rel="stylesheet" href="../static/styles.css">#}
-        
+
     {% endblock %}
 </head>
 <body>
     <header>
+    
+    <a href="{% url 'index' %}">
+        <img src="/static/logo.png" alt="Логотип" class="logo">
+    </a>
+    
+    <a href="{% url 'courses' %}" class="courses-button">Все курсы</a>
+    
+    <img src="/static/map-marker-icon.png" alt="Иконка отметки на карте" class="map-icon"> <!-- Иконка отметки на карте -->
+    
+    <a href="{% url 'contacts' %}" class="contacts-link">Контакты</a> <!-- Ссылка "Контакты" -->
+    
+    <a href="https://t.me/your_telegram_username" target="_blank" class="social-icon">
+        <img src="/static/telegram-icon.png" alt="Telegram" class="icon"> <!-- Иконка Telegram -->
+    </a>
+    
+    <a href="https://wa.me/your_whatsapp_number" target="_blank" class="social-icon">
+        <img src="/static/whatsapp-icon.png" alt="WhatsApp" class="icon"> <!-- Иконка WhatsApp -->
+    </a>
+    
+    <a href="{% url 'lk_user' %}" class="lk-button">Личный кабинет</a>
+    
         <h1>
             {% block name %}
-                Нет данных
             {% endblock %}
         </h1>
 
         <nav>
             <ul>
-                <li><a href="{% url 'index' %}">Главная</a></li>
+{#                <li><a href="{% url 'index' %}">Главная</a></li>#}
                 {# <li><a href="{% url 'make_login' %}">Авторизация</a></li> #}
-                <li><a href="{% url 'courses' %}">Курсы</a></li>
-                <li><a href="{% url 'register' %}">Регистрация</a></li>
-                <li><a href="{% url 'lk_user' %}">Личный кабинет</a></li>
-                <li><a href="{% url 'contacts' %}">Контакты</a></li> <!-- Добавлено -->
+{#                <li><a href="{% url 'courses' %}">Курсы</a></li>#}
+{#                <li><a href="{% url 'register' %}">Регистрация</a></li>#}
+{#                <li><a href="{% url 'lk_user' %}">Личный кабинет</a></li>#}
+{#                <li><a href="{% url 'contacts' %}">Контакты</a></li> <!-- Добавлено -->#}
             </ul>
         </nav>
     </header>

@@ -29,24 +29,92 @@ body {
     font-family: 'Roboto', serif; /* Основной шрифт */
     margin: 0;
     padding: 0;
-    background-color: #f9f3e9; /* Светлый нейтральный цвет фона */
-    background-image: url('/static/background4.jpg'); /* Путь к вашему фоновому изображению */
+    background-color: #D0D0D0; /* Светлый нейтральный цвет фона */
+    /*background-image: url('/static/background4.jpg'); !* Путь к вашему фоновому изображению *!*/
     background-size: contain; /* Заполнение всего экрана */
     background-position: center; /* Центрирование изображения */
 }
 
 header {
-    /*background-image: url('/static/header_fon.jpg'); !* Изображение для заголовка *!*/
-    background-color: #D0D0D0;;
+    background-color: #ffffff;
     background-size: cover; /* Заполнение всего заголовка */
     background-position: top; /* Отображение верхней части изображения */
-    color: #333435; /* Белый цвет для текста заголовка */
-    padding: 10px 0;
-    text-align: center;
-    /*text-shadow: 1px 1px 0 #000; !* Черная обводка для заголовка *!*/
+    color: #333435; /* Цвет для текста заголовка */
+    padding: 10px 20px; /* Отступы для заголовка */
+    display: flex; /* Используем flexbox для выравнивания элементов */
+    /*justify-content: space-between; !* Распределяем пространство между элементами *!*/
+    align-items: center; /* Центрируем элементы по вертикали */
     font-family: 'Roboto', serif; /* Шрифт для заголовка */
     height: 100px;
 }
+
+.logo {
+    height: 110%; /* Высота логотипа, можно настроить по желанию */
+    max-width: 100px; /* Максимальная ширина логотипа, чтобы он не выходил за границы */
+    margin-left: 120px;
+    margin-right: 40px;
+}
+
+.courses-button {
+    background-color: #FF6FABE5; /* Цвет фона кнопки */
+    color: #333435; /* Цвет текста кнопки */
+    padding: 15px 25px; /* Отступы внутри кнопки */
+    text-decoration: none; /* Убираем подчеркивание */
+    border-radius: 5px; /* Закругленные углы */
+    margin-right: 600px; /* Отступ справа от кнопки */
+    font-size: 20px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+
+.lk-button {
+    background-color: #FF6FABE5; /* Цвет фона кнопки */
+    color: #333435; /* Цвет текста кнопки */
+    padding: 15px 25px; /* Отступы внутри кнопки */
+    text-decoration: none; /* Убираем подчеркивание */
+    border-radius: 5px; /* Закругленные углы */
+    margin-right: 40px; /* Отступ справа от кнопки */
+    margin-left: 50px;
+    font-size: 20px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.lk-button:hover {
+    background-color: #F4297AE5; /* Цвет фона при наведении */
+}
+
+.courses-button:hover {
+    background-color: #F4297AE5; /* Цвет фона при наведении */
+}
+
+.map-icon {
+    width: 24px; /* Ширина иконки */
+    height: 24px; /* Высота иконки */
+    margin-left: 10px; /* Отступ слева от иконки */
+    margin-right: 5px; /* Отступ справа от иконки */
+}
+
+.contacts-link {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #333435; /* Цвет текста ссылки */
+    font-size: 20px; /* Размер шрифта */
+    margin-left: 5px; /* Отступ слева от ссылки */
+    margin-right: 15px;
+    font-weight: bold; /* Делаем шрифт жирным */
+}
+
+.icon {
+    width: 30px; /* Ширина иконки */
+    height: 30px; /* Высота иконки */
+    margin-left: 10px; /* Отступ слева от иконки */
+}
+
+.social-icon {
+    display: inline-block; /* Отображение иконок в одной строке */
+}
+
 
 nav ul {
     list-style: none;
@@ -96,7 +164,7 @@ form input {
 }
 
 form button {
-    background: #b3e8e1; /* Телесный цвет для кнопок */
+    background: #FF6FABE5; /* Телесный цвет для кнопок */
     color: #242626; /* Белый цвет текста на кнопках */
     border: none;
     padding: 10px;
@@ -105,12 +173,12 @@ form button {
 }
 
 form button:hover {
-    background: #67e9d8; /* Темнее телесный цвет при наведении */
+    background: #F4297AE5; /* Темнее телесный цвет при наведении */
 }
 
 footer {
     /*background-image: url('/static/header_fon.jpg'); !* Изображение для подвала *!*/
-    background-color: #D0D0D0;
+    background-color: #ffffff;
     background-size: cover; /* Заполнение всего подвала */
     background-position: bottom; /* Отображение нижней части изображения */
     text-align: center;
@@ -142,7 +210,7 @@ footer {
 
 .sidebar-button {
     padding: 10px; /* Отступы внутри кнопок */
-    background-color: #b3e8e1; /* Цвет фона кнопок */
+    background-color: #FF6FABE5; /* Цвет фона кнопок */
     color: #242626; /* Цвет текста на кнопках */
     border: 0; /* Убираем рамку */
     border-radius: 5px; /* Закругленные углы */
@@ -153,7 +221,7 @@ footer {
 }
 
 .sidebar-button:hover {
-    background-color: #67e9d8; /* Цвет фона при наведении */
+    background-color: #F4297AE5; /* Цвет фона при наведении */
 }
 
 .sidebar-button:focus {
@@ -162,7 +230,7 @@ footer {
 
 .logout-button {
     padding: 10px; /* Отступы внутри кнопки */
-    background-color: #b3e8e1; /* Цвет фона кнопки */
+    background-color: #FF6FABE5; /* Цвет фона кнопки */
     color: #242626; /* Цвет текста на кнопке */
     border: none; /* Убираем рамку */
     border-radius: 5px; /* Закругленные углы */
@@ -173,7 +241,7 @@ footer {
 }
 
 .logout-button:hover {
-    background-color: #67e9d8; /* Цвет фона при наведении */
+    background-color: #F4297AE5; /* Цвет фона при наведении */
 }
 
 .logout-button:focus {
@@ -218,7 +286,7 @@ footer {
 .course-button {
     margin: 5px 0; /* Отступы между кнопками */
     padding: 10px; /* Отступы внутри кнопок */
-    background-color: #b3e8e1; /* Цвет фона кнопок */
+    background-color: #FF6FABE5; /* Цвет фона кнопок */
     color: #242626; /* Цвет текста на кнопках */
     border: none; /* Убираем рамку */
     border-radius: 5px; /* Закругленные углы */
@@ -228,7 +296,7 @@ footer {
 }
 
 .course-button:hover {
-    background-color: #67e9d8; /* Цвет фона при наведении */
+    background-color: #F4297AE5; /* Цвет фона при наведении */
 }
 
 .course-container {
@@ -276,7 +344,7 @@ footer {
 }
 
 .btn {
-    background-color: #b3e8e1; /* Цвет кнопки */
+    background-color: #FF6FABE5; /* Цвет кнопки */
     color: black; /* Цвет текста кнопки */
     padding: 10px 20px; /* Отступы внутри кнопки */
     border: none; /* Убираем рамку */
@@ -288,7 +356,7 @@ footer {
 }
 
 .btn:hover {
-    background-color: #67e9d8; /* Цвет кнопки при наведении (темнее) */
+    background-color: #F4297AE5; /* Цвет кнопки при наведении (темнее) */
 }
 
 .btn:focus {
