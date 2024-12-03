@@ -24,9 +24,9 @@
             <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
             <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
             <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
-            <form method="post" action="{% url 'make_logout' %}">
+            <form class="logout-form" method="post" action="{% url 'make_logout' %}">
                 {% csrf_token %}
-                <button type="submit" class="sidebar-button">Выйти из ЛК</button>
+                <button type="submit" class="sidebar-button logout-button">Выйти из ЛК</button>
             </form>
         </aside>
 

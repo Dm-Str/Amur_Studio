@@ -15,46 +15,46 @@
 {% block content %}
     <main>
         <section>
-            <div id="availableCourses" style="display: flex; justify-content: center; align-items: 
-            center; flex-direction: column;">
-                <h1>Базовые курсы:</h1>
-                <div class="course-container">
-                    {% for course in all_courses %}
-                        {% if course.course_type == 'basic' %}
-                            <div class="card">
-                                <img src="{{ course.image_thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ course.title|safe }}</h5>
-                                    <h6 class="card-price">{{ course.price }} руб.</h6>
-                                    <p><strong>Тип курсов:</strong> {{ course.get_course_type_display }}</p>
-                                    <p><strong>Продолжительность:</strong> {{ course.duration }}</p>
-                                    <p class="card-text">{{ course.description|safe|truncatechars:100  }}</p>
-                                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Подробнее</a>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+    <div id="availableCourses" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <h1>Базовые курсы:</h1>
+        <div class="course-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            {% for course in all_courses %}
+                {% if course.course_type == 'basic' %}
+                    <div class="card" style="flex: 0 0 calc(25% - 20px); margin: 10px;">
+                        <img src="{{ course.image_thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title|safe }}</h5>
+                            <h6 class="card-price">{{ course.price }} руб.</h6>
+                            <p><strong>Тип курсов:</strong> {{ course.get_course_type_display }}</p>
+                            <p><strong>Продолжительность:</strong> {{ course.duration }}</p>
+                            <p class="card-text">{{ course.description|safe|truncatechars:100 }}</p>
+                            <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
 
-                <h1>Курсы повышения квалификации:</h1>
-                <div class="course-container">
-                    {% for course in all_courses %}
-                        {% if course.course_type == 'advanced' %}
-                            <div class="card">
-                                <img src="{{ course.image_thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ course.title|safe }}</h5>
-                                    <h6 class="card-price">{{ course.price }} руб.</h6>
-                                    <p><strong>Тип курсов:</strong> {{ course.get_course_type_display }}</p>
-                                    <p><strong>Продолжительность:</strong> {{ course.duration }}</p>
-                                    <p class="card-text">{{ course.description|safe|truncatechars:100 }}</p>
-                                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Подробнее</a>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
+        <h1>Курсы повышения квалификации:</h1>
+        <div class="course-container" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            {% for course in all_courses %}
+                {% if course.course_type == 'advanced' %}
+                    <div class="card" style="flex: 0 0 calc(25% - 20px); margin: 10px;">
+                        <img src="{{ course.image_thumbnail.url }}" class="card-img-top" alt="{{ course.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ course.title|safe }}</h5>
+                            <h6 class="card-price">{{ course.price }} руб.</h6>
+                            <p><strong>Тип курсов:</strong> {{ course.get_course_type_display }}</p>
+                            <p><strong>Продолжительность:</strong> {{ course.duration }}</p>
+                            <p class="card-text">{{ course.description|safe|truncatechars:100 }}</p>
+                            <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
     </main>
 {% endblock %}
