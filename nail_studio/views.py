@@ -157,6 +157,8 @@ def continue_learning(request, course_id):
                                                         current_lesson=first_lesson, progress=1.0)
 
     current_lesson = progress.current_lesson
+    if current_lesson is None:
+        current_lesson = course.lessons.first()
 
     lessons = course.lessons.all()
 
@@ -182,7 +184,37 @@ def lesson_detail(request, lesson_id):
         'current_lesson': current_lesson,
         'course': course,
         'lessons': course.lessons.all(),
+
     }
+    return render(request, 'lk_continue_learning.html', context)
+
+
+@login_required
+def next_lesson(request, lesson_id):
+    current_lesson = get_object_or_404(Lesson, id=lesson_id)
+    course = current_lesson.course
+
+    lessons = list(course.lessons.all())
+
+    current_index = lessons.index(current_lesson)
+
+    if current_index + 1 < len(lessons):
+        next_lesson = lessons[current_index + 1]
+    else:
+        next_lesson = current_lesson
+
+    progress = StudentCourseProgress.objects.filter(person=request.user, course=course).first()
+    if progress:
+        progress.current_lesson = next_lesson
+        progress.save()
+
+    context = {
+        'current_lesson': next_lesson,
+        'course': course,
+        'lessons': course.lessons.all(),
+        'user': request.user
+    }
+
     return render(request, 'lk_continue_learning.html', context)
 
 
