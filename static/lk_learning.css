@@ -65,7 +65,7 @@ body {
     display: inline-block; /* Позволяет задать размеры и отступы */
     margin-right: 10px; /* Отступ между текстом и аватаром */
     text-decoration: none; /* Убираем подчеркивание у ссылки */
-    color: #ffffff; /* Цвет текста ссылки */
+    color: #272626; /* Цвет текста ссылки */
     background-color: rgba(255, 111, 171, 0.9); /* Цвет фона кнопки */
     padding: 10px 15px; /* Внутренние отступы */
     border-radius: 5px; /* Закругление углов */
@@ -121,7 +121,7 @@ body {
 
 .lesson-list a {
     text-decoration: none; /* Убираем подчеркивание */
-    color: rgba(255, 111, 171, 0.9); /* Цвет ссылок */
+    color: #F4297AE5; /* Цвет ссылок */
     border: 2px solid #c6c4c4; /* Черный контур */
     padding: 5px 10px; /* Внутренние отступы для создания пространства между текстом и контуром */
     border-radius: 4px; /* Закругление углов (по желанию) */
@@ -132,6 +132,7 @@ body {
 .lesson-list a:hover {
     background-color: rgba(0, 0, 0, 0.1); /* Цвет фона при наведении (по желанию) */
 }
+
 
 .main-content {
     flex-grow: 1; /* Занимает оставшееся пространство */

@@ -37,56 +37,75 @@ body {
 
 header {
     background-color: #ffffff;
-    background-size: cover; /* Заполнение всего заголовка */
-    background-position: top; /* Отображение верхней части изображения */
     color: #333435; /* Цвет для текста заголовка */
     padding: 10px 20px; /* Отступы для заголовка */
     display: flex; /* Используем flexbox для выравнивания элементов */
-    /*justify-content: space-between; !* Распределяем пространство между элементами *!*/
     align-items: center; /* Центрируем элементы по вертикали */
     font-family: 'Roboto', serif; /* Шрифт для заголовка */
     height: 100px;
+    justify-content: space-between; /* Распределяем пространство между элементами */
+}
+
+.header-left {
+    display: flex; /* Используем flexbox для выравнивания элементов в левой части */
+    align-items: center; /* Центрируем элементы по вертикали */
+    margin-left: 50px; /* Отступ слева от края страницы */
+}
+
+.header-right {
+    display: flex; /* Используем flexbox для выравнивания элементов в правой части */
+    align-items: center; /* Центрируем элементы по вертикали */
+    margin-right: 50px; /* Отступ справа от края страницы */
 }
 
 .logo {
     height: 110%; /* Высота логотипа, можно настроить по желанию */
     max-width: 100px; /* Максимальная ширина логотипа, чтобы он не выходил за границы */
-    margin-left: 120px;
-    margin-right: 40px;
+    margin-left: 150px; /* Отступ справа от логотипа */
+transition: box-shadow 0.3s ease; /* Плавный переход для тени */
+}
+
+.logo:hover {
+    box-shadow: 0 4px 15px #FB91BEE5; /* Тень вокруг логотипа при наведении */
 }
 
 .courses-button {
-    background-color: #FF6FABE5; /* Цвет фона кнопки */
+    background-color: #FBA1CC87; /* Цвет фона кнопки */
     color: #333435; /* Цвет текста кнопки */
-    padding: 15px 25px; /* Отступы внутри кнопки */
+    padding: 20px 25px; /* Отступы внутри кнопки */
     text-decoration: none; /* Убираем подчеркивание */
     border-radius: 5px; /* Закругленные углы */
-    margin-right: 600px; /* Отступ справа от кнопки */
-    font-size: 20px; /* Размер шрифта */
+    font-size: 18px; /* Размер шрифта */
     font-weight: bold; /* Делаем шрифт жирным */
     transition: background-color 0.3s; /* Плавный переход цвета фона */
+    font-family: 'Roboto', sans-serif;
+
 }
 
+.courses-button:hover {
+    background-color: #F4297AE5; /* Цвет фона при наведении */
+}
 
 .lk-button {
-    background-color: #FF6FABE5; /* Цвет фона кнопки */
+    background-color: #FB91BEE5; /* Цвет фона кнопки */
     color: #333435; /* Цвет текста кнопки */
-    padding: 15px 25px; /* Отступы внутри кнопки */
+    padding: 20px 25px; /* Отступы внутри кнопки */
     text-decoration: none; /* Убираем подчеркивание */
     border-radius: 5px; /* Закругленные углы */
-    margin-right: 40px; /* Отступ справа от кнопки */
-    margin-left: 50px;
-    font-size: 20px; /* Размер шрифта */
+    margin-left: 20px; /* Отступ слева от кнопки */
+    font-size: 18px; /* Размер шрифта */
     font-weight: bold; /* Делаем шрифт жирным */
     transition: background-color 0.3s; /* Плавный переход цвета фона */
+    font-family: 'Roboto', sans-serif;
 }
 
 .lk-button:hover {
     background-color: #F4297AE5; /* Цвет фона при наведении */
 }
 
-.courses-button:hover {
-    background-color: #F4297AE5; /* Цвет фона при наведении */
+.contact-block {
+    display: flex; /* Используем flexbox для выравнивания элементов в строку */
+    align-items: center; /* Выравнивание по центру по вертикали */
 }
 
 .map-icon {
@@ -100,9 +119,12 @@ header {
     text-decoration: none; /* Убираем подчеркивание */
     color: #333435; /* Цвет текста ссылки */
     font-size: 20px; /* Размер шрифта */
-    margin-left: 5px; /* Отступ слева от ссылки */
-    margin-right: 15px;
     font-weight: bold; /* Делаем шрифт жирным */
+    transition: text-shadow 0.3s ease; /* Плавный переход для тени текста */
+}
+
+.contacts-link:hover {
+    text-shadow: 2px 2px 5px #FB91BEE5; /* Тень текста при наведении */
 }
 
 .icon {
@@ -113,8 +135,8 @@ header {
 
 .social-icon {
     display: inline-block; /* Отображение иконок в одной строке */
+    margin-left: 20px; /* Отступ слева от иконок */
 }
-
 
 nav ul {
     list-style: none;
@@ -210,7 +232,7 @@ footer {
 
 .sidebar-button {
     padding: 10px; /* Отступы внутри кнопок */
-    background-color: #FF6FABE5; /* Цвет фона кнопок */
+    background-color: #FBA1CC87; /* Цвет фона кнопок */
     color: #242626; /* Цвет текста на кнопках */
     border: 0; /* Убираем рамку */
     border-radius: 5px; /* Закругленные углы */
@@ -218,6 +240,8 @@ footer {
     text-align: left; /* Выравнивание текста */
     width: 200px; /* Установите фиксированную ширину для кнопок */
     margin: 5px 0; /* Отступы между кнопками */
+    font-family: 'Roboto', serif;
+    font-size: 20px;
 }
 
 .sidebar-button:hover {
@@ -253,8 +277,9 @@ footer {
     padding: 0; /* Убираем внутренние отступы у формы */
     margin: 0; /* Убираем внешние отступы у формы */
     box-shadow: none; /* Убираем тень у формы */
+    background-color: #f6f6f6; /* Устанавливаем синий цвет фона */
+    color: #f6f6f6; /* Устанавливаем цвет текста, чтобы он был виден на синем фоне */
 }
-
 
 .course-container {
     display: flex;

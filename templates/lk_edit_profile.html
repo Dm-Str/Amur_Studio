@@ -16,33 +16,21 @@
 
 {% block content %}
     <main style="display: flex;">
-        <aside class="sidebar">
-            <div class="profile-container">
-                <div>
-                    <h4 style="margin: 0; line-height: 1.2;">Логин: {{ user.username }}</h4>
-                    <h4 style="margin: 0; line-height: 1.5;">Почта: {{ user.email }}</h4>
-                    <h4 style="margin: 0; line-height: 1.5;">Телефон: {{ user.number }}</h4>
-                </div>
-                {% if user.photo %}
-                    <img src="{{ user.photo.url }}" alt="Фото пользователя">
-                {% else %}
-                    <img src="{% static 'default_profile_picture.jpg' %}" alt="Фото пользователя">
-                {% endif %}
-            </div>
+    <aside class="sidebar">
+        <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
+        <button class="sidebar-button" onclick="location.href='{% url 'my_reviews' %}'">Мои отзывы</button>
+        <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
+        <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
+        <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
+        <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
+        <form class="logout-form" method="post" action="{% url 'make_logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="sidebar-button logout-button">Выйти из ЛК</button>
+        </form>
+    </aside>
 
-            <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
-            <button class="sidebar-button" onclick="location.href='{% url 'my_reviews' %}'">Мои отзывы</button>
-            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
-            <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
-            <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
-            <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
-           <form class="logout-form" method="post" action="{% url 'make_logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="sidebar-button logout-button">Выйти из ЛК</button>
-            </form>
-        </aside>
-
-        <section id="content-section" style="flex: 1; padding: 20px;">
+    <div style="display: flex; flex: 1; padding: 20px; align-items: flex-start;">
+        <section id="content-section" style="flex: 1;">
             {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -57,5 +45,20 @@
                 <button type="submit">Сохранить изменения</button>
             </form>
         </section>
-    </main>
+
+        <div class="profile-container" style="margin-left: 20px;"> <!-- Добавьте отступ между секциями -->
+            <div>
+                <h4 style="margin: 0; line-height: 1.2; font-size: 20px">Логин: {{ user.username }}</h4>
+                <h4 style="margin: 0; line-height: 1.5; font-size: 20px">Почта: {{ user.email }}</h4>
+                <h4 style="margin: 0; line-height: 1.5; font-size: 20px">Телефон: {{ user.number }}</h4>
+            </div>
+            {% if user.photo %}
+                <img src="{{ user.photo.url }}" alt="Фото пользователя" width="100%" height="150">
+            {% else %}
+                <img src="{% static 'default_profile_picture.jpg' %}" alt="Фото пользователя" width="150" height="150">
+            {% endif %}
+        </div>
+    </div>
+</main>
+
 {% endblock %}

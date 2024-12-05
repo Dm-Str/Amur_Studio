@@ -12,12 +12,12 @@
         <div class="logo">
          <img src="{% static 'logo.png' %}" alt="Стрела Амура" />
         </div>
-        
+
         <div class="user-avatar">
             <a href="{% url 'get_training' %}">Личный кабинет</a>
             <img src="{{ user.photo.url }}" alt="Аватар пользователя" />
         </div>
-        
+
     </div>
 
     <div class="container">
@@ -35,14 +35,14 @@
             <div class="lesson">
                 <h2>{{ current_lesson.title }}</h2>
                 <p>{{ current_lesson.content|safe }}</p>
-            
+
                     {% if current_lesson.image %}
                         <div class="images-container">
-                      
+
                             <img src="{{ current_lesson.image.url }}" alt="Изображение урока" class="lesson-image">
                         </div>
                     {% endif %}
-            
+
                    {% if current_lesson.video %}
                     <div class="video-container">
                         <video controls class="responsive-video">
@@ -51,7 +51,7 @@
                         </video>
                     </div>
                     {% endif %}
-            
+
             </div>
             {% else %}
             <div class="lesson">
@@ -65,10 +65,10 @@
                 <form method="POST" action="#">
                     <label for="htmlCode"></label>
                     <textarea id="htmlCode" name="html_code" rows="5" placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
-                    
+
                     <div class="button-container">
                         <button type="submit">Отправить</button>
-                        <button type="button" onclick="location.href='#'">Следующий урок</button>
+                        <button type="button" onclick="location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
                     </div>
                 </form>
             </div>
