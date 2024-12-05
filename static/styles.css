@@ -23,7 +23,8 @@ nav ul li a:hover {
 }
 
 body {
-    display: flex;
+    display: grid; /* Используем Grid */
+    grid-template-rows: auto 1fr auto; /* Заголовок, контент, футер */
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Roboto', serif; /* Основной шрифт */
@@ -33,6 +34,12 @@ body {
     /*background-image: url('/static/background4.jpg'); !* Путь к вашему фоновому изображению *!*/
     background-size: contain; /* Заполнение всего экрана */
     background-position: center; /* Центрирование изображения */
+}
+
+.content-block {
+    background-color: #f0f0f0; /* Замените на нужный вам цвет */
+    padding: 20px; /* Добавьте отступы для лучшего отображения */
+    border-radius: 8px; /* Закругленные углы (по желанию) */
 }
 
 header {
@@ -61,47 +68,51 @@ header {
 .logo {
     height: 110%; /* Высота логотипа, можно настроить по желанию */
     max-width: 100px; /* Максимальная ширина логотипа, чтобы он не выходил за границы */
-    margin-left: 150px; /* Отступ справа от логотипа */
-transition: box-shadow 0.3s ease; /* Плавный переход для тени */
+    margin-left: 200px;
+    display: flex; /* Используем flexbox для выравнивания элементов в строку */
+    align-items: normal; /* Выравнивание по центру по вертикали */
+    transition: box-shadow 0.9s ease; /* Плавный переход для тени */
 }
 
 .logo:hover {
     box-shadow: 0 4px 15px #FB91BEE5; /* Тень вокруг логотипа при наведении */
 }
-
 .courses-button {
-    background-color: #FBA1CC87; /* Цвет фона кнопки */
-    color: #333435; /* Цвет текста кнопки */
-    padding: 20px 25px; /* Отступы внутри кнопки */
+    background-color: transparent; /* Прозрачный фон */
+    color: rgba(248, 60, 134, 0.9); /* Цвет текста кнопки */
+    padding: 20px 45px; /* Отступы внутри кнопки */
     text-decoration: none; /* Убираем подчеркивание */
+    border: 2px solid #FB91BEE5; /* Обводка кнопки */
     border-radius: 5px; /* Закругленные углы */
     font-size: 18px; /* Размер шрифта */
     font-weight: bold; /* Делаем шрифт жирным */
-    transition: background-color 0.3s; /* Плавный переход цвета фона */
-    font-family: 'Roboto', sans-serif;
-
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
+    font-family: 'Roboto', serif;
 }
 
 .courses-button:hover {
-    background-color: #F4297AE5; /* Цвет фона при наведении */
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
 }
 
 .lk-button {
-    background-color: #FB91BEE5; /* Цвет фона кнопки */
+    background-color: transparent; /* Прозрачный фон */
     color: #333435; /* Цвет текста кнопки */
-    padding: 20px 25px; /* Отступы внутри кнопки */
+    padding: 20px 20px; /* Отступы внутри кнопки */
     text-decoration: none; /* Убираем подчеркивание */
+    border: 2px solid #FB91BEE5; /* Обводка кнопки */
     border-radius: 5px; /* Закругленные углы */
-    margin-left: 20px; /* Отступ слева от кнопки */
     font-size: 18px; /* Размер шрифта */
     font-weight: bold; /* Делаем шрифт жирным */
-    transition: background-color 0.3s; /* Плавный переход цвета фона */
-    font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
+    font-family: 'Roboto', serif;
 }
 
 .lk-button:hover {
-    background-color: #F4297AE5; /* Цвет фона при наведении */
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
 }
+
 
 .contact-block {
     display: flex; /* Используем flexbox для выравнивания элементов в строку */
@@ -121,6 +132,7 @@ transition: box-shadow 0.3s ease; /* Плавный переход для тен
     font-size: 20px; /* Размер шрифта */
     font-weight: bold; /* Делаем шрифт жирным */
     transition: text-shadow 0.3s ease; /* Плавный переход для тени текста */
+    margin-right: 15px;
 }
 
 .contacts-link:hover {
@@ -130,12 +142,11 @@ transition: box-shadow 0.3s ease; /* Плавный переход для тен
 .icon {
     width: 30px; /* Ширина иконки */
     height: 30px; /* Высота иконки */
-    margin-left: 10px; /* Отступ слева от иконки */
 }
 
 .social-icon {
     display: inline-block; /* Отображение иконок в одной строке */
-    margin-left: 20px; /* Отступ слева от иконок */
+    margin-left: 10px; /* Отступ слева от иконок */
 }
 
 nav ul {
@@ -226,9 +237,9 @@ footer {
 .sidebar {
     display: flex;
     flex-direction: column;
+    margin-left: 150px;
+    margin-top: 14px;
 }
-
-
 
 .sidebar-button {
     padding: 10px; /* Отступы внутри кнопок */
