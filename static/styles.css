@@ -79,7 +79,7 @@ header {
 }
 .courses-button {
     background-color: transparent; /* Прозрачный фон */
-    color: rgba(248, 60, 134, 0.9); /* Цвет текста кнопки */
+    color: #F83C86E5; /* Цвет текста кнопки */
     padding: 20px 45px; /* Отступы внутри кнопки */
     text-decoration: none; /* Убираем подчеркивание */
     border: 2px solid #FB91BEE5; /* Обводка кнопки */
@@ -97,7 +97,7 @@ header {
 
 .lk-button {
     background-color: transparent; /* Прозрачный фон */
-    color: #333435; /* Цвет текста кнопки */
+    color: #F83C86E5; /* Цвет текста кнопки */
     padding: 20px 20px; /* Отступы внутри кнопки */
     text-decoration: none; /* Убираем подчеркивание */
     border: 2px solid #FB91BEE5; /* Обводка кнопки */
@@ -106,6 +106,7 @@ header {
     font-weight: bold; /* Делаем шрифт жирным */
     transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
     font-family: 'Roboto', serif;
+    margin-left: 500px;
 }
 
 .lk-button:hover {
