@@ -26,9 +26,20 @@
         <img src="/static/logo.png" alt="Логотип" class="logo">
     </a>
     
-    <a href="{% url 'courses' %}" class="courses-button">Все курсы</a>
+     <div class="courses-dropdown">
+        <a href="#" class="courses-button">Все курсы</a>
+        <div class="dropdown-content">
+            <a href="#" class="dropdown-item">Живое обучение</a>
+            <a href="{% url 'courses' %}" class="dropdown-item">Онлайн</a>
+        </div>
+    </div>
     
-    <a href="{% url 'lk_user' %}" class="lk-button">Личный кабинет</a>
+    <div class="lk-dropdown">
+        <a href="{% url 'lk_user' %}" class="lk-button">Личный кабинет</a>
+        <div class="dropdown-content">
+            <a href="{% url 'register' %}" class="dropdown-item">Регистрация</a>
+        </div>
+    </div>
     
     <div class="contact-block">
         

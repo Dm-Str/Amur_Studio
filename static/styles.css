@@ -77,6 +77,7 @@ header {
 .logo:hover {
     box-shadow: 0 4px 15px #FB91BEE5; /* Тень вокруг логотипа при наведении */
 }
+
 .courses-button {
     background-color: transparent; /* Прозрачный фон */
     color: #F83C86E5; /* Цвет текста кнопки */
@@ -95,6 +96,76 @@ header {
     color: white; /* Цвет текста при наведении */
 }
 
+.courses-dropdown {
+    position: relative; /* Для позиционирования выпадающего списка */
+    display: inline-block; /* Чтобы кнопка и выпадающий список были в одной строке */
+}
+
+.courses-button {
+    display: inline-block; /* Убедитесь, что кнопка является блочным элементом */
+}
+
+.dropdown-content {
+    display: none; /* Скрываем выпадающий список по умолчанию */
+    position: absolute; /* Позиционируем его относительно родителя */
+    background-color: white; /* Цвет фона выпадающего списка */
+    border: 2px solid #FB91BEE5; /* Обводка выпадающего списка */
+    border-radius: 5px; /* Закругленные углы */
+    z-index: 1; /* Чтобы выпадающий список был поверх других элементов */
+    transition: opacity 0.3s ease; /* Плавный переход */
+    opacity: 0; /* Начальная прозрачность */
+    width: 100%; /* Ширина выпадающего списка равна ширине кнопки */
+    top: 100%; /* Позиционируем его строго под кнопкой */
+    left: 0; /* Выравниваем по левому краю */
+    box-sizing: border-box; /* Учитываем границы и отступы в ширине */
+}
+
+.courses-dropdown:hover .dropdown-content {
+    display: block; /* Показываем выпадающий список при наведении */
+    opacity: 1; /* Делаем его видимым */
+}
+
+.dropdown-item {
+    padding: 15px 20px; /* Отступы внутри кнопок выпадающего списка */
+    color: #F83C86E5; /* Цвет текста */
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: flex; /* Используем flexbox для центрирования */
+    justify-content: center; /* Центрируем текст по горизонтали */
+    align-items: center; /* Центрируем текст по вертикали */
+    height: 100%; /* Задаем высоту для центрирования */
+}
+
+.dropdown-item:hover {
+    background-color: #FB91BEE5; /* Цвет фона при наведении на элемент выпадающего списка */
+    color: white; /* Цвет текста при наведении */
+}
+
+/*.lk-button {*/
+/*    background-color: transparent; !* Прозрачный фон *!*/
+/*    color: #F83C86E5; !* Цвет текста кнопки *!*/
+/*    padding: 20px 20px; !* Отступы внутри кнопки *!*/
+/*    text-decoration: none; !* Убираем подчеркивание *!*/
+/*    border: 2px solid #FB91BEE5; !* Обводка кнопки *!*/
+/*    border-radius: 5px; !* Закругленные углы *!*/
+/*    font-size: 18px; !* Размер шрифта *!*/
+/*    font-weight: bold; !* Делаем шрифт жирным *!*/
+/*    transition: background-color 0.3s, color 0.3s; !* Плавный переход цвета фона и текста *!*/
+/*    font-family: 'Roboto', serif;*/
+/*    margin-left: 500px;*/
+/*}*/
+
+/*.lk-button:hover {*/
+/*    background-color: #FB91BEE5; !* Цвет фона при наведении *!*/
+/*    color: white; !* Цвет текста при наведении *!*/
+/*}*/
+
+.lk-dropdown {
+    position: relative; /* Для позиционирования выпадающего списка */
+    display: inline-block; /* Чтобы кнопка и выпадающий список были в одной строке */
+}
+
 .lk-button {
     background-color: transparent; /* Прозрачный фон */
     color: #F83C86E5; /* Цвет текста кнопки */
@@ -106,12 +177,36 @@ header {
     font-weight: bold; /* Делаем шрифт жирным */
     transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
     font-family: 'Roboto', serif;
-    margin-left: 500px;
+    margin-left: 500px; /* Отступ слева */
+}
+
+.lk-button {
+    display: inline-block; /* Убедитесь, что кнопка является блочным элементом */
 }
 
 .lk-button:hover {
     background-color: #FB91BEE5; /* Цвет фона при наведении */
     color: white; /* Цвет текста при наведении */
+}
+
+.lk-dropdown .dropdown-content {
+    display: none; /* Скрываем выпадающий список по умолчанию */
+    position: absolute; /* Позиционируем его относительно родителя */
+    background-color: white; /* Цвет фона выпадающего списка */
+    border: 2px solid #FB91BEE5; /* Обводка выпадающего списка */
+    border-radius: 5px; /* Закругленные углы */
+    z-index: 1; /* Чтобы выпадающий список был поверх других элементов */
+    transition: opacity 0.3s ease; /* Плавный переход */
+    opacity: 0; /* Начальная прозрачность */
+    width: 182px; /* Ширина выпадающего списка соответствует содержимому */
+    top: 100%; /* Позиционируем его строго под кнопкой */
+    box-sizing: border-box; /* Учитываем границы и отступы в ширине */
+    margin-left: 501px;
+}
+
+.lk-dropdown:hover .dropdown-content {
+    display: block; /* Показываем выпадающий список при наведении */
+    opacity: 1; /* Делаем его видимым */
 }
 
 

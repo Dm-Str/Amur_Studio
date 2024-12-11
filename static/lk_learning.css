@@ -57,21 +57,23 @@ body {
 }
 
 .user-avatar a {
+    background-color: transparent; /* Прозрачный фон */
     display: inline-block; /* Позволяет задать размеры и отступы */
     margin-right: 10px; /* Отступ между текстом и аватаром */
     text-decoration: none; /* Убираем подчеркивание у ссылки */
-    color: #272626; /* Цвет текста ссылки */
-    background-color: rgba(255, 111, 171, 0.9); /* Цвет фона кнопки */
+    color: #F4297AE5; /* Цвет текста ссылки */
+    border: 2px solid #FB91BEE5; /* Обводка кнопки *//* Цвет фона кнопки */
     padding: 10px 15px; /* Внутренние отступы */
     border-radius: 5px; /* Закругление углов */
     font-family: 'Roboto', serif; /* Шрифт текста */
-    font-size: 13px; /* Размер шрифта */
+    font-size: 15px; /* Размер шрифта */
     font-weight: bold; /* Жирность текста */
-    transition: background-color 0.3s; /* Плавный переход цвета фона */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
 }
 
 .user-avatar a:hover {
-    background-color: rgba(244, 41, 122, 0.9); /* Цвет фона при наведении */
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
 }
 
 
