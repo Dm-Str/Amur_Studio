@@ -84,15 +84,20 @@ class Person(AbstractUser):
         ordering = ('number',)
 
 
-class Comment(models.Model):
-    author = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='comment')
-    course = models.ForeignKey(Courses, related_name='comments', on_delete=models.CASCADE)
+class Review(models.Model):
+    author = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='review')
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='reviews')
     text = models.TextField()
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=5)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.author} - {self.rating}"
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+        ordering = ['created_at']
 
 
 class StudentCourseProgress(models.Model):
