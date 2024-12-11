@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Личный кабинет - Стрела Амура
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock %}
+
+{% block name %}
+
+{% endblock %}
+
+{% block content %}
+    <main style="display: flex;">
+    
+        <aside class="sidebar">
+            <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'submit_review' %}'">Мои отзывы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
+            <form class="logout-form" method="post" action="{% url 'make_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="sidebar-button logout-button">Выйти из ЛК</button>
+            </form>
+        </aside>
+
+        <section style="flex: 1; padding: 20px;">
+            <h2>Оставить отзыв</h2>
+            <form method="post" action="{% url 'submit_review' %}">
+                {% csrf_token %}
+                <div>
+                    <label for="course">Выберите курс:</label>
+                    <select id="course" name="course">
+                        {% for course in courses %}
+                            <option value="{{ course.id }}">{{ course.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="rating">Рейтинг:</label>
+                    <select id="rating" name="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="review">Отзыв:</label>
+                    <textarea id="review" name="review" rows="4" required></textarea>
+                </div>
+                <button type="submit">Отправить отзыв</button>
+            </form>
+
+            <h2>Мои отзывы</h2>
+            <ul>
+                {% for review in reviews %}
+                    <li>
+                        <strong>{{ review.course.name }}</strong> - Рейтинг: {{ review.rating }}<br>
+                        {{ review.text }}<br>
+                        <small>Дата: {{ review.created_at }}</small>
+                    </li>
+                {% empty %}
+                    <li>У вас пока нет отзывов.</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    
+{% endblock %}
