@@ -50,6 +50,18 @@ class LessonPanel(admin.ModelAdmin):
     search_fields = ('course__course_type', 'title',)
 
 
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    fields = ('course', 'author', 'rating', 'created_at')
+    list_display = ('course', 'author', 'rating', 'created_at')
+    list_display_links = ('course', 'author', 'rating', 'created_at')
+    list_filter = ('course', 'course__course_type', 'author', 'rating', 'created_at')
+
+    empty_value_display = '-пустой-'
+    list_per_page = 64
+    list_max_show_all = 4
+
+
 @admin.register(StudentCourseProgress)
 class StudentCourseProgressAdmin(admin.ModelAdmin):
     fields = ('person', 'course', 'progress')
