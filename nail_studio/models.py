@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
@@ -81,6 +82,17 @@ class Person(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
         ordering = ('number',)
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='comment')
+    course = models.ForeignKey(Courses, related_name='comments', on_delete=models.CASCADE)
+    text = models.TextField()
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=5)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.author} - {self.rating}"
 
 
 class StudentCourseProgress(models.Model):
