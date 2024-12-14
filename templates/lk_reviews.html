@@ -8,6 +8,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'lk_reviews.css' %}">
 {% endblock %}
 
 {% block name %}
@@ -30,40 +31,43 @@
             </form>
         </aside>
 
-        <section style="flex: 1; padding: 20px;">
-            <h2>Оставить отзыв</h2>
-            <form method="post" action="{% url 'submit_review' %}">
-                {% csrf_token %}
-                <div>
-                    <label for="course">Выберите курс:</label>
-                    <select id="course" name="course">
-                        {% for course in courses %}
-                            <option value="{{ course.id }}">{{ course.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <label for="rating">Рейтинг:</label>
-                    <select id="rating" name="rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="review">Отзыв:</label>
-                    <textarea id="review" name="review" rows="4" required></textarea>
-                </div>
-                <button type="submit">Отправить отзыв</button>
-            </form>
+        <section style="display: flex; padding-left: 20px;">
+        
 
+        <form class="form-review" method="post" action="{% url 'submit_review' %}" style="flex: 1;">
+            <h2>Оставить отзыв</h2>
+            {% csrf_token %}
+            <div>
+                <label for="course">Выберите курс:</label>
+                <select id="course" name="course">
+                    {% for course in courses %}
+                        <option value="{{ course.id }}">{{ course.title|safe }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="rating">Рейтинг:</label>
+                <select id="rating" name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                </select>
+            </div>
+            <div>
+                <label for="review">Отзыв:</label>
+                <textarea id="review" name="review" rows="4" required></textarea>
+            </div>
+            <button type="submit">Отправить отзыв</button>
+        </form>
+        
+        <form class="reviews-form" method="post" action="{% url 'submit_review' %}" style="flex: 1;">
             <h2>Мои отзывы</h2>
             <ul>
                 {% for review in reviews %}
                     <li>
-                        <strong>{{ review.course.name }}</strong> - Рейтинг: {{ review.rating }}<br>
+                        <strong>{{ review.course.title|safe }}</strong> - Рейтинг: {{ review.rating }}<br>
                         {{ review.text }}<br>
                         <small>Дата: {{ review.created_at }}</small>
                     </li>
@@ -71,7 +75,8 @@
                     <li>У вас пока нет отзывов.</li>
                 {% endfor %}
             </ul>
-        </section>
+        </form>
+    </section>
     </main>
-    
+
 {% endblock %}
