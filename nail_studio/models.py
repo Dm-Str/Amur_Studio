@@ -85,14 +85,14 @@ class Person(AbstractUser):
 
 
 class Review(models.Model):
-    author = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='review')
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='review')
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='reviews')
     text = models.TextField()
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], default=5)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.author} - {self.rating}"
+        return f"{self.person} - {self.rating}"
 
     class Meta:
         verbose_name = 'Отзыв'

@@ -52,10 +52,10 @@ class LessonPanel(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    fields = ('course', 'author', 'rating', 'created_at')
-    list_display = ('course', 'author', 'rating', 'created_at')
-    list_display_links = ('course', 'author', 'rating', 'created_at')
-    list_filter = ('course', 'course__course_type', 'author', 'rating', 'created_at')
+    fields = ('course', 'person', 'rating', 'created_at')
+    list_display = ('course', 'person', 'rating', 'created_at')
+    list_display_links = ('course', 'person', 'rating', 'created_at')
+    list_filter = ('course', 'course__course_type', 'person', 'rating', 'created_at')
 
     empty_value_display = '-пустой-'
     list_per_page = 64

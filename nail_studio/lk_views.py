@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from nail_studio.forms import PersonProfileForm
-from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson
+from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review
 from django.contrib import messages
 
 
@@ -50,12 +50,46 @@ def edit_profile(request):
     return render(request, 'lk_edit_profile.html', {'form': form})
 
 
+@login_required
+def submit_review(request):
+    person = get_object_or_404(Person, pk=request.user.id)
+    courses = person.courses.all()
+    reviews = Review.objects.filter(person=person)
+
+    if request.method == 'POST':
+        course_id = request.POST.get('course')
+        rating = request.POST.get('rating')
+        review_text = request.POST.get('review')
+
+        course = get_object_or_404(Courses, pk=course_id)
+
+        review = Review(person=person,
+                        course=course,
+                        rating=rating,
+                        text=review_text)
+
+        review.save()
+        messages.success(request, 'Ваш отзыв был успешно добавлен!')
+        return redirect( 'submit_review')
+
+    context = {
+            'courses': courses,
+            'reviews': reviews
+    }
+    return render(request, 'lk_reviews.html', context)
+
+
+@login_required
+def delete_review(request, course_id):
+    if request.method == 'POST':
+        course = get_object_or_404(Courses, pk=course_id)
+        review = get_object_or_404(Review, pk=request.user.id)
+        review.delete()
+        return redirect('submit_review')
+
+
 def get_bonuses(request):
     return render(request, 'lk_get_bonuses.html')
-
-
-def my_reviews(request):
-    return render(request, 'lk.html')
 
 
 def get_notifications(request):
