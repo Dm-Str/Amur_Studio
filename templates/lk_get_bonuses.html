@@ -15,7 +15,8 @@
 {% endblock %}
 
 {% block content %}
-    <main style="display: flex;">
+   
+        <main style="display: flex; flex-direction: row; height: 100%;">
     
         <aside class="sidebar">
             <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
@@ -31,12 +32,12 @@
         </aside>
 
         <section style="flex: 1; padding-left: 20px;">
-            <h2>Текущий курс: {{ user.courses }}</h2>
-            <p>Сумма бонусов: {{ user.bonuses }}</p>
+            <h2>Мои бонусы: {{ person.bonuses }}</h2>
+            <h3>Как заработать бонусы?</h3>
             <ul>
-                <li>Статус: В процессе</li>
-                <li>Прогресс: 75%</li>
-                <li>Осталось занятий: 3</li>
+                <li>Записывайтесь на курс!</li>
+                <li>Проходите курс!</li>
+                <li>Получайте бонусы!</li>
             </ul>
         </section>
     </main>

@@ -1,42 +1,47 @@
+/*body {*/
+/*    font-family: 'Roboto', serif; !* Основной шрифт для всего текста *!*/
+/*}*/
+
+/*h2 {*/
+/*    font-family: 'Roboto', serif; !* Шрифт для заголовков *!*/
+/*}*/
+
+/*p, ul {*/
+/*    font-family: 'Roboto', serif; !* Шрифт для параграфов и списков *!*/
+/*}*/
+
+/*nav ul li a {*/
+/*    color: #fff; !* Белый цвет для навигационных ссылок *!*/
+/*    text-decoration: none;*/
+/*    text-shadow: 1px 1px 0 #000; !* Черная обводка для навигационных ссылок *!*/
+/*    font-size: 1.2rem; !* Увеличенный размер шрифта *!*/
+/*    padding: 10px; !* Добавление отступов для улучшения кликабельности *!*/
+/*}*/
+
+/*nav ul li a:hover {*/
+/*    text-decoration: underline; !* Подчеркивание при наведении *!*/
+/*}*/
+
+html, body {
+    height: 100%; /* Убедитесь, что html и body занимают 100% высоты */
+    margin: 0; /* Убираем отступы по умолчанию */
+}
+
 body {
-    font-family: 'Roboto', serif; /* Основной шрифт для всего текста */
-}
-
-h2 {
-    font-family: 'Roboto', serif; /* Шрифт для заголовков */
-}
-
-p, ul {
-    font-family: 'Roboto', serif; /* Шрифт для параграфов и списков */
-}
-
-nav ul li a {
-    color: #fff; /* Белый цвет для навигационных ссылок */
-    text-decoration: none;
-    text-shadow: 1px 1px 0 #000; /* Черная обводка для навигационных ссылок */
-    font-size: 1.2rem; /* Увеличенный размер шрифта */
-    padding: 10px; /* Добавление отступов для улучшения кликабельности */
-}
-
-nav ul li a:hover {
-    text-decoration: underline; /* Подчеркивание при наведении */
-}
-
-body {
-    display: grid; /* Используем Grid */
-    grid-template-rows: auto 1fr auto; /* Заголовок, контент, футер */
+    display: flex;
+    /*grid-template-rows: auto 1fr auto; !* Заголовок, контент, футер *!*/
     flex-direction: column;
     min-height: 100vh;
     font-family: 'Roboto', serif; /* Основной шрифт */
     margin: 0;
     padding: 0;
-    background-color: #D0D0D0; /* Светлый нейтральный цвет фона */
-    /*background-image: url('/static/background4.jpg'); !* Путь к вашему фоновому изображению *!*/
-    background-size: contain; /* Заполнение всего экрана */
-    background-position: center; /* Центрирование изображения */
+    background-color: #f0f0f0; /* Светлый нейтральный цвет фона */
+    /*background-size: contain; !* Заполнение всего экрана *!*/
+    /*background-position: center; !* Центрирование изображения *!*/
 }
 
 .content-block {
+    flex: 1;
     background-color: #f0f0f0; /* Замените на нужный вам цвет */
     padding: 20px; /* Добавьте отступы для лучшего отображения */
     border-radius: 8px; /* Закругленные углы (по желанию) */
@@ -142,25 +147,6 @@ header {
     color: white; /* Цвет текста при наведении */
 }
 
-/*.lk-button {*/
-/*    background-color: transparent; !* Прозрачный фон *!*/
-/*    color: #F83C86E5; !* Цвет текста кнопки *!*/
-/*    padding: 20px 20px; !* Отступы внутри кнопки *!*/
-/*    text-decoration: none; !* Убираем подчеркивание *!*/
-/*    border: 2px solid #FB91BEE5; !* Обводка кнопки *!*/
-/*    border-radius: 5px; !* Закругленные углы *!*/
-/*    font-size: 18px; !* Размер шрифта *!*/
-/*    font-weight: bold; !* Делаем шрифт жирным *!*/
-/*    transition: background-color 0.3s, color 0.3s; !* Плавный переход цвета фона и текста *!*/
-/*    font-family: 'Roboto', serif;*/
-/*    margin-left: 500px;*/
-/*}*/
-
-/*.lk-button:hover {*/
-/*    background-color: #FB91BEE5; !* Цвет фона при наведении *!*/
-/*    color: white; !* Цвет текста при наведении *!*/
-/*}*/
-
 .lk-dropdown {
     position: relative; /* Для позиционирования выпадающего списка */
     display: inline-block; /* Чтобы кнопка и выпадающий список были в одной строке */
@@ -264,7 +250,7 @@ nav ul li a {
 main {
     flex: 1;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.8); /* Полупрозрачный белый фон для основного контента */
+    background: #FFFFFFCC; /* Полупрозрачный белый фон для основного контента */
     border-radius: 10px; /* Закругленные углы */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Тень для основного контента */
 }
@@ -306,7 +292,6 @@ form button:hover {
 }
 
 footer {
-    /*background-image: url('/static/header_fon.jpg'); !* Изображение для подвала *!*/
     background-color: #ffffff;
     background-size: cover; /* Заполнение всего подвала */
     background-position: bottom; /* Отображение нижней части изображения */
