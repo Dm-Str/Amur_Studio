@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review
 from django.contrib import messages
+from nail_studio.utils import calculation_bonuses_for_buy
 
 
 def make_logout(request):
@@ -28,9 +29,14 @@ def submit_course(request, course_id):
                 'course': course,
                 'error': 'Вы уже записаны на этот курс!'
             })
+        else:
+            user.courses.add(course)
 
-        user.courses.add(course)
-        return render(request, 'lk_get_courses.html')
+            price_course = course.price
+            user.bonuses = calculation_bonuses_for_buy(price_course)
+            user.save()
+
+            return render(request, 'lk_get_courses.html')
 
 
 @login_required
@@ -88,8 +94,18 @@ def delete_review(request, course_id):
         return redirect('submit_review')
 
 
+@login_required
 def get_bonuses(request):
-    return render(request, 'lk_get_bonuses.html')
+    person = get_object_or_404(Person, pk=request.user.id)
+
+    bonuses = person.bonuses
+
+    context = {
+        'person': person,
+        'bonuses': bonuses
+    }
+
+    return render(request, 'lk_get_bonuses.html', context=context)
 
 
 def get_notifications(request):
