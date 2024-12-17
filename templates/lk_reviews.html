@@ -33,9 +33,21 @@
 
         <section style="display: flex; padding-left: 20px;">
         
+        
+        
 
         <form class="form-review" method="post" action="{% url 'submit_review' %}" style="flex: 1;">
+            
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
             <h2>Оставить отзыв</h2>
+        
             {% csrf_token %}
             <div>
                 <label for="course">Выберите курс:</label>
