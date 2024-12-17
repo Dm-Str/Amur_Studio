@@ -71,9 +71,13 @@ class Person(AbstractUser):
     number = models.CharField(max_length=25, unique=True, validators=[validate_phone], verbose_name='Телефон')
     photo = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name='Фото профиля')
     experience = models.CharField(max_length=50, default='Нет', verbose_name='Опыт работы')
-    bonuses = models.IntegerField(default=0, verbose_name='Бонусы')
+    bonuses = models.IntegerField(default=50, verbose_name='Бонусы')
     certificate_image = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
     courses = models.ManyToManyField(Courses, related_name='persons', verbose_name='Курсы')
+
+    def add_bonuses(self, amount):
+        self.bonuses += amount
+        self.save()
 
     def __str__(self):
         return self.username

@@ -75,8 +75,12 @@ def submit_review(request):
                         text=review_text)
 
         review.save()
-        messages.success(request, 'Ваш отзыв был успешно добавлен!')
-        return redirect( 'submit_review')
+
+        #Бонусы за отзыв
+        person.add_bonuses(100)
+        messages.success(request, 'Ваш отзыв был успешно добавлен!\n'
+                                           'И вам начисленно 100 бонусов!')
+        return redirect('submit_review')
 
     context = {
             'courses': courses,
@@ -108,10 +112,12 @@ def get_bonuses(request):
     return render(request, 'lk_get_bonuses.html', context=context)
 
 
+@login_required
 def get_notifications(request):
     return render(request, 'lk.html')
 
 
+@login_required
 def change_password(request):
     return render(request, 'lk.html')
 
