@@ -68,8 +68,13 @@
                 <p>{{ course.title|safe }}</p>
                 <p><strong>Тип курса:</strong> {{ course.get_course_type_display }}</p>  <!-- Предполагается, что у вас есть поле type в модели Courses -->
                 <p><strong>Кол-во уроков:</strong> {{ course.lessons.count }}</p>
-                <p><strong>Стоимость:</strong> {{ course.price }} руб.</p>  <!-- Предполагается, что у вас есть поле price в модели Courses -->
                 
+                {% if bonuses_person %}
+                    <p><strong>Стоимость курса с учётом бонусов:</strong> {{ final_price }} руб.</p>  <!-- Предполагается, что у вас есть поле price в модели Courses -->
+                {% else %}
+                    <p><strong>Стоимость курса:</strong> {{ final_price }} руб.</p>
+                {% endif %}
+            
                 {% if error %}
                     <div class="error">{{ error }}</div>
                 {% endif %}

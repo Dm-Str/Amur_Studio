@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -14,8 +16,29 @@ def make_logout(request):
 
 @login_required
 def enroll_course(request, course_id):
+    person = get_object_or_404(Person, pk=course_id)
     course = get_object_or_404(Courses, pk=course_id)
-    return render(request, 'lk_submit_course.html', {'course': course})
+    bonuses_person = person.bonuses
+    course_price = course.price
+
+    bonuses_person = Decimal(bonuses_person)
+    course_price = Decimal(course_price)
+
+    if bonuses_person:
+        max_bonus_spend = course_price * Decimal("0.5")
+        used_bonuses = min(bonuses_person, max_bonus_spend)
+        final_price = course_price - used_bonuses
+
+        context = {
+            'course': course,
+            'final_price': final_price,
+            'bonuses_person': bonuses_person,
+        }
+
+        return render(request, 'lk_submit_course.html', context=context)
+
+    return render(request,'lk_submit_course.html',
+                  {'course': course, 'final_price': course_price})
 
 
 @login_required

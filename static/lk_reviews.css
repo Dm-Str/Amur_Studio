@@ -5,6 +5,7 @@
     width: 600px; /* Установите ширину формы на 100% или укажите конкретное значение */
     max-width: 600px; /* Максимальная ширина формы, если необходимо */
     margin: 0 auto; /* Центрирование формы */
+    font-family: 'Roboto', serif;
 }
 
 .form-review textarea {
@@ -20,6 +21,7 @@
     border: 1px solid #ccc; /* Добавьте границу */
     border-radius: 4px; /* Закруглите углы */
     box-sizing: border-box; /* Учитывайте отступы и границы в ширине */
+    font-family: 'Roboto', serif;
 }
 
 .reviews-form {
