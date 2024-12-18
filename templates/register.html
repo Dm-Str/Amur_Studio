@@ -16,17 +16,10 @@
         <form method="post" id="registration-form" novalidate>
             {% csrf_token %}
             <h3 style="text-align: center;">РЕГИСТРАЦИЯ</h3>
-            <label for="name">Логин:</label>
-            <input type="text" id="name" name="name" value="{{ name }}" required>
             
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ email }}" required>
             
-{#            <label for="first_name">Имя:</label>#}
-{#            <input type="text" id="first_name" name="first_name" value="{{ first_name }}" required>#}
-{#            #}
-{#            <label for="last_name">Фамилия:</label>#}
-{#            <input type="text" id="last_name" name="last_name" value="{{ last_name }}" required>#}
             
             <label for="phone">Номер телефона:</label>
             <input type="tel" id="phone" name="phone" value="+7 (___) ____-____" onfocus="this.value=''" required>

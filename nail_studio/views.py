@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from nail_studio.models import Person, Courses
 from nail_studio.validators import *
 from django.contrib import messages
@@ -11,22 +11,21 @@ def index(request):
 
 def register(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         password = request.POST.get('password')
+        user_name = Person.generate_username(email)
 
         try:
-            validate_name(name)
+            validate_name(user_name)
             validate_email(email)
             validate_phone(phone)
             validate_password(password)
 
-            user = Person.objects.create_user(username=name,
+            user = Person.objects.create_user(username=user_name,
                                               email=email,
                                               number=phone,
-                                              password=password
-                                              )
+                                              password=password)
 
             login(request, user)
             messages.success(request, 'Ваш аккаунт успешно создан!')
@@ -37,7 +36,6 @@ def register(request):
                 messages.error(request, error)
             return render(request, 'register.html', {
                 'errors': e.messages,
-                'name': name,
                 'email': email,
                 'phone': phone
             })
@@ -48,13 +46,16 @@ def register(request):
 
 def make_login(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        number = request.POST.get('number')
         password = request.POST.get('password')
-        user = Person.objects.filter(email=email).first()
+        user = Person.objects.filter(number=number).first()
+        print(f"Trying to log in with number: {number}")
 
         if user and user.check_password(password):
             login(request, user)
-            return render(request, 'lk.html')
+            return redirect('lk_user')
+        else:
+            messages.error(request, 'Неверный номер телефона или пароль!')
 
     return render(request, 'login.html')
 

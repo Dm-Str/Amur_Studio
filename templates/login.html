@@ -4,24 +4,30 @@
 {% endblock %}
 
 {% block style %}
-	<link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/styles.css">
 {% endblock %}
 
 {% block name %}
-
 {% endblock %}
 
 {% block content %}
-	 <main>
-     
+    <main>
         <form method="post" id="login-form">
             {% csrf_token %}
             <h3 style="text-align: center;">АВТОРИЗАЦИЯ</h3>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="number">Телефон:</label>
+            <input type="tel" id="number" name="number" required>
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required>
             <button type="submit">Войти</button>
+
+            {% if messages %}
+                <div class="messages" style="display: inline-block; margin-left: 20px;">
+                    {% for message in messages %}
+                        <div class="message {{ message.tags }}"><strong>{{ message }}</strong></div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </form>
     </main>
 {% endblock %}
