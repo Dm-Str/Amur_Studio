@@ -7,6 +7,7 @@ from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review
 from django.contrib import messages
 from nail_studio.utils import calculation_bonuses_for_buy
+from nail_studio.views import courses
 
 
 def make_logout(request):
@@ -16,8 +17,9 @@ def make_logout(request):
 
 @login_required
 def enroll_course(request, course_id):
-    person = get_object_or_404(Person, pk=course_id)
     course = get_object_or_404(Courses, pk=course_id)
+    person = request.user
+
     bonuses_person = person.bonuses
     course_price = course.price
 
