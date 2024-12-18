@@ -337,7 +337,7 @@ footer {
 }
 
 .sidebar-button:hover {
-    background-color: #F4297AE5; /* Цвет фона при наведении */
+    background-color: #F83C86E5; /* Цвет фона при наведении */
 }
 
 .sidebar-button:focus {
@@ -346,7 +346,7 @@ footer {
 
 .logout-button {
     padding: 10px; /* Отступы внутри кнопки */
-    background-color: #FF6FABE5; /* Цвет фона кнопки */
+    background-color: #FBA1CC87; /* Цвет фона кнопки */
     color: #242626; /* Цвет текста на кнопке */
     border: none; /* Убираем рамку */
     border-radius: 5px; /* Закругленные углы */
@@ -357,7 +357,7 @@ footer {
 }
 
 .logout-button:hover {
-    background-color: #F4297AE5; /* Цвет фона при наведении */
+    background-color: #F83C86E5; /* Цвет фона при наведении */
 }
 
 .logout-button:focus {
