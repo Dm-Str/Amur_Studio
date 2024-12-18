@@ -25,10 +25,10 @@ def register(request):
             })
 
         try:
-            validate_name(user_name)
             validate_email(email)
             validate_phone(phone)
             validate_password(password)
+            validate_name(user_name)
 
             user = Person.objects.create_user(username=user_name,
                                               email=email,

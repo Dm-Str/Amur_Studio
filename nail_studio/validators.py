@@ -13,7 +13,8 @@ def validate_name(value):
 def validate_email(value):
     email_regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     if not re.match(email_regex, value):
-        raise ValidationError(f"{value} не является корректным адресом электронной почты.")
+        raise ValidationError(f"{value if value else 'Пустое значение'} "
+                              f"не является корректным адресом электронной почты.")
 
 
 def validate_first_name(value):
@@ -38,6 +39,9 @@ def validate_phone(value):
 
 
 def validate_password(value):
+    if re.search(r'[А-Яа-я]', value):
+        raise ValidationError("Пароль может содержать только буквы латиницы.")
+
     if not re.search(r'\d', value):
         raise ValidationError("Пароль должен содержать хотя бы одну цифру.")
 
