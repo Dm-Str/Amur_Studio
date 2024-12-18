@@ -71,7 +71,7 @@ class Person(AbstractUser):
     country = models.CharField(max_length=50, blank=True, null=True, verbose_name='Страна')
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
     messenger= models.CharField(max_length=50, blank=True, null=True, verbose_name='Мессенджер')
-    photo = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name='Фото профиля')
+    photo = models.ImageField(upload_to='images/', default='images/default_prof_img.jpg', verbose_name='Фото профиля')
     experience = models.CharField(max_length=50, default='Нет', verbose_name='Опыт работы')
     bonuses = models.IntegerField(default=50, verbose_name='Бонусы')
     courses = models.ManyToManyField(Courses, related_name='persons', blank=True, verbose_name='Курсы')
