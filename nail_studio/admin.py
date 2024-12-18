@@ -21,15 +21,15 @@ class CoursesPanel(admin.ModelAdmin):
 @admin.register(Person)
 class PersonPanel(admin.ModelAdmin):
     fields = ('username', 'first_name', 'last_name', 'number', 'courses')
-    list_display = ('username', 'first_name', 'last_name', 'number', 'get_courses', 'certificate_image')
-    list_display_links = ('username', 'first_name', 'last_name', 'number', 'get_courses', 'certificate_image')
-    list_filter = ('certificate_image',)
+    list_display = ('username', 'first_name', 'last_name', 'number', 'get_courses')
+    list_display_links = ('username', 'first_name', 'last_name', 'number', 'get_courses')
+    list_filter = ('courses',)
 
     empty_value_display = '-пустой-'
     list_per_page = 64
     list_max_show_all = 4
 
-    search_fields = ('certificate_image', 'courses',)
+    search_fields = ('courses',)
 
     def get_courses(self, obj):
         return ", ".join(course.title for course in obj.courses.all())
