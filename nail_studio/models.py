@@ -63,17 +63,17 @@ class Lesson(models.Model):
 
 class Person(AbstractUser):
     username = models.CharField(max_length=45, unique=True, validators=[validate_name], verbose_name='Логин')
+    number = models.CharField(max_length=25, unique=True, validators=[validate_phone], verbose_name='Телефон')
+    email = models.EmailField(unique=True, verbose_name='Email')
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='День рождения')
     country = models.CharField(max_length=50, blank=True, null=True, verbose_name='Страна')
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
     messenger= models.CharField(max_length=50, blank=True, null=True, verbose_name='Мессенджер')
-    number = models.CharField(max_length=25, unique=True, validators=[validate_phone], verbose_name='Телефон')
     photo = models.ImageField(upload_to='images/', blank=True, null=True, verbose_name='Фото профиля')
     experience = models.CharField(max_length=50, default='Нет', verbose_name='Опыт работы')
     bonuses = models.IntegerField(default=50, verbose_name='Бонусы')
-    certificate_image = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
     courses = models.ManyToManyField(Courses, related_name='persons', blank=True, verbose_name='Курсы')
 
     @classmethod
