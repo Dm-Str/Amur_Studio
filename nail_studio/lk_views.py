@@ -102,7 +102,7 @@ def submit_review(request):
         review.save()
 
         #Бонусы за отзыв
-        person.add_bonuses(100)
+        person.calculate_review_bonuses(100)
         messages.success(request, 'Ваш отзыв был успешно добавлен!\n'
                                            'И вам начисленно 100 бонусов!')
         return redirect('submit_review')

@@ -3,7 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-
+import datetime
 from nail_studio.validators import *
 
 
@@ -75,9 +75,23 @@ class Person(AbstractUser):
     certificate_image = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
     courses = models.ManyToManyField(Courses, related_name='persons', blank=True, verbose_name='Курсы')
 
-    def add_bonuses(self, amount):
+    def calculate_review_bonuses(self, amount):
         self.bonuses += amount
         self.save()
+
+    def calculate_birthday_bonuses(self):
+        today = datetime.date.today()
+        if self.date_of_birth:
+            if (self.date_of_birth.month == today.month
+                    and self.date_of_birth.day == today.day):
+                self.bonuses += 500
+                self.save()
+
+    def calculate_professional_holiday_bonuses(self):
+        today = datetime.date.today()
+        if today == datetime.date(today.year, 3, 24):
+            self.bonuses += 300
+            self.save()
 
     def __str__(self):
         return self.username
