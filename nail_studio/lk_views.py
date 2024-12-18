@@ -1,5 +1,3 @@
-from decimal import Decimal
-
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -7,6 +5,7 @@ from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review
 from django.contrib import messages
 from nail_studio.utils import calculation_bonuses_for_buy
+from decimal import Decimal
 from nail_studio.views import courses
 
 

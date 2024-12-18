@@ -14,7 +14,15 @@ def register(request):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         password = request.POST.get('password')
+        password_repiet = request.POST.get('password_repiet')
         user_name = Person.generate_username(email)
+
+        if password != password_repiet:
+            return render(request, 'register.html', {
+                'errors': ['Пароли не совпадают!'],
+                'email': email,
+                'phone': phone
+            })
 
         try:
             validate_name(user_name)
@@ -29,11 +37,9 @@ def register(request):
 
             login(request, user)
             messages.success(request, 'Ваш аккаунт успешно создан!')
-            return render(request, 'lk.html')
+            return redirect('lk_user')
 
         except ValidationError as e:
-            for error in e.messages:
-                messages.error(request, error)
             return render(request, 'register.html', {
                 'errors': e.messages,
                 'email': email,

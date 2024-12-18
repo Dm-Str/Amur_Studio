@@ -15,30 +15,33 @@
     <main>
         <form method="post" id="registration-form" novalidate>
             {% csrf_token %}
+            
             <h3 style="text-align: center;">РЕГИСТРАЦИЯ</h3>
+            
+            {% if errors %}
+                <div class="error-messages">
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="{{ email }}" required>
-            
-            
+        
             <label for="phone">Номер телефона:</label>
-            <input type="tel" id="phone" name="phone" value="+7 (___) ____-____" onfocus="this.value=''" required>
-
+            <input type="tel" id="phone" name="phone" placeholder="+7 ___ ___-__-__" required>
             
             <label for="password">Пароль:</label>
             <input type="password" id="password" name="password" required>
+
+            <label for="password_repiet">Повторите пароль:</label>
+            <input type="password" id="password_repiet" name="password_repiet" required>
             
             <button type="submit">Зарегистрироваться</button>
         </form>
-
-        {% if errors %}
-            <div class="error-messages">
-                <ul>
-                    {% for error in errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+    
     </main>
 {% endblock %}
