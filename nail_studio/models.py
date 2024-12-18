@@ -73,7 +73,7 @@ class Person(AbstractUser):
     experience = models.CharField(max_length=50, default='Нет', verbose_name='Опыт работы')
     bonuses = models.IntegerField(default=50, verbose_name='Бонусы')
     certificate_image = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
-    courses = models.ManyToManyField(Courses, related_name='persons', verbose_name='Курсы')
+    courses = models.ManyToManyField(Courses, related_name='persons', blank=True, verbose_name='Курсы')
 
     def add_bonuses(self, amount):
         self.bonuses += amount
