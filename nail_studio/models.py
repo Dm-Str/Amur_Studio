@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models import Max
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 import datetime
@@ -74,6 +75,18 @@ class Person(AbstractUser):
     bonuses = models.IntegerField(default=50, verbose_name='Бонусы')
     certificate_image = models.ImageField(upload_to='certificates/', verbose_name='Сертификаты')
     courses = models.ManyToManyField(Courses, related_name='persons', blank=True, verbose_name='Курсы')
+
+    @classmethod
+    def generate_username(cls, email):
+        username = email.split('@')[0]
+        last_pk = cls.objects.aggregate(max_id=Max('id'))
+        last_pk = last_pk['max_id']
+
+        if last_pk is None:
+            last_pk = 0
+
+        new_username = username + str(last_pk)
+        return new_username
 
     def calculate_review_bonuses(self, amount):
         self.bonuses += amount
