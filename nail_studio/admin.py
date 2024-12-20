@@ -1,16 +1,24 @@
 from django.contrib import admin
 from nail_studio.models import *
 
+class LessonInline(admin.TabularInline):
+    model = Lesson
+    extra = 1
+    fields = ('title', 'content', 'home_work', 'order', 'image', 'video')
+    verbose_name = 'Урок'
+    verbose_name_plural = 'Уроки'
 
 @admin.register(Courses)
 class CoursesPanel(admin.ModelAdmin):
-    fields = ('title', 'description', 'price', 'date_start_after_payment', 'date_end', 'course_type', 'image')
+    fields = ('title', 'description', 'price', 'date_start_after_payment',
+              'date_end', 'course_type', 'image')
     list_display = ('title', 'get_description_short', 'price', 'course_type',
                     'date_start_after_payment', 'date_end')
     list_display_links = ('title', 'get_description_short', 'price', 'course_type',
                           'date_start_after_payment', 'date_end')
     list_filter = ('title', 'date_start_after_payment', 'course_type' , 'price')
 
+    inlines = [LessonInline]
     empty_value_display = '-пустой-'
     list_per_page = 64
     list_max_show_all = 4
@@ -52,7 +60,7 @@ class LessonPanel(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    fields = ('course', 'person', 'rating', 'created_at')
+    fields = ('course', 'person', 'rating', 'text')
     list_display = ('course', 'person', 'rating', 'created_at')
     list_display_links = ('course', 'person', 'rating', 'created_at')
     list_filter = ('course', 'course__course_type', 'person', 'rating', 'created_at')
