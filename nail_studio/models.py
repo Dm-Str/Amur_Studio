@@ -2,8 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Max
-# from imagekit.models import ImageSpecField
-# from imagekit.processors import ResizeToFill
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 import datetime
 from nail_studio.validators import *
 
@@ -22,8 +22,8 @@ class Courses(models.Model):
     date_end = models.DateField(blank=True, null=True, verbose_name='Конец курса')
     course_type = models.CharField(max_length=30, choices=COURSE_TYPES, default='basic', verbose_name='Тип курса')
     image = models.ImageField(upload_to='images/', verbose_name='Изображение курса')
-    # image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(300, 200)],
-    #                                  format='JPEG', options={'quality': 85})
+    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(300, 200)],
+                                     format='JPEG', options={'quality': 85})
 
     def __str__(self):
         return self.title
