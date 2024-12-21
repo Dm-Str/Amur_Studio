@@ -1,12 +1,33 @@
 from django.contrib import admin
+
+from nail_studio.forms import LessonForm
 from nail_studio.models import *
+
+
+class ModulesInline(admin.TabularInline):
+    model = Modules
+    extra = 1
+    fields = ('title', 'order')
+    verbose_name = 'Модуль'
+    verbose_name_plural = 'Модули'
+
+
+class TopicsInline(admin.TabularInline):
+    model = Topics
+    extra = 1
+    fields = ('module', 'title', 'order')
+    verbose_name = 'Тема'
+    verbose_name_plural = 'Темы'
+
 
 class LessonInline(admin.TabularInline):
     model = Lesson
     extra = 1
-    fields = ('title', 'content', 'home_work', 'order', 'image', 'video')
+    fields = ('module', 'topic', 'title', 'content', 'home_work', 'order', 'image', 'video')
     verbose_name = 'Урок'
     verbose_name_plural = 'Уроки'
+    form = LessonForm
+
 
 @admin.register(Courses)
 class CoursesPanel(admin.ModelAdmin):
@@ -18,7 +39,7 @@ class CoursesPanel(admin.ModelAdmin):
                           'date_start_after_payment', 'date_end')
     list_filter = ('title', 'date_start_after_payment', 'course_type' , 'price')
 
-    inlines = [LessonInline]
+    inlines = [ModulesInline, TopicsInline, LessonInline]
     empty_value_display = '-пустой-'
     list_per_page = 64
     list_max_show_all = 4
@@ -43,6 +64,7 @@ class PersonPanel(admin.ModelAdmin):
         return ", ".join(course.title for course in obj.courses.all())
 
     get_courses.short_description = 'Курсы'
+
 
 @admin.register(Lesson)
 class LessonPanel(admin.ModelAdmin):
