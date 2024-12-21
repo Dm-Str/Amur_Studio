@@ -2,8 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Max
-from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+# from imagekit.models import ImageSpecField
+# from imagekit.processors import ResizeToFill
 import datetime
 from nail_studio.validators import *
 
@@ -22,8 +22,8 @@ class Courses(models.Model):
     date_end = models.DateField(blank=True, null=True, verbose_name='Конец курса')
     course_type = models.CharField(max_length=30, choices=COURSE_TYPES, default='basic', verbose_name='Тип курса')
     image = models.ImageField(upload_to='images/', verbose_name='Изображение курса')
-    image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(300, 200)],
-                                     format='JPEG', options={'quality': 85})
+    # image_thumbnail = ImageSpecField(source='image', processors=[ResizeToFill(300, 200)],
+    #                                  format='JPEG', options={'quality': 85})
 
     def __str__(self):
         return self.title
@@ -38,8 +38,42 @@ class Courses(models.Model):
     get_description_short.short_description = 'Описание'
 
 
+class Modules(models.Model):
+    course = models.ForeignKey(Courses, related_name='modules', on_delete=models.CASCADE, verbose_name='Курс')
+    title = models.CharField(max_length=200, verbose_name='Название модуля')
+    order = models.PositiveIntegerField(verbose_name='Порядок модуля')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Модуль'
+        verbose_name_plural = 'Модули'
+        ordering = ['order']
+
+
+class Topics(models.Model):
+    course = models.ForeignKey(Courses, related_name='topics', on_delete=models.CASCADE, verbose_name='Курс')
+    module = models.ForeignKey(Modules, related_name='topics', on_delete=models.CASCADE, verbose_name='Модуль')
+    title = models.CharField(max_length=200, default='Новая тема', verbose_name='Название темы')
+    order = models.PositiveIntegerField(verbose_name='Порядок темы')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Тема'
+        verbose_name_plural = 'Темы'
+        ordering = ['order']
+
+
 class Lesson(models.Model):
-    course = models.ForeignKey(Courses, related_name='lessons', on_delete=models.CASCADE, verbose_name='Курс')
+    course = models.ForeignKey(Courses, related_name='lessons', on_delete=models.CASCADE,
+                               verbose_name='Курс')
+    module = models.ForeignKey(Modules, related_name='lessons', blank=True, null=True,
+                                on_delete=models.CASCADE, verbose_name='Модуль')
+    topic = models.ForeignKey(Topics, related_name='lessons', blank=True, null=True,
+                              on_delete=models.CASCADE, verbose_name='Тема')
     title = models.CharField(max_length=200, verbose_name='Название урока')
     content = models.TextField(verbose_name='Содержание урока')
     home_work = models.TextField(blank=True, null=True, verbose_name='Домашнее задание')

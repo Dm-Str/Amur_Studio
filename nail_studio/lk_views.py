@@ -2,11 +2,10 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from nail_studio.forms import PersonProfileForm
-from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review
+from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review, Topics
 from django.contrib import messages
 from nail_studio.utils import calculation_bonuses_for_buy
 from decimal import Decimal
-from nail_studio.views import courses
 
 
 def make_logout(request):
@@ -169,6 +168,8 @@ def continue_learning(request, course_id):
     if current_lesson is None:
         current_lesson = course.lessons.first()
 
+    modules = course.modules.all()
+    topics = Topics.objects.filter(module__in=modules)
     lessons = course.lessons.all()
 
     user = Person.objects.get(pk=request.user.id)
@@ -177,6 +178,8 @@ def continue_learning(request, course_id):
         'course': course,
         'progress': progress,
         'current_lesson': current_lesson,
+        'modules': modules,
+        'topics': topics,
         'lessons': lessons,
         'user': user
     }
@@ -204,7 +207,6 @@ def next_lesson(request, lesson_id):
     course = current_lesson.course
 
     lessons = list(course.lessons.all())
-
     current_index = lessons.index(current_lesson)
 
     if current_index + 1 < len(lessons):
