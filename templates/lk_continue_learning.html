@@ -14,7 +14,7 @@
         </div>
         
         <div class="cur-lesson">
-            <a href="#">{{ current_lesson.title}}</a>
+            <a href="#">{{ course.title }}</a>
         </div>
 
         <div class="user-avatar">
@@ -25,14 +25,35 @@
     </div>
 
     <div class="container">
-        <div class="sidebar">
-            <h1 class="course-title">{{ course.title|safe }}</h1>
-            <ul class="lesson-list">
-                {% for lesson in lessons %}
-                <li><a href="{% url 'lesson_detail' lesson.id %}">{{ lesson.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
+    <div class="sidebar">
+        
+        {% for module in course.modules.all %}
+            <div class="module">
+                <h3 style="margin: 3px;">{{ module.title }}</h3>
+                
+                {% if module.topics.all %}
+                    {% for topic in module.topics.all %}
+                        <div class="topic-container">
+                        <h4 style="margin: 0; margin-left: 5px;">Тема {{ topic.order }}: {{ topic.title }}</h4>
+                        </div>
+                            <ul class="lesson-list">
+                                {% for lesson in topic.lessons.all %}
+                                    <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                    {% endfor %}
+                {% endif %}
+    
+                {% if module.lessons.all %}
+                    <ul class="lesson-list">
+                        {% for lesson in module.lessons.all %}
+                            <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 
         <div class="main-content">
             {% if current_lesson %}

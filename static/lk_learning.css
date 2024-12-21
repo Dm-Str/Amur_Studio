@@ -107,13 +107,30 @@ body {
     margin-bottom: 20px;
 }
 
+.topic-container {
+    border: 2px solid #c6c4c4; /* Серый контур */
+    padding: 5px; /* Внутренние отступы */
+    border-radius: 4px; /* Закругление углов */
+    margin-bottom: 10px; /* Отступ снизу для разделения тем */
+    min-width: 200px; /* Минимальная ширина */
+    min-height: 35px; /* Минимальная высота */
+    display: flex; /* Включаем Flexbox */
+    align-items: center; /* Центрируем по вертикали */
+
+}
+
 .lesson-list {
     list-style-type: none; /* Убираем маркеры списка */
     padding: 0;
+    min-width: 200px; /* Минимальная ширина для уроков */
 }
 
 .lesson-list li {
     margin: 10px 0; /* Отступы между уроками */
+    margin-left: 10px; /* Добавляем отступ слева */
+    min-width: 200px; /* Минимальная ширина для уроков */
+    min-height: 35px; /* Минимальная высота */
+    align-items: center; /* Центрируем по вертикали */
 }
 
 .lesson-list a {
@@ -122,14 +139,18 @@ body {
     border: 2px solid #c6c4c4; /* Черный контур */
     padding: 5px 10px; /* Внутренние отступы для создания пространства между текстом и контуром */
     border-radius: 4px; /* Закругление углов (по желанию) */
-    display: inline-block; /* Позволяет задать размеры и отступы */
+    display: block; /* Позволяет задать размеры и отступы, и выравнивание */
+    align-items: center; /* Центрируем по вертикали */
+    min-width: 200px; /* Минимальная ширина для уроков */
+    min-height: 35px; /* Минимальная высота */
+    word-wrap: break-word; /* Перенос длинных слов */
+    overflow-wrap: break-word; /* Перенос длинных слов (совместимость) */
     transition: background-color 0.3s; /* Плавный переход цвета фона */
 }
 
 .lesson-list a:hover {
     background-color: rgba(0, 0, 0, 0.1); /* Цвет фона при наведении (по желанию) */
 }
-
 
 .main-content {
     flex-grow: 1; /* Занимает оставшееся пространство */
