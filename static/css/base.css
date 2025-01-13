@@ -1,0 +1,220 @@
+html, body {
+    height: 100%; /* Убедитесь, что html и body занимают 100% высоты */
+    margin: 0; /* Убираем отступы по умолчанию */
+}
+
+body {
+    display: flex;
+    /*grid-template-rows: auto 1fr auto; !* Заголовок, контент, футер *!*/
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Roboto', serif; /* Основной шрифт */
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Светлый нейтральный цвет фона */
+    /*background-size: contain; !* Заполнение всего экрана *!*/
+    /*background-position: center; !* Центрирование изображения *!*/
+}
+
+.content-block {
+    flex: 1;
+    background-color: #f0f0f0; /* Замените на нужный вам цвет */
+    padding: 20px; /* Добавьте отступы для лучшего отображения */
+    border-radius: 8px; /* Закругленные углы (по желанию) */
+}
+
+header {
+    background-color: #ffffff;
+    color: #333435; /* Цвет для текста заголовка */
+    padding: 10px 20px; /* Отступы для заголовка */
+    display: flex; /* Используем flexbox для выравнивания элементов */
+    align-items: center; /* Центрируем элементы по вертикали */
+    font-family: 'Roboto', serif; /* Шрифт для заголовка */
+    height: 100px;
+    justify-content: space-between; /* Распределяем пространство между элементами */
+}
+
+.header-left {
+    display: flex; /* Используем flexbox для выравнивания элементов в левой части */
+    align-items: center; /* Центрируем элементы по вертикали */
+    margin-left: 50px; /* Отступ слева от края страницы */
+}
+
+.header-right {
+    display: flex; /* Используем flexbox для выравнивания элементов в правой части */
+    align-items: center; /* Центрируем элементы по вертикали */
+    margin-right: 50px; /* Отступ справа от края страницы */
+}
+
+footer {
+    background-color: #ffffff;
+    background-size: cover; /* Заполнение всего подвала */
+    background-position: bottom; /* Отображение нижней части изображения */
+    text-align: center;
+    padding: 10px 0;
+    color: #fff; /* Белый цвет для текста в подвале */
+    text-shadow: 1px 1px 0 #000; /* Черная обводка для текста в подвале */
+    width: 100%;
+}
+
+.logo-main {
+    height: 110%; /* Высота логотипа, можно настроить по желанию */
+    max-width: 100px; /* Максимальная ширина логотипа, чтобы он не выходил за границы */
+    margin-left: 200px;
+    display: flex; /* Используем flexbox для выравнивания элементов в строку */
+    align-items: normal; /* Выравнивание по центру по вертикали */
+    transition: box-shadow 0.9s ease; /* Плавный переход для тени */
+}
+
+.logo-main:hover {
+    box-shadow: 0 4px 15px #FB91BEE5; /* Тень вокруг логотипа при наведении */
+}
+
+.courses-button {
+    background-color: transparent; /* Прозрачный фон */
+    color: #F83C86E5; /* Цвет текста кнопки */
+    padding: 20px 45px; /* Отступы внутри кнопки */
+    text-decoration: none; /* Убираем подчеркивание */
+    border: 2px solid #FB91BEE5; /* Обводка кнопки */
+    border-radius: 5px; /* Закругленные углы */
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
+    font-family: 'Roboto', serif;
+}
+
+.courses-button:hover {
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
+}
+
+.courses-dropdown {
+    position: relative; /* Для позиционирования выпадающего списка */
+    display: inline-block; /* Чтобы кнопка и выпадающий список были в одной строке */
+}
+
+.courses-button {
+    display: inline-block; /* Убедитесь, что кнопка является блочным элементом */
+}
+
+.dropdown-content {
+    display: none; /* Скрываем выпадающий список по умолчанию */
+    position: absolute; /* Позиционируем его относительно родителя */
+    background-color: white; /* Цвет фона выпадающего списка */
+    border: 2px solid #FB91BEE5; /* Обводка выпадающего списка */
+    border-radius: 5px; /* Закругленные углы */
+    z-index: 1; /* Чтобы выпадающий список был поверх других элементов */
+    transition: opacity 0.3s ease; /* Плавный переход */
+    opacity: 0; /* Начальная прозрачность */
+    width: 100%; /* Ширина выпадающего списка равна ширине кнопки */
+    top: 100%; /* Позиционируем его строго под кнопкой */
+    left: 0; /* Выравниваем по левому краю */
+    box-sizing: border-box; /* Учитываем границы и отступы в ширине */
+}
+
+.courses-dropdown:hover .dropdown-content {
+    display: block; /* Показываем выпадающий список при наведении */
+    opacity: 1; /* Делаем его видимым */
+}
+
+.dropdown-item {
+    padding: 15px 20px; /* Отступы внутри кнопок выпадающего списка */
+    color: #F83C86E5; /* Цвет текста */
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    text-decoration: none; /* Убираем подчеркивание */
+    display: flex; /* Используем flexbox для центрирования */
+    justify-content: center; /* Центрируем текст по горизонтали */
+    align-items: center; /* Центрируем текст по вертикали */
+    height: 100%; /* Задаем высоту для центрирования */
+}
+
+.dropdown-item:hover {
+    background-color: #FB91BEE5; /* Цвет фона при наведении на элемент выпадающего списка */
+    color: white; /* Цвет текста при наведении */
+}
+
+.lk-dropdown {
+    position: relative; /* Для позиционирования выпадающего списка */
+    display: inline-block; /* Чтобы кнопка и выпадающий список были в одной строке */
+}
+
+.lk-button {
+    background-color: transparent; /* Прозрачный фон */
+    color: #F83C86E5; /* Цвет текста кнопки */
+    padding: 20px 20px; /* Отступы внутри кнопки */
+    text-decoration: none; /* Убираем подчеркивание */
+    border: 2px solid #FB91BEE5; /* Обводка кнопки */
+    border-radius: 5px; /* Закругленные углы */
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
+    font-family: 'Roboto', serif;
+    margin-left: 500px; /* Отступ слева */
+}
+
+.lk-button {
+    display: inline-block; /* Убедитесь, что кнопка является блочным элементом */
+}
+
+.lk-button:hover {
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
+}
+
+.lk-dropdown .dropdown-content {
+    display: none; /* Скрываем выпадающий список по умолчанию */
+    position: absolute; /* Позиционируем его относительно родителя */
+    background-color: white; /* Цвет фона выпадающего списка */
+    border: 2px solid #FB91BEE5; /* Обводка выпадающего списка */
+    border-radius: 5px; /* Закругленные углы */
+    z-index: 1; /* Чтобы выпадающий список был поверх других элементов */
+    transition: opacity 0.3s ease; /* Плавный переход */
+    opacity: 0; /* Начальная прозрачность */
+    width: 182px; /* Ширина выпадающего списка соответствует содержимому */
+    top: 100%; /* Позиционируем его строго под кнопкой */
+    box-sizing: border-box; /* Учитываем границы и отступы в ширине */
+    margin-left: 501px;
+}
+
+.lk-dropdown:hover .dropdown-content {
+    display: block; /* Показываем выпадающий список при наведении */
+    opacity: 1; /* Делаем его видимым */
+}
+
+
+.contact-block {
+    display: flex; /* Используем flexbox для выравнивания элементов в строку */
+    align-items: center; /* Выравнивание по центру по вертикали */
+}
+
+.map-icon {
+    width: 24px; /* Ширина иконки */
+    height: 24px; /* Высота иконки */
+    margin-left: 10px; /* Отступ слева от иконки */
+    margin-right: 5px; /* Отступ справа от иконки */
+}
+
+.contacts-link {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #333435; /* Цвет текста ссылки */
+    font-size: 20px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    transition: text-shadow 0.3s ease; /* Плавный переход для тени текста */
+    margin-right: 15px;
+}
+
+.contacts-link:hover {
+    text-shadow: 2px 2px 5px #FB91BEE5; /* Тень текста при наведении */
+}
+
+.icon {
+    width: 30px; /* Ширина иконки */
+    height: 30px; /* Высота иконки */
+}
+
+.social-icon {
+    display: inline-block; /* Отображение иконок в одной строке */
+    margin-left: 10px; /* Отступ слева от иконок */
+}
+

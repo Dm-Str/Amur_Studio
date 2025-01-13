@@ -8,14 +8,9 @@
         Title
         {% endblock %}
     </title>
-    {% load static %} <!-- Загрузка тега static -->
+    {% load static %}
     {% block style %}
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-
-{#        <link rel="preconnect" href="https://fonts.googleapis.com">#}
-{#    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>#}
-{#    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Monsieur+La+Doulaise&family=Nosifer&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">#}
-{#    <link rel="stylesheet" href="../static/styles.css">#}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
     {% endblock %}
 </head>
@@ -23,7 +18,7 @@
     <header>
     
     <a href="{% url 'index' %}">
-        <img src="/static/logo.png" alt="Логотип" class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Логотип" class="logo-main">
     </a>
     
      <div class="courses-dropdown">
@@ -43,16 +38,16 @@
     
     <div class="contact-block">
         
-        <img src="/static/map-marker-icon.png" alt="Иконка отметки на карте" class="map-icon"> <!-- Иконка отметки на карте -->
+        <img src="{% static 'images/map-marker-icon.png' %}" alt="Иконка отметки на карте" class="map-icon"> <!-- Иконка отметки на карте -->
     
         <a href="{% url 'contacts' %}" class="contacts-link">8 (931) 200-9-200</a> <!-- Ссылка "Контакты" -->
         
         <a href="https://t.me/your_telegram_username" target="_blank" class="social-icon">
-            <img src="/static/telegram-icon.png" alt="Telegram" class="icon"> <!-- Иконка Telegram -->
+            <img src="{% static 'images/telegram-icon.png'%}" alt="Telegram" class="icon"> <!-- Иконка Telegram -->
         </a>
         
         <a href="https://wa.me/your_whatsapp_number" target="_blank" class="social-icon">
-            <img src="/static/whatsapp-icon.png" alt="WhatsApp" class="icon"> <!-- Иконка WhatsApp -->
+            <img src="{% static 'images/whatsapp-icon.png' %}" alt="WhatsApp" class="icon"> <!-- Иконка WhatsApp -->
         </a>
         
     </div>
