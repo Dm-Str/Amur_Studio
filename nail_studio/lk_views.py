@@ -35,9 +35,9 @@ def enroll_course(request, course_id):
             'bonuses_person': bonuses_person,
         }
 
-        return render(request, 'lk_submit_course.html', context=context)
+        return render(request, 'lk/lk_submit_course.html', context=context)
 
-    return render(request,'lk_submit_course.html',
+    return render(request, 'lk/lk_submit_course.html',
                   {'course': course, 'final_price': course_price})
 
 
@@ -48,7 +48,7 @@ def submit_course(request, course_id):
 
     if request.method == 'POST':
         if course in user.courses.all():
-            return render(request, 'lk_submit_course.html', {
+            return render(request, 'lk/lk_submit_course.html', {
                 'course': course,
                 'error': 'Вы уже записаны на этот курс!'
             })
@@ -59,7 +59,7 @@ def submit_course(request, course_id):
             user.bonuses = calculation_bonuses_for_buy(price_course)
             user.save()
 
-            return render(request, 'lk_get_courses.html')
+            return render(request, 'lk/lk_get_courses.html')
 
 
 @login_required
@@ -70,13 +70,13 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Профиль обновлен успешно!')
-            return render(request, 'lk_edit_profile.html', {'form': form})
+            return render(request, 'lk/lk_edit_profile.html', {'form': form})
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
 
     else:
         form = PersonProfileForm(instance=request.user)
-    return render(request, 'lk_edit_profile.html', {'form': form})
+    return render(request, 'lk/lk_edit_profile.html', {'form': form})
 
 
 @login_required
@@ -109,7 +109,7 @@ def submit_review(request):
             'courses': courses,
             'reviews': reviews
     }
-    return render(request, 'lk_reviews.html', context)
+    return render(request, 'lk/lk_reviews.html', context)
 
 
 @login_required
@@ -132,17 +132,17 @@ def get_bonuses(request):
         'bonuses': bonuses
     }
 
-    return render(request, 'lk_get_bonuses.html', context=context)
+    return render(request, 'lk/lk_get_bonuses.html', context=context)
 
 
 @login_required
 def get_notifications(request):
-    return render(request, 'lk.html')
+    return render(request, 'lk/lk.html')
 
 
 @login_required
 def change_password(request):
-    return render(request, 'lk.html')
+    return render(request, 'lk/lk.html')
 
 
 @login_required
@@ -150,7 +150,7 @@ def get_training(request):
     user_courses = request.user.courses.all()
     if not user_courses:
         return redirect('courses')
-    return render(request, 'lk_get_courses.html')
+    return render(request, 'lk/lk_get_courses.html')
 
 
 @login_required
@@ -184,7 +184,7 @@ def continue_learning(request, course_id):
         'user': user
     }
 
-    return render(request, 'lk_continue_learning.html', context)
+    return render(request, 'lk/lk_continue_learning.html', context)
 
 
 @login_required
@@ -198,7 +198,7 @@ def lesson_detail(request, lesson_id):
         'lessons': course.lessons.all(),
 
     }
-    return render(request, 'lk_continue_learning.html', context)
+    return render(request, 'lk/lk_continue_learning.html', context)
 
 
 @login_required
@@ -226,12 +226,12 @@ def next_lesson(request, lesson_id):
         'user': request.user
     }
 
-    return render(request, 'lk_continue_learning.html', context)
+    return render(request, 'lk/lk_continue_learning.html', context)
 
 
 @login_required
 def lk_user(request):
-    return render(request, 'lk.html')
+    return render(request, 'lk/lk.html')
 
 def get_help(request):
-    return render(request, 'lk.html')
+    return render(request, 'lk/lk.html')

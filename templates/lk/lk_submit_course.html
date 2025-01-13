@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
 {% block name %}
@@ -36,7 +36,7 @@
                 {% if user.photo %}
                     <img src="{{ user.photo.url }}" alt="Фото пользователя">
                 {% else %}
-                    <img src="{% static 'default_profile_picture.jpg' %}" alt="Фото пользователя">
+                    <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Фото пользователя">
                 {% endif %}
             </div>
 
