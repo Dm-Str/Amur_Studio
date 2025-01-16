@@ -1,0 +1,32 @@
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #FBB5D9E5;
+    background-color: #FBB5D9E5;
+    color: #151515;
+    border-radius: 8px; /* Закругленные углы */
+    font-family: 'Roboto', serif;
+}
+
+.messages li.error {
+    border-color: #f8d7da;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 8px; /* Закругленные углы для ошибок */
+    font-weight: bold; /* Жирный шрифт для ошибок */
+}
+
+.error-messages {
+    color: red; /* Цвет текста */
+    background-color: #f8d7da; /* Светлый фон для выделения */
+    border: 1px solid #f5c6cb; /* Рамка для выделения */
+    padding: 2px; /* Отступы внутри блока */
+    margin: 10px 0; /* Отступы сверху и снизу */
+    border-radius: 5px; /* Закругленные углы */
+}
