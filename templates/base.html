@@ -21,18 +21,20 @@
         <img src="{% static 'images/logo.png' %}" alt="Логотип" class="logo-main">
     </a>
     
-     <div class="courses-dropdown">
-        <a href="#" class="courses-button">Все курсы</a>
-        <div class="dropdown-content">
-            <a href="#" class="dropdown-item">Живое обучение</a>
-            <a href="{% url 'courses' %}" class="dropdown-item">Онлайн</a>
+     <div class="button-container-course-and-lk">
+        <div class="courses-dropdown">
+            <a href="#" class="courses-button">Все курсы</a>
+            <div class="dropdown-content">
+                <a href="#" class="dropdown-item">Живое обучение</a>
+                <a href="{% url 'courses' %}" class="dropdown-item">Онлайн</a>
+            </div>
         </div>
-    </div>
-    
-    <div class="lk-dropdown">
-        <a href="{% url 'lk_user' %}" class="lk-button">Личный кабинет</a>
-        <div class="dropdown-content">
-            <a href="{% url 'register' %}" class="dropdown-item">Регистрация</a>
+        
+        <div class="lk-dropdown">
+            <a href="{% url 'lk_user' %}" class="lk-button">Личный кабинет</a>
+            <div class="dropdown-content">
+                <a href="{% url 'register' %}" class="dropdown-item">Регистрация</a>
+            </div>
         </div>
     </div>
     

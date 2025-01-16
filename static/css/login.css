@@ -2,14 +2,14 @@ form {
     max-width: 400px;
     margin: 0 auto;
     background: #fff; /* Белый фон для формы */
-    padding: 20px;
+    padding: 35px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 form label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     font-weight: 700; /* Жирный шрифт для меток */
 }
 
@@ -22,46 +22,19 @@ form input {
 }
 
 form button {
-    background: #FF6FABE5; /* Телесный цвет для кнопок */
-    color: #242626; /* Белый цвет текста на кнопках */
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-form button:hover {
-    background: #F4297AE5; /* Темнее телесный цвет при наведении */
-}
-
-.messages {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-}
-
-.messages li {
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #FBB5D9E5;
-    background-color: #FBB5D9E5;
-    color: #151515;
-    border-radius: 8px; /* Закругленные углы */
+    background-color: transparent; /* Прозрачный фон */
+    color: #F83C86E5; /* Цвет текста кнопки */
+    padding: 10px 25px; /* Отступы внутри кнопки */
+    text-decoration: none; /* Убираем подчеркивание */
+    border: 2px solid #FB91BEE5; /* Обводка кнопки */
+    border-radius: 5px; /* Закругленные углы */
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Делаем шрифт жирным */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
     font-family: 'Roboto', serif;
 }
 
-.messages li.error {
-    border-color: #f8d7da;
-    background-color: #f8d7da;
-    color: #721c24;
-    border-radius: 8px; /* Закругленные углы для ошибок */
-    font-weight: bold; /* Жирный шрифт для ошибок */
+form button:hover {
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
 }
-
-/*main {*/
-/*    flex: 1;*/
-/*    padding: 20px;*/
-/*    background: #FFFFFFCC; !* Полупрозрачный белый фон для основного контента *!*/
-/*    border-radius: 10px; !* Закругленные углы *!*/
-/*    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); !* Тень для основного контента *!*/
-/*}*/

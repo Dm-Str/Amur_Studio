@@ -31,6 +31,7 @@ header {
     align-items: center; /* Центрируем элементы по вертикали */
     font-family: 'Roboto', serif; /* Шрифт для заголовка */
     height: 100px;
+    width: 100%; /* Устанавливаем ширину заголовка на 100% */
     justify-content: space-between; /* Распределяем пространство между элементами */
 }
 
@@ -68,6 +69,14 @@ footer {
 
 .logo-main:hover {
     box-shadow: 0 4px 15px #FB91BEE5; /* Тень вокруг логотипа при наведении */
+}
+
+.button-container-course-and-lk {
+    display: flex; /* Используем flexbox для расположения кнопок */
+    align-items: center; /* Центрируем кнопки по вертикали */
+    justify-content: space-between; /* Распределяем пространство между кнопками */
+    flex-grow: 1; /* Позволяем контейнеру занимать все доступное пространство */
+    margin: 0 40px; /* Устанавливаем отступы по бокам */
 }
 
 .courses-button {
@@ -150,7 +159,7 @@ footer {
     font-weight: bold; /* Делаем шрифт жирным */
     transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
     font-family: 'Roboto', serif;
-    margin-left: 500px; /* Отступ слева */
+    /*margin-left: 500px; !* Отступ слева *!*/
 }
 
 .lk-button {
@@ -173,8 +182,8 @@ footer {
     opacity: 0; /* Начальная прозрачность */
     width: 182px; /* Ширина выпадающего списка соответствует содержимому */
     top: 100%; /* Позиционируем его строго под кнопкой */
+    left: 0; /* Выравниваем по левому краю кнопки */
     box-sizing: border-box; /* Учитываем границы и отступы в ширине */
-    margin-left: 501px;
 }
 
 .lk-dropdown:hover .dropdown-content {
@@ -186,6 +195,8 @@ footer {
 .contact-block {
     display: flex; /* Используем flexbox для выравнивания элементов в строку */
     align-items: center; /* Выравнивание по центру по вертикали */
+    margin-left: auto; /* Сдвигаем блок вправо, если это необходимо */
+    margin-right: 230px; /* Устанавливаем отступ справа */
 }
 
 .map-icon {
