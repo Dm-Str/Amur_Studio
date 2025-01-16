@@ -1,0 +1,37 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    margin-left: 150px;
+    margin-top: 14px;
+}
+
+.sidebar-button {
+    padding: 10px; /* Отступы внутри кнопок */
+    background-color: #FBA1CC87; /* Цвет фона кнопок */
+    color: #242626; /* Цвет текста на кнопках */
+    border: 0; /* Убираем рамку */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Указатель при наведении */
+    text-align: left; /* Выравнивание текста */
+    width: 200px; /* Установите фиксированную ширину для кнопок */
+    margin: 5px 0; /* Отступы между кнопками */
+    font-family: 'Roboto', serif;
+    font-size: 20px;
+}
+
+.sidebar-button:hover {
+    background-color: #F83C86E5; /* Цвет фона при наведении */
+}
+
+.sidebar-button:focus {
+    outline: none; /* Убираем обводку при фокусе */
+}
+
+.logout-form {
+    border: none; /* Убираем рамку у формы */
+    padding: 0; /* Убираем внутренние отступы у формы */
+    margin: 0; /* Убираем внешние отступы у формы */
+    box-shadow: none; /* Убираем тень у формы */
+    background-color: #f6f6f6; /* Устанавливаем синий цвет фона */
+    color: #f6f6f6; /* Устанавливаем цвет текста, чтобы он был виден на синем фоне */
+}
