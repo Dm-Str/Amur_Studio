@@ -1,0 +1,69 @@
+.course-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Отступы между карточками */
+    justify-content: center; /* Центрирование карточек */
+}
+
+.course-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для карточек */
+    border-radius: 5px; /* Закругление углов */
+    overflow: hidden; /* Скрытие переполнения */
+    transition: transform 0.2s; /* Плавный переход при наведении */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Увеличение карточки при наведении */
+}
+
+.card-img-top {
+    width: 100%; /* Ширина изображения */
+    height: 200px; /* Высота изображения */
+    object-fit: cover; /* Обтяжка изображения */
+}
+
+.card-body {
+    padding: 15px; /* Отступы внутри карточки */
+}
+
+.card-title {
+    font-size: 1.25rem; /* Размер заголовка */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+.card-price {
+    font-size: 1.1rem; /* Размер цены */
+    color: #28a745; /* Цвет цены */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+.card-text {
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+.btn {
+    background-color: #FF6FABE5; /* Цвет кнопки */
+    color: black; /* Цвет текста кнопки */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    border: none; /* Убираем рамку */
+    border-radius: 0.3rem; /* Закругление углов кнопки */
+    cursor: pointer; /* Указатель при наведении */
+    text-align: center; /* Центрирование текста */
+    text-decoration: none; /* Убираем подчеркивание */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.btn:hover {
+    background-color: #F4297AE5; /* Цвет кнопки при наведении (темнее) */
+}
+
+.btn:focus {
+    outline: none; /* Убираем обводку при фокусе */
+}
