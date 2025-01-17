@@ -31,7 +31,6 @@
         <aside class="sidebar">
             <div class="profile-container">
                 <div>
-                    <h4 style="margin: 0; line-height: 1.2;">Логин: {{ user.username }}</h4>
                     <h4 style="margin: 0; line-height: 1.5;">Почта: {{ user.email }}</h4>
                     <h4 style="margin: 0; line-height: 1.5;">Телефон: {{ user.number }}</h4>
                 </div>
@@ -83,7 +82,7 @@
             
                 <form method="post" action="{% url 'submit_course' course.id %}">  <!-- Убедитесь, что URL правильный -->
                     {% csrf_token %}
-                    <button type="submit">Поступить на курс!</button>
+                    <button type="submit" class="submit-button">Поступить на курс!</button>
                 </form>
             
             </div>

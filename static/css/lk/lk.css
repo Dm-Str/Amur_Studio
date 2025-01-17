@@ -1,8 +1,10 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    margin-left: 150px;
+    width: 200px; /* Установите фиксированную ширину */
     margin-top: 14px;
+    padding-left: 150px;
+    padding-right: 30px;
 }
 
 .sidebar-button {

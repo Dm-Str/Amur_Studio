@@ -23,3 +23,25 @@
     border-radius: 50%; /* Круглая форма */
     margin-left: 20px; /* Отступ слева от фото */
 }
+
+.submit-button {
+    padding: 10px; /* Отступы внутри кнопок */
+    background-color: #FBA1CC87; /* Цвет фона кнопок */
+    color: #242626; /* Цвет текста на кнопках */
+    border: 0; /* Убираем рамку */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Указатель при наведении */
+    text-align: left; /* Выравнивание текста */
+    width: 200px; /* Установите фиксированную ширину для кнопок */
+    margin: 5px 0; /* Отступы между кнопками */
+    font-family: 'Roboto', serif;
+    font-size: 20px;
+}
+
+.submit-button:hover {
+    background-color: #F83C86E5; /* Цвет фона при наведении */
+}
+
+.submit-button:focus {
+    outline: none; /* Убираем обводку при фокусе */
+}

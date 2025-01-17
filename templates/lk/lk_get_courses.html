@@ -9,6 +9,7 @@
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/lk/lk.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lk/lk_get_courses.css' %}">
 {% endblock %}
 
 {% block name %}
@@ -31,25 +32,25 @@
             </form>
         </aside>
 
-        <section style="flex: 1; padding-left: 20px;">
+         <section class="course-section">
             <div id="courseContainer">
                 {% if user.courses.all %}
                     <div id="availableCourses">
                         <h2>Мои курсы:</h2>
-                        <div class="course-list" style="display: flex; flex-wrap: wrap; gap: 20px;">
+                        <div class="course-list">
                             {% for course in user.courses.all %}
-                                <div style="flex: 1 0 300px; max-width: 300px; position: relative;">
+                                <div class="course-item">
                                     <!-- Фоновое изображение курса -->
-                                    <img src="{{ course.image.url }}" alt="{{ course.title }}" style="width: 100%; opacity: 0.5; height: auto; border-radius: 8px;">
+                                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
                                     <!-- Карточка с информацией о курсе -->
-                                    <div style="position: absolute; top: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.0); padding: 10px; border-radius: 8px 8px 0 0;">
+                                    <div class="course-info">
                                         <h4>{{ course.title|safe }}</h4>
                                         <p><strong>Тип курса:</strong> {{ course.get_course_type_display }}</p>
                                         <p><strong>Кол-во уроков:</strong> {{ course.lessons.count }}</p>
                                     </div>
                                     <!-- Кнопка "Продолжить обучение!" -->
-                                    <div style="position: absolute; bottom: 0; left: 0; right: 0; text-align: center;">
-                                        <button class="sidebar-button" onclick="location.href='{% url 'continue_learning' course.id %}'" style="width: 100%; padding: 10px;">Продолжить обучение</button>
+                                    <div class="course-button">
+                                        <button class="sidebar-button" onclick="location.href='{% url 'continue_learning' course.id %}'">Продолжить обучение</button>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -60,9 +61,6 @@
                 {% endif %}
             </div>
         </section>
-
-
-
 
     </main>
 {% endblock %}
