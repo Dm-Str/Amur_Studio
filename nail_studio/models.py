@@ -123,10 +123,18 @@ class Person(AbstractUser):
         return new_username
 
     def calculate_review_bonuses(self, amount):
+        """
+            Увеличивает количество бонусов на указанную сумму.
+        """
         self.bonuses += amount
         self.save()
 
     def calculate_birthday_bonuses(self):
+        """
+           Увеличивает количество бонусов на 500, если сегодня день рождения пользователя.
+           Проверяет, совпадает ли текущая дата с датой рождения пользователя.
+           Если совпадает, добавляет 500 бонусов и сохраняет изменения.
+        """
         today = datetime.date.today()
         if self.date_of_birth:
             if (self.date_of_birth.month == today.month
@@ -135,6 +143,11 @@ class Person(AbstractUser):
                 self.save()
 
     def calculate_professional_holiday_bonuses(self):
+        """
+            Увеличивает количество бонусов на 300, если сегодня профессиональный праздник.
+            Проверяет, совпадает ли текущая дата с 24 марта.
+            Если совпадает, добавляет 300 бонусов и сохраняет изменения.
+        """
         today = datetime.date.today()
         if today == datetime.date(today.year, 3, 24):
             self.bonuses += 300
