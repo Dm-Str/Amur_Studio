@@ -191,6 +191,7 @@ def continue_learning(request, course_id):
 
 @login_required
 def lesson_detail(request, lesson_id):
+    #TODO: Возможно необходимо получать не id урока, а его номер из модуля.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
     lessons = course.lessons.all()
@@ -208,30 +209,38 @@ def lesson_detail(request, lesson_id):
 
 @login_required
 def next_lesson(request, lesson_id):
+    # TODO: исправить код для корректного переключения на следующий урок.
+    #  Исправить current_index. Заменить id на номер урока.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
+    lessons = course.lessons.all()
+    lessons_without_topics = lessons.filter(topic__isnull=True)
 
     lessons = list(course.lessons.all())
     current_index = lessons.index(current_lesson)
 
+
     if current_index + 1 < len(lessons):
-        next_lesson = lessons[current_index + 1]
+        #next_lesson = lessons[current_index + 1]
+        next_lesson = current_index + 1
+        return redirect('lesson_detail', lesson_id=next_lesson)
     else:
         next_lesson = current_lesson
 
-    progress = StudentCourseProgress.objects.filter(person=request.user, course=course).first()
-    if progress:
-        progress.current_lesson = next_lesson
-        progress.save()
-
-    context = {
-        'current_lesson': next_lesson,
-        'course': course,
-        'lessons': course.lessons.all(),
-        'user': request.user
-    }
-
-    return render(request, 'lk/lk_continue_learning.html', context)
+    # progress = StudentCourseProgress.objects.filter(person=request.user, course=course).first()
+    # if progress:
+    #     progress.current_lesson = next_lesson
+    #     progress.save()
+    #
+    # context = {
+    #     'current_lesson': next_lesson,
+    #     'course': course,
+    #     'lessons': course.lessons.all(),
+    #     'lessons_without_topics': lessons_without_topics,
+    #     'user': request.user
+    # }
+    #
+    # return render(request, 'lk/lk_continue_learning.html', context)
 
 
 @login_required
