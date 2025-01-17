@@ -14,7 +14,7 @@
         </div>
         
         <div class="cur-lesson">
-            <a href="#">{{ course.title }}</a>
+            <a href="#">{{ course.title| safe }}</a>
         </div>
 
         <div class="user-avatar">
@@ -44,10 +44,13 @@
                     {% endfor %}
                 {% endif %}
     
-                {% if module.lessons.all %}
+                {% if lessons_without_topics %}
+{#                    <h4 style="margin: 0; margin-left: 5px;">Уроки без тем:</h4>#}
                     <ul class="lesson-list">
-                        {% for lesson in module.lessons.all %}
-                            <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                        {% for lesson in lessons_without_topics %}
+                            {% if lesson.module == module %}
+                                <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -58,7 +61,7 @@
         <div class="main-content">
             {% if current_lesson %}
             <div class="lesson">
-{#                <h2>{{ current_lesson.title }}</h2>#}
+                <h3>Урок {{ current_lesson.order }}: {{ current_lesson.title }}</h3>
                 <p>{{ current_lesson.content|safe }}</p>
 
                     {% if current_lesson.image %}

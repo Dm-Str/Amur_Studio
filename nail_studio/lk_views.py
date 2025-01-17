@@ -171,6 +171,7 @@ def continue_learning(request, course_id):
     modules = course.modules.all()
     topics = Topics.objects.filter(module__in=modules)
     lessons = course.lessons.all()
+    lessons_without_topics = lessons.filter(topic__isnull=True)
 
     user = Person.objects.get(pk=request.user.id)
 
@@ -181,6 +182,7 @@ def continue_learning(request, course_id):
         'modules': modules,
         'topics': topics,
         'lessons': lessons,
+        'lessons_without_topics': lessons_without_topics,
         'user': user
     }
 
@@ -191,11 +193,14 @@ def continue_learning(request, course_id):
 def lesson_detail(request, lesson_id):
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
+    lessons = course.lessons.all()
+    lessons_without_topics = lessons.filter(topic__isnull=True)
 
     context = {
         'current_lesson': current_lesson,
         'course': course,
         'lessons': course.lessons.all(),
+        'lessons_without_topics': lessons_without_topics,
 
     }
     return render(request, 'lk/lk_continue_learning.html', context)
