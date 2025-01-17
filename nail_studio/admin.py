@@ -26,6 +26,7 @@ class LessonInline(admin.TabularInline):
     fields = ('module', 'topic', 'title', 'content', 'home_work', 'order', 'image', 'video')
     verbose_name = 'Урок'
     verbose_name_plural = 'Уроки'
+    ordering = ('module',)
     form = LessonForm
 
 
