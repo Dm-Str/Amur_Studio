@@ -1,11 +1,15 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.defaultfilters import first
+
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review, Topics
 from django.contrib import messages
 from nail_studio.utils import calculation_bonuses_for_buy
 from decimal import Decimal
+
+from nail_studio.views import courses
 
 
 def make_logout(request):
@@ -156,13 +160,24 @@ def get_training(request):
 @login_required
 def continue_learning(request, course_id):
     course = get_object_or_404(Courses, pk=course_id)
-
-    progress = StudentCourseProgress.objects.filter(course=course, person=request.user).first()
+    progress = StudentCourseProgress.objects.filter(course=course,
+                                                    person=request.user).first().progress
 
     if not progress:
-        first_lesson = course.lessons.first()
-        progress = StudentCourseProgress.objects.create(person=request.user, course=course,
-                                                        current_lesson=first_lesson, progress=1.0)
+        first_module = course.modules.first()
+
+        if first_module:
+            first_topic = first_module.topics.first()
+
+            if first_topic:
+                first_lesson = first_topic.lessons.first()
+                return redirect('lesson_detail', lesson_id=first_lesson.pk)
+            else:
+                first_lesson = first_module.lessons.first()
+                return redirect('lesson_detail', lesson_id=first_lesson.pk)
+
+        # progress = StudentCourseProgress.objects.create(person=request.user, course=course,
+        #                                                 current_lesson=first_lesson, progress=1.0)
 
     current_lesson = progress.current_lesson
     if current_lesson is None:
