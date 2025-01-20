@@ -203,23 +203,24 @@ def lesson_detail(request, lesson_id):
 @login_required
 def next_lesson(request, lesson_id):
     # TODO: исправить код для корректного переключения на следующий урок.
-    #  Исправить current_index. Заменить id на номер урока.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
+    progress = StudentCourseProgress.objects.filter(course=course,
+                                                    person=request.user).all()
     lessons = course.lessons.all()
     lessons_without_topics = lessons.filter(topic__isnull=True)
+    user_completed_lessons = progress.values_list('current_lesson_id', flat=True)
 
-    progress = StudentCourseProgress.objects.create(person=request.user, course=course,
-                                                    current_lesson=current_lesson, progress=1.0)
+    if current_lesson.pk not in user_completed_lessons:
+        lesson_progress = StudentCourseProgress.objects.create(person=request.user, course=course,
+                                                        current_lesson=current_lesson, progress=1.0)
 
     if current_lesson.topic:
         print(current_lesson.topic)
-        return redirect('lesson_detail', lesson_id=current_lesson)
+        return redirect('lesson_detail', lesson_id=current_lesson.pk)
     else:
         print('NOOOOOOOOO')
-        return redirect('lesson_detail', lesson_id=current_lesson)
-
-
+        return redirect('lesson_detail', lesson_id=current_lesson.pk)
 
 
     # lessons = list(course.lessons.all())
