@@ -161,7 +161,7 @@ def get_training(request):
 def continue_learning(request, course_id):
     course = get_object_or_404(Courses, pk=course_id)
     progress = StudentCourseProgress.objects.filter(course=course,
-                                                    person=request.user).first().progress
+                                                    person=request.user).all()
 
     if not progress:
         first_module = course.modules.first()
@@ -176,32 +176,9 @@ def continue_learning(request, course_id):
                 first_lesson = first_module.lessons.first()
                 return redirect('lesson_detail', lesson_id=first_lesson.pk)
 
-        # progress = StudentCourseProgress.objects.create(person=request.user, course=course,
-        #                                                 current_lesson=first_lesson, progress=1.0)
-
-    current_lesson = progress.current_lesson
-    if current_lesson is None:
-        current_lesson = course.lessons.first()
-
-    modules = course.modules.all()
-    topics = Topics.objects.filter(module__in=modules)
-    lessons = course.lessons.all()
-    lessons_without_topics = lessons.filter(topic__isnull=True)
-
-    user = Person.objects.get(pk=request.user.id)
-
-    context = {
-        'course': course,
-        'progress': progress,
-        'current_lesson': current_lesson,
-        'modules': modules,
-        'topics': topics,
-        'lessons': lessons,
-        'lessons_without_topics': lessons_without_topics,
-        'user': user
-    }
-
-    return render(request, 'lk/lk_continue_learning.html', context)
+    if progress:
+        last_completed_lesson = progress.order_by('-id').first().current_lesson_id
+        return redirect('lesson_detail', lesson_id=last_completed_lesson)
 
 
 @login_required
@@ -231,16 +208,28 @@ def next_lesson(request, lesson_id):
     lessons = course.lessons.all()
     lessons_without_topics = lessons.filter(topic__isnull=True)
 
-    lessons = list(course.lessons.all())
-    current_index = lessons.index(current_lesson)
+    progress = StudentCourseProgress.objects.create(person=request.user, course=course,
+                                                    current_lesson=current_lesson, progress=1.0)
 
-
-    if current_index + 1 < len(lessons):
-        #next_lesson = lessons[current_index + 1]
-        next_lesson = current_index + 1
-        return redirect('lesson_detail', lesson_id=next_lesson)
+    if current_lesson.topic:
+        print(current_lesson.topic)
+        return redirect('lesson_detail', lesson_id=current_lesson)
     else:
-        next_lesson = current_lesson
+        print('NOOOOOOOOO')
+        return redirect('lesson_detail', lesson_id=current_lesson)
+
+
+
+
+    # lessons = list(course.lessons.all())
+    # current_index = lessons.index(current_lesson)
+    #
+    # if current_index + 1 < len(lessons):
+    #     #next_lesson = lessons[current_index + 1]
+    #     next_lesson = current_index + 1
+    #     return redirect('lesson_detail', lesson_id=next_lesson)
+    # else:
+    #     next_lesson = current_lesson
 
     # progress = StudentCourseProgress.objects.filter(person=request.user, course=course).first()
     # if progress:
