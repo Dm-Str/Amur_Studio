@@ -159,6 +159,8 @@ def get_training(request):
 
 @login_required
 def continue_learning(request, course_id):
+    #TODO: уточнить у заказчика, может ли курс не иметь модулей?
+    # Если курс обязательно имеет модуль, можно убрать проверку "if first_module"
     course = get_object_or_404(Courses, pk=course_id)
     progress = StudentCourseProgress.objects.filter(course=course,
                                                     person=request.user).all()
@@ -172,13 +174,12 @@ def continue_learning(request, course_id):
             if first_topic:
                 first_lesson = first_topic.lessons.first()
                 return redirect('lesson_detail', lesson_id=first_lesson.pk)
-            else:
-                first_lesson = first_module.lessons.first()
-                return redirect('lesson_detail', lesson_id=first_lesson.pk)
 
-    if progress:
-        last_completed_lesson = progress.order_by('-id').first().current_lesson_id
-        return redirect('lesson_detail', lesson_id=last_completed_lesson)
+            first_lesson = first_module.lessons.first()
+            return redirect('lesson_detail', lesson_id=first_lesson.pk)
+
+    last_completed_lesson = progress.order_by('-id').first().current_lesson_id
+    return redirect('lesson_detail', lesson_id=last_completed_lesson)
 
 
 @login_required
@@ -196,7 +197,7 @@ def lesson_detail(request, lesson_id):
         'lessons_without_topics': lessons_without_topics,
 
     }
-    return render(request, 'lk/lk_continue_learning.html', context)
+    return render(request, 'lk/lk_lesson_detail.html', context)
 
 
 @login_required
@@ -244,7 +245,7 @@ def next_lesson(request, lesson_id):
     #     'user': request.user
     # }
     #
-    # return render(request, 'lk/lk_continue_learning.html', context)
+    # return render(request, 'lk/lk_lesson_detail.html', context)
 
 
 @login_required
