@@ -1,15 +1,11 @@
 .course-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Отступы между карточками */
-    justify-content: center; /* Центрирование карточек */
-}
-
-.course-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     padding: 20px;
+    max-width: 1500px; /* Максимальная ширина контейнера */
+    width: 100%; /* Ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
 }
 
 .card {
