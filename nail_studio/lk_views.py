@@ -217,6 +217,12 @@ def next_lesson(request, lesson_id):
             progress=1.0
         )
 
+    last_lesson_course = (course.modules.order_by('-order').first().
+                          lessons.order_by('-order').first())
+
+    if current_lesson == last_lesson_course:
+        return redirect('complete_current_course', course_id=course.id)
+
     current_module = course.modules.get(id=current_lesson.module_id)
     last_lesson_module = current_module.lessons.order_by('-order').first()
 
@@ -225,9 +231,27 @@ def next_lesson(request, lesson_id):
         first_lesson_next_module = course.modules.get(id=next_module_id).lessons.first()
         return redirect('lesson_detail', lesson_id=first_lesson_next_module.pk)
 
+
     next_lesson_order = current_lesson.order + 1
     next_lesson_module = current_module.lessons.get(order=next_lesson_order)
     return redirect('lesson_detail', lesson_id=next_lesson_module.pk)
+
+@login_required
+def complete_current_course(request, course_id):
+    # TODO: добавить логику проверки прохождения всех уроков.
+    #  Определить ответственное view
+    course = get_object_or_404(Courses, pk=course_id)
+    lessons = course.lessons.all()
+    lessons_without_topics = lessons.filter(topic__isnull=True)
+
+    context = {
+
+        'course': course,
+        'lessons': course.lessons.all(),
+        'lessons_without_topics': lessons_without_topics,
+
+    }
+    return render(request, 'lk/lk_complete_current_course.html', context)
 
 
 @login_required
