@@ -62,7 +62,7 @@
             {% if current_lesson %}
             <div class="lesson">
                 <h3>Урок {{ current_lesson.order }}: {{ current_lesson.title }}</h3>
-                <p>{{ current_lesson.content|safe }}</p>
+                <p class="lesson-content">{{ current_lesson.content }}</p>
 
                     {% if current_lesson.image %}
                         <div class="images-container">
