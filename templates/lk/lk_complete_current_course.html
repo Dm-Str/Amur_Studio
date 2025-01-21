@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обучение - Онлайн Школа</title>
+ 
+    <link rel="stylesheet" href="{% static 'css/lk/lk_complete_current_course.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+         <img src="{% static 'images/../../static/images/logo.png' %}" alt="Стрела Амура" />
+        </div>
+        
+        <div class="cur-lesson">
+            <a href="#">{{ course.title| safe }}</a>
+        </div>
+
+        <div class="user-avatar">
+            <a href="{% url 'get_training' %}">Личный кабинет</a>
+            <img src="{{ user.photo.url }}" alt="Аватар пользователя" />
+        </div>
+
+    </div>
+
+    <div class="container">
+    <div class="sidebar-continue">
+        
+        {% for module in course.modules.all %}
+            <div class="module">
+                <h3 style="margin: 3px;">{{ module.title }}</h3>
+                
+                {% if module.topics.all %}
+                    {% for topic in module.topics.all %}
+                        <div class="topic-container">
+                        <h4 style="margin: 0; margin-left: 5px;">Тема {{ topic.order }}: {{ topic.title }}</h4>
+                        </div>
+                            <ul class="lesson-list">
+                                {% for lesson in topic.lessons.all %}
+                                    <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                    {% endfor %}
+                {% endif %}
+    
+                {% if lessons_without_topics %}
+{#                    <h4 style="margin: 0; margin-left: 5px;">Уроки без тем:</h4>#}
+                    <ul class="lesson-list">
+                        {% for lesson in lessons_without_topics %}
+                            {% if lesson.module == module %}
+                                <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+        <div class="main-content">
+        <div class="main-content-congratulate">
+                    <h2>Поздравляем Вы успешно завершили курс! </h2>
+                    <p>Мы гордимся вашим достижением и желаем вам дальнейших успехов в обучении!</p>
+{#                    <p>{{ course.title| safe }}</p>#}
+            
+{#                    {% if certificate_image %}#}
+                        <div class="certificate-container">
+                            <img src="{% static 'images/../../static/images/certificate1.png' %}" alt="Сертификат" 
+                                 class="certificate-image">
+                        </div>
+                    <p class="school-name">Школа маникюра "Стрела Амура"</p>
+{#                    {% else %}#}
+{#                        <p>Ваш сертификат будет доступен после завершения всех уроков.</p>#}
+{#                    {% endif %}#}
+                    
+                </div>
+    
+        </div>
+</div>
+ 
+</body>
+</html>

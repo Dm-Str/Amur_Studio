@@ -1,0 +1,298 @@
+.main-content-congratulate {
+    font-family: 'Roboto Serif', serif;
+    background-image: url("/static/images/fon_congratulate.jpg"); /* Путь к изображению фона */
+    background-size: cover; /* Заполнение всего блока изображением */
+    background-position: center; /* Центрирование изображения */
+    color: #4c5050; /* Цвет текста (белый для контраста) */
+    border-radius: 8px; /* Закругленные углы */
+    padding: 20px; /* Отступы внутри блока */
+    margin: 10px 0; /* Отступы сверху и снизу */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень для глубины */
+}
+
+.main-content h2 {
+    color: #F4297AE5; /* Цвет заголовка */
+    font-size: 33px; /* Размер шрифта заголовка */
+    margin-bottom: 15px; /* Отступ снизу заголовка */
+    text-align: center; /* Центрирование заголовка */
+}
+
+.school-name {
+    font-family: 'Roboto Serif', serif;
+    position: absolute; /* Абсолютное позиционирование для текста */
+    bottom: 20px; /* Отступ от нижней границы блока */
+    right: 60px; /* Отступ от правой границы блока */
+    color: #ffffff; /* Цвет текста (можно изменить по желанию) */
+    font-size: 16px; /* Размер шрифта */
+    padding: 35px; /* Отступы вокруг текста */
+    border-radius: 5px; /* Закругленные углы фона */
+}
+
+.main-content p {
+    color: #333; /* Цвет текста */
+    font-size: 33px; /* Размер шрифта текста */
+    line-height: 1.6; /* Межстрочный интервал */
+    margin: 20px 0; /* Отступы сверху и снизу для параграфов */
+    text-align: center; /* Центрирование текста */
+}
+
+.certificate-container {
+    margin-top: 20px; /* Отступ сверху для контейнера сертификата */
+    margin-bottom: 480px;
+    text-align: center; /* Центрирование контейнера сертификата */
+}
+
+.certificate-image {
+    max-width: 250%; /* Ограничение ширины изображения */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    border: 2px solid #4682b4; /* Рамка вокруг изображения */
+    border-radius: 5px; /* Закругленные углы изображения */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Легкая тень для изображения */
+}
+
+body {
+    font-family: 'Roboto', serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Задаем высоту body на 100% высоты окна */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between; /* Размещаем элементы по краям */
+    align-items: center; /* Центрируем по вертикали */
+    padding: 10px 20px; /* Отступы вокруг блока */
+    background-color: #D0D0D0; /* Цвет фона заголовка */
+    color: #151515; /* Цвет текста */
+    position: fixed; /* Фиксированное положение */
+    top: 0; /* Прикрепляем к верхней части окна */
+    left: 0; /* Прикрепляем к левому краю */
+    right: 0; /* Прикрепляем к правому краю */
+    z-index: 1000; /* Устанавливаем высокий z-index, чтобы заголовок был поверх других элементов */
+    border-bottom-left-radius: 15px; /* Закругление нижнего левого угла */
+    border-bottom-right-radius: 15px; /* Закругление нижнего правого угла */
+    height: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.logo img {
+    width: 58px; /* Ширина аватара */
+    height: 58px; /* Высота аватара */
+    /*border-radius: 30%; !* Круглая форма аватара *!*/
+}
+
+.cur-lesson {
+    font-family: 'Roboto', serif; /* Шрифт текста */
+    font-size: 18px; /* Размер шрифта */
+    font-weight: bold; /* Жирность текста */
+    margin-right: 20px; /* Сдвигаем ссылку правее на 10 пикселей */
+    width: 800px; /* Установите фиксированную ширину для контейнера */
+    text-align: left; /* Выравнивание текста по левому краю */
+    overflow: hidden; /* Скрыть переполнение, если текст слишком длинный */
+    white-space: nowrap; /* Запретить перенос строк */
+    text-overflow: ellipsis; /* Добавить многоточие, если текст слишком длинный */
+}
+
+.cur-lesson a {
+    color: #F4297AE5; /* Устанавливаем черный цвет для текста ссылки */
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    display: block; /* Делаем ссылку блочным элементом, чтобы она занимала всю ширину контейнера */
+}
+
+
+.user-avatar img {
+    width: 70px; /* Ширина аватара */
+    height: 58px; /* Высота аватара */
+    border-radius: 30%; /* Круглая форма аватара */
+
+}
+
+.user-avatar a {
+    background-color: transparent; /* Прозрачный фон */
+    display: inline-block; /* Позволяет задать размеры и отступы */
+    margin-right: 10px; /* Отступ между текстом и аватаром */
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    color: #F4297AE5; /* Цвет текста ссылки */
+    border: 2px solid #FB91BEE5; /* Обводка кнопки *//* Цвет фона кнопки */
+    padding: 10px 15px; /* Внутренние отступы */
+    border-radius: 5px; /* Закругление углов */
+    font-family: 'Roboto', serif; /* Шрифт текста */
+    font-size: 15px; /* Размер шрифта */
+    font-weight: bold; /* Жирность текста */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
+}
+
+.user-avatar a:hover {
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
+}
+
+
+.user-avatar {
+    display: flex; /* Включаем Flexbox для выравнивания элементов */
+    align-items: center; /* Центрируем элементы по вертикали */
+}
+
+.container {
+    display: flex;
+    padding: 10px;
+    height:calc(100vh - 60px);
+    margin-top: 10px;
+}
+
+.sidebar-continue {
+    width: 250px; /* Ширина боковой панели */
+    background-color: #D0D0D0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    position: fixed; /* Фиксированное положение */
+    top: 50px; /* Отступ от верхней части страницы (высота заголовка) */
+    bottom: 20px; /* Отступ от нижней части страницы */
+    overflow-y: auto; /* Прокрутка, если содержимое превышает высоту */
+}
+
+.course-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.topic-container {
+    border: 2px solid #c6c4c4; /* Серый контур */
+    padding: 5px; /* Внутренние отступы */
+    border-radius: 4px; /* Закругление углов */
+    margin-bottom: 10px; /* Отступ снизу для разделения тем */
+    min-width: 200px; /* Минимальная ширина */
+    min-height: 35px; /* Минимальная высота */
+    display: flex; /* Включаем Flexbox */
+    align-items: center; /* Центрируем по вертикали */
+
+}
+
+.lesson-list {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0;
+    min-width: 200px; /* Минимальная ширина для уроков */
+}
+
+.lesson-list li {
+    margin: 10px 0; /* Отступы между уроками */
+    margin-left: 10px; /* Добавляем отступ слева */
+    min-width: 200px; /* Минимальная ширина для уроков */
+    min-height: 35px; /* Минимальная высота */
+    align-items: center; /* Центрируем по вертикали */
+}
+
+.lesson-list a {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #F4297AE5; /* Цвет ссылок */
+    border: 2px solid #c6c4c4; /* Черный контур */
+    padding: 5px 10px; /* Внутренние отступы для создания пространства между текстом и контуром */
+    border-radius: 4px; /* Закругление углов (по желанию) */
+    display: block; /* Позволяет задать размеры и отступы, и выравнивание */
+    align-items: center; /* Центрируем по вертикали */
+    min-width: 200px; /* Минимальная ширина для уроков */
+    min-height: 35px; /* Минимальная высота */
+    word-wrap: break-word; /* Перенос длинных слов */
+    overflow-wrap: break-word; /* Перенос длинных слов (совместимость) */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.lesson-list a:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Цвет фона при наведении (по желанию) */
+}
+
+.main-content {
+    background-image: url("static/images/fon_congratulate.jpg"); /* Путь к изображению фона */
+    background-size: cover; /* Заполнение всего блока изображением */
+    background-position: center; /* Центрирование изображения */
+    background-repeat: no-repeat; /* Запрет повторения изображения */
+    flex-grow: 1; /* Занимает оставшееся пространство */
+    background-color: #ffffff;
+    padding: 20px; /* Уменьшаем отступы для лучшего использования пространства */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Устанавливаем вертикальное направление для содержимого */
+    width: max-content;
+    height: max-content;
+    margin-left: 300px;
+    margin-top: 10px;
+    box-sizing: border-box; /* Учитывает отступы и границы в общей ширине и высоте */
+}
+
+.video-container {
+    width: 100%; /* Занимает всю ширину родительского контейнера */
+    max-width: 800px; /* Ограничивает максимальную ширину */
+    margin: 0 auto; /* Центрирует контейнер */
+    float: left; /* Выравнивание контейнера вправо */
+}
+
+.responsive-video {
+    width: 100%; /* Занимает всю ширину контейнера */
+    height: auto; /* Высота автоматически подстраивается */
+}
+
+.images-container {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет изображениям обтекать */
+    gap: 10px; /* Промежуток между изображениями */
+}
+
+.lesson-content {
+    font-family: 'Roboto', serif; /* Шрифт текста */
+    font-size: 21px; /* Размер шрифта */
+    line-height: 1.5; /* Междустрочный интервал */
+    color: #292929FF; /* Цвет текста */
+    margin: 20px 0; /* Отступы сверху и снизу */
+    /* Добавьте другие стили по вашему усмотрению */
+}
+
+
+.lesson-image {
+    width: 30%;
+    height: auto; /* Высота автоматически подстраивается */
+    border-radius: 5px; /* Закругление углов (по желанию) */
+}
+
+
+.assignment {
+    width: 100%;
+    margin-top: 30px; /* Отступ сверху для задания */
+}
+
+textarea {
+    width: 100%; /* Занимает всю ширину родителя */
+    height: 74px; /* Высота текстового поля */
+    margin-top: 10px; /* Отступ сверху для текстового поля */
+}
+
+button {
+    background-color: rgba(255, 111, 171, 0.9); /* Цвет кнопки */
+    color: #fafafa; /* Цвет текста на кнопке */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer; /* Указатель при наведении на кнопку */
+}
+
+button:hover {
+    background-color: rgba(244, 41, 122, 0.9); /* Темнее при наведении */
+}
+
+button:focus {
+    outline: none; /* Убираем обводку при фокусе */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Добавляем тень при фокусе */
+}
+
+.button-container {
+    display: flex; /* Используем flexbox для выравнивания кнопок */
+    justify-content: flex-start; /* Выравнивание кнопок по левому краю */
+    margin-top: 10px; /* Отступ сверху для кнопок */
+}
+
+.button-container button {
+    margin-right: 10px; /* Отступ между кнопками */
+}
