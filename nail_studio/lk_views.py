@@ -8,11 +8,11 @@ from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, R
 from django.contrib import messages
 from nail_studio.utils import calculation_bonuses_for_buy
 from decimal import Decimal
-
 from nail_studio.views import courses
 
 
 def make_logout(request):
+    # TODO: заменить render на redirect
     logout(request)
     return render(request, 'index.html')
 
@@ -159,8 +159,8 @@ def get_training(request):
 
 @login_required
 def continue_learning(request, course_id):
-    #TODO: уточнить у заказчика, может ли курс не иметь модулей?
-    # Если курс обязательно имеет модуль, можно убрать проверку "if first_module"
+    # TODO: Сейчас view возвращает последний пройденный урок,
+    #  возможно, нужно исправить так, чтобы получать следующий урок за последним пройденным.
     course = get_object_or_404(Courses, pk=course_id)
     progress = StudentCourseProgress.objects.filter(course=course,
                                                     person=request.user).all()
@@ -184,7 +184,7 @@ def continue_learning(request, course_id):
 
 @login_required
 def lesson_detail(request, lesson_id):
-    #TODO: Возможно необходимо получать не id урока, а его номер из модуля.
+    #TODO: Возможно необходимо получать не id урока, а его номер из модуля?
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
     lessons = course.lessons.all()
@@ -202,56 +202,38 @@ def lesson_detail(request, lesson_id):
 
 @login_required
 def next_lesson(request, lesson_id):
-    # TODO: исправить код для корректного переключения на следующий урок.
+    # TODO: Добавить условия для обработки последнего урока в курсе.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
-    progress = StudentCourseProgress.objects.filter(course=course,
+    student_progress = StudentCourseProgress.objects.filter(course=course,
                                                     person=request.user).all()
-    lessons = course.lessons.all()
-    lessons_without_topics = lessons.filter(topic__isnull=True)
-    user_completed_lessons = progress.values_list('current_lesson_id', flat=True)
+    completed_lessons_ids = student_progress.values_list('current_lesson_id', flat=True)
 
-    if current_lesson.pk not in user_completed_lessons:
-        lesson_progress = StudentCourseProgress.objects.create(person=request.user, course=course,
-                                                        current_lesson=current_lesson, progress=1.0)
+    if current_lesson.pk not in completed_lessons_ids:
+        StudentCourseProgress.objects.create(
+            person=request.user,
+            course=course,
+            current_lesson=current_lesson,
+            progress=1.0
+        )
 
-    if current_lesson.topic:
-        print(current_lesson.topic)
-        return redirect('lesson_detail', lesson_id=current_lesson.pk)
-    else:
-        print('NOOOOOOOOO')
-        return redirect('lesson_detail', lesson_id=current_lesson.pk)
+    current_module = course.modules.get(id=current_lesson.module_id)
+    last_lesson_module = current_module.lessons.order_by('-order').first()
 
+    if current_lesson == last_lesson_module:
+        next_module_id = current_module.pk + 1
+        first_lesson_next_module = course.modules.get(id=next_module_id).lessons.first()
+        return redirect('lesson_detail', lesson_id=first_lesson_next_module.pk)
 
-    # lessons = list(course.lessons.all())
-    # current_index = lessons.index(current_lesson)
-    #
-    # if current_index + 1 < len(lessons):
-    #     #next_lesson = lessons[current_index + 1]
-    #     next_lesson = current_index + 1
-    #     return redirect('lesson_detail', lesson_id=next_lesson)
-    # else:
-    #     next_lesson = current_lesson
-
-    # progress = StudentCourseProgress.objects.filter(person=request.user, course=course).first()
-    # if progress:
-    #     progress.current_lesson = next_lesson
-    #     progress.save()
-    #
-    # context = {
-    #     'current_lesson': next_lesson,
-    #     'course': course,
-    #     'lessons': course.lessons.all(),
-    #     'lessons_without_topics': lessons_without_topics,
-    #     'user': request.user
-    # }
-    #
-    # return render(request, 'lk/lk_lesson_detail.html', context)
+    next_lesson_order = current_lesson.order + 1
+    next_lesson_module = current_module.lessons.get(order=next_lesson_order)
+    return redirect('lesson_detail', lesson_id=next_lesson_module.pk)
 
 
 @login_required
 def lk_user(request):
     return render(request, 'lk/lk.html')
+
 
 def get_help(request):
     return render(request, 'lk/lk.html')
