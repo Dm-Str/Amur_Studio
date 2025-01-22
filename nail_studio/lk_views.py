@@ -220,8 +220,13 @@ def next_lesson(request, lesson_id):
     last_lesson_course = (course.modules.order_by('-order').first().
                           lessons.order_by('-order').first())
 
+    all_lessons_course = course.lessons.all()
+
     if current_lesson == last_lesson_course:
-        return redirect('complete_current_course', course_id=course.id)
+        # добавить корректную проверку
+        if all_lessons_course:
+
+            return redirect('complete_current_course', course_id=course.id)
 
     current_module = course.modules.get(id=current_lesson.module_id)
     last_lesson_module = current_module.lessons.order_by('-order').first()
