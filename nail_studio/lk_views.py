@@ -220,14 +220,12 @@ def next_lesson(request, lesson_id):
 
     last_lesson_course = (course.modules.order_by('-order').first().
                           lessons.order_by('-order').first())
-
     all_lessons_course = course.lessons.all().count()
     all_completed_lessons_course = student_progress.filter(progress=1.0).count()
 
     if (current_lesson == last_lesson_course
             and all_lessons_course == all_completed_lessons_course):
-
-            return redirect('complete_current_course', course_id=course.id)
+        return redirect('complete_current_course', course_id=course.id)
 
     current_module = course.modules.get(id=current_lesson.module_id)
     last_lesson_module = current_module.lessons.order_by('-order').first()
