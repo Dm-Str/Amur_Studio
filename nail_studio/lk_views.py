@@ -189,12 +189,15 @@ def lesson_detail(request, lesson_id):
     course = current_lesson.course
     lessons = course.lessons.all()
     lessons_without_topics = lessons.filter(topic__isnull=True)
+    student_progress = StudentCourseProgress.objects.filter(course=course, person=request.user).all()
+    completed_lessons_ids = student_progress.values_list('current_lesson_id', flat=True)
 
     context = {
         'current_lesson': current_lesson,
         'course': course,
         'lessons': course.lessons.all(),
         'lessons_without_topics': lessons_without_topics,
+        'completed_lessons_ids': completed_lessons_ids,
 
     }
     return render(request, 'lk/lk_lesson_detail.html', context)
@@ -202,12 +205,13 @@ def lesson_detail(request, lesson_id):
 
 @login_required
 def next_lesson(request, lesson_id):
-    # TODO: Добавить условия для обработки последнего урока в курсе.
+    # TODO: Добавить логику: если пользователь пропустил урок,
+    #  и начал проходить следующие кроки, то наяходясь на последнем уроке,
+    #  после нажатия кнокпи следующего урока, он должен получать первый из непройденных уроков.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
     student_progress = StudentCourseProgress.objects.filter(course=course,
                                                     person=request.user).all()
-
     completed_lessons_ids = student_progress.values_list('current_lesson_id', flat=True)
 
     if current_lesson.pk not in completed_lessons_ids:
@@ -230,6 +234,11 @@ def next_lesson(request, lesson_id):
     current_module = course.modules.get(id=current_lesson.module_id)
     last_lesson_module = current_module.lessons.order_by('-order').first()
 
+    # Здесь нужно получить все не пройденные уроки,
+    # если они есть вернуть к первому не пройденному.
+
+    # Код падает здесь, т.к. пытается получить следующий модуль.
+    # Либо добавить здесь проверку на последний модуль.
     if current_lesson == last_lesson_module:
         next_module_id = current_module.pk + 1
         first_lesson_next_module = course.modules.get(id=next_module_id).lessons.first()
