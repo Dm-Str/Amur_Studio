@@ -207,6 +207,7 @@ def next_lesson(request, lesson_id):
     course = current_lesson.course
     student_progress = StudentCourseProgress.objects.filter(course=course,
                                                     person=request.user).all()
+
     completed_lessons_ids = student_progress.values_list('current_lesson_id', flat=True)
 
     if current_lesson.pk not in completed_lessons_ids:
@@ -220,11 +221,11 @@ def next_lesson(request, lesson_id):
     last_lesson_course = (course.modules.order_by('-order').first().
                           lessons.order_by('-order').first())
 
-    all_lessons_course = course.lessons.all()
+    all_lessons_course = course.lessons.all().count()
+    all_completed_lessons_course = student_progress.filter(progress=1.0).count()
 
-    if current_lesson == last_lesson_course:
-        # добавить корректную проверку
-        if all_lessons_course:
+    if (current_lesson == last_lesson_course
+            and all_lessons_course == all_completed_lessons_course):
 
             return redirect('complete_current_course', course_id=course.id)
 
@@ -236,10 +237,10 @@ def next_lesson(request, lesson_id):
         first_lesson_next_module = course.modules.get(id=next_module_id).lessons.first()
         return redirect('lesson_detail', lesson_id=first_lesson_next_module.pk)
 
-
     next_lesson_order = current_lesson.order + 1
     next_lesson_module = current_module.lessons.get(order=next_lesson_order)
     return redirect('lesson_detail', lesson_id=next_lesson_module.pk)
+
 
 @login_required
 def complete_current_course(request, course_id):
