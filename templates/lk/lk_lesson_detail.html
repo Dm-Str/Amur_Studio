@@ -38,7 +38,12 @@
                         </div>
                             <ul class="lesson-list">
                                 {% for lesson in topic.lessons.all %}
-                                    <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                                    <li>
+                                        <a href="{% url 'lesson_detail' lesson.id %}" 
+                                           class="{% if lesson.id in completed_lessons_ids %}completed{% endif %}">
+                                            Урок {{ lesson.order }}: {{ lesson.title }}
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                     {% endfor %}
@@ -49,7 +54,10 @@
                     <ul class="lesson-list">
                         {% for lesson in lessons_without_topics %}
                             {% if lesson.module == module %}
-                                <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                                <a href="{% url 'lesson_detail' lesson.id %}" 
+                           class="{% if lesson.id in completed_lessons_ids %}completed{% endif %}">
+                            Урок {{ lesson.order }}: {{ lesson.title }}
+                        </a>
                             {% endif %}
                         {% endfor %}
                     </ul>

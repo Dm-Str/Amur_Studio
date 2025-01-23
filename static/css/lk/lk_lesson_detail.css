@@ -152,6 +152,14 @@ body {
     background-color: rgba(0, 0, 0, 0.1); /* Цвет фона при наведении (по желанию) */
 }
 
+.lesson-list a.completed {
+    background-color: rgba(250, 152, 191, 0.9); /* Цвет кнопки */
+    color: #151515; /* Цвет текста на кнопке */
+
+    border: 2px solid #D0D0D0; /* Розовая рамка для завершенных уроков */
+}
+
+
 .main-content {
     flex-grow: 1; /* Занимает оставшееся пространство */
     background-color: #ffffff;
