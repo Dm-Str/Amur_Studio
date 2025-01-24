@@ -159,6 +159,11 @@ body {
     border: 2px solid #D0D0D0; /* Розовая рамка для завершенных уроков */
 }
 
+.current {
+    background-color: #e4e3e3; /* Цвет фона для выделения */
+
+}
+
 
 .main-content {
     flex-grow: 1; /* Занимает оставшееся пространство */
