@@ -218,9 +218,6 @@ def next_lesson(request, lesson_id):
             return redirect('lesson_detail', lesson_id=not_completed_lessons[0].pk)
 
     if current_lesson == last_lesson_module:
-        if get_last_module_course(course) == current_module:
-            return redirect('lesson_detail', lesson_id=current_lesson.pk)
-
         first_lesson_next_module = course.modules.get(id=current_module.pk + 1).lessons.first()
         return redirect('lesson_detail', lesson_id=first_lesson_next_module.pk)
 
