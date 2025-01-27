@@ -6,7 +6,9 @@ from django.template.defaultfilters import first
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review, Topics
 from django.contrib import messages
-from nail_studio.utils import calculation_bonuses_for_buy, check_completed_course, get_completed_lessons_ids
+from nail_studio.utils import calculation_bonuses_for_buy, check_completed_course, get_completed_lessons_ids, \
+    get_last_module_course, get_lessons_course, get_last_lesson_course, get_not_completed_lessons, \
+    update_student_progress
 from decimal import Decimal
 from nail_studio.views import courses
 
@@ -93,14 +95,11 @@ def submit_review(request):
         course_id = request.POST.get('course')
         rating = request.POST.get('rating')
         review_text = request.POST.get('review')
-
         course = get_object_or_404(Courses, pk=course_id)
-
         review = Review(person=person,
                         course=course,
                         rating=rating,
                         text=review_text)
-
         review.save()
 
         #Бонусы за отзыв
@@ -128,9 +127,7 @@ def delete_review(request, course_id):
 @login_required
 def get_bonuses(request):
     person = get_object_or_404(Person, pk=request.user.id)
-
     bonuses = person.bonuses
-
     context = {
         'person': person,
         'bonuses': bonuses
@@ -162,10 +159,9 @@ def continue_learning(request, course_id):
     # TODO: Сейчас view возвращает последний пройденный урок,
     #  возможно, нужно исправить так, чтобы получать следующий урок за последним пройденным.
     course = get_object_or_404(Courses, pk=course_id)
-    progress = StudentCourseProgress.objects.filter(course=course,
-                                                    person=request.user).all()
+    student_progress = StudentCourseProgress.get_student_progress(course, request)
 
-    if not progress:
+    if not student_progress:
         first_module = course.modules.first()
 
         if first_module:
@@ -178,7 +174,7 @@ def continue_learning(request, course_id):
             first_lesson = first_module.lessons.first()
             return redirect('lesson_detail', lesson_id=first_lesson.pk)
 
-    last_completed_lesson = progress.order_by('-id').first().current_lesson_id
+    last_completed_lesson = student_progress.order_by('-id').first().current_lesson_id
     return redirect('lesson_detail', lesson_id=last_completed_lesson)
 
 
@@ -187,17 +183,16 @@ def lesson_detail(request, lesson_id):
     #TODO: Возможно необходимо получать не id урока, а его номер из модуля?
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
-    lessons = course.lessons.all()
+    lessons = get_lessons_course(course) #course.lessons.all()
     lessons_without_topics = lessons.filter(topic__isnull=True)
-    student_progress = StudentCourseProgress.objects.filter(course=course, person=request.user).all()
-    completed_lessons_ids = student_progress.values_list('current_lesson_id', flat=True)
+    student_progress = StudentCourseProgress.get_student_progress(course, request)
 
     context = {
         'current_lesson': current_lesson,
         'course': course,
         'lessons': course.lessons.all(),
         'lessons_without_topics': lessons_without_topics,
-        'completed_lessons_ids': completed_lessons_ids,
+        'completed_lessons_ids': get_completed_lessons_ids(student_progress),
 
     }
     return render(request, 'lk/lk_lesson_detail.html', context)
@@ -205,44 +200,31 @@ def lesson_detail(request, lesson_id):
 
 @login_required
 def next_lesson(request, lesson_id):
-    # TODO: Добавить логику: если пользователь пропустил урок,
-    #  и начал проходить следующие кроки, то наяходясь на последнем уроке,
-    #  после нажатия кнокпи следующего урока, он должен получать первый из непройденных уроков.
+    # TODO: Продолжить рефакторинг.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
-    student_progress = StudentCourseProgress.objects.filter(
-        course=course, person=request.user).all()
-
-    if current_lesson.pk not in get_completed_lessons_ids(student_progress=student_progress):
-        StudentCourseProgress.objects.create(
-            person=request.user,
-            course=course,
-            current_lesson=current_lesson,
-            progress=1.0
-        )
-
-    if check_completed_course(
-            course=course,
-            student_progress=student_progress,
-            current_lesson=current_lesson
-    ):
-        return redirect('complete_current_course', course_id=course.id)
-
-    # Здесь нужно получить все не пройденные уроки,
-    # если они есть, вернуть к первому не пройденному.
-
+    student_progress = StudentCourseProgress.get_student_progress(course, request)
     current_module = course.modules.get(id=current_lesson.module_id)
     last_lesson_module = current_module.lessons.order_by('-order').first()
 
-    # Код падает здесь, т.к. пытается получить следующий модуль.
-    # Либо добавить здесь проверку на последний модуль.
+    update_student_progress(current_lesson, course, student_progress, request.user)
+
+    if check_completed_course(course, student_progress,current_lesson):
+        return redirect('complete_current_course', course_id=course.id)
+
+    if current_lesson == get_last_lesson_course(course):
+        if get_completed_lessons_ids(student_progress).count() != get_lessons_course(course).count():
+            not_completed_lessons = get_not_completed_lessons(course, student_progress)
+            return redirect('lesson_detail', lesson_id=not_completed_lessons[0].pk)
+
     if current_lesson == last_lesson_module:
-        next_module_id = current_module.pk + 1
-        first_lesson_next_module = course.modules.get(id=next_module_id).lessons.first()
+        if get_last_module_course(course) == current_module:
+            return redirect('lesson_detail', lesson_id=current_lesson.pk)
+
+        first_lesson_next_module = course.modules.get(id=current_module.pk + 1).lessons.first()
         return redirect('lesson_detail', lesson_id=first_lesson_next_module.pk)
 
-    next_lesson_order = current_lesson.order + 1
-    next_lesson_module = current_module.lessons.get(order=next_lesson_order)
+    next_lesson_module = current_module.lessons.get(order=current_lesson.order + 1)
     return redirect('lesson_detail', lesson_id=next_lesson_module.pk)
 
 
