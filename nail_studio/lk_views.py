@@ -6,7 +6,7 @@ from django.template.defaultfilters import first
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review, Topics
 from django.contrib import messages
-from nail_studio.utils import calculation_bonuses_for_buy, is_completed_course
+from nail_studio.utils import calculation_bonuses_for_buy, check_completed_course, get_completed_lessons_ids
 from decimal import Decimal
 from nail_studio.views import courses
 
@@ -210,11 +210,10 @@ def next_lesson(request, lesson_id):
     #  после нажатия кнокпи следующего урока, он должен получать первый из непройденных уроков.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
-    student_progress = StudentCourseProgress.objects.filter(course=course,
-                                                    person=request.user).all()
-    completed_lessons_ids = student_progress.values_list('current_lesson_id', flat=True)
+    student_progress = StudentCourseProgress.objects.filter(
+        course=course, person=request.user).all()
 
-    if current_lesson.pk not in completed_lessons_ids:
+    if current_lesson.pk not in get_completed_lessons_ids(student_progress=student_progress):
         StudentCourseProgress.objects.create(
             person=request.user,
             course=course,
@@ -222,7 +221,7 @@ def next_lesson(request, lesson_id):
             progress=1.0
         )
 
-    if is_completed_course(
+    if check_completed_course(
             course=course,
             student_progress=student_progress,
             current_lesson=current_lesson

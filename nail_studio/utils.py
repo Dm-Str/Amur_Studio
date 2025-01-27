@@ -13,7 +13,12 @@ def calculation_bonuses_for_buy(price_course):
     return int(sum_bonuses)
 
 
-def is_completed_course(course, student_progress, current_lesson):
+def get_completed_lessons_ids(student_progress):
+    completed_lessons_ids = student_progress.values_list('current_lesson_id', flat=True)
+    return completed_lessons_ids
+
+
+def check_completed_course(course, student_progress, current_lesson):
     last_lesson_course = (course.modules.order_by('-order').first().
                           lessons.order_by('-order').first())
     all_lessons_course = course.lessons.all().count()
