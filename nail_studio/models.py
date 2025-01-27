@@ -186,6 +186,11 @@ class StudentCourseProgress(models.Model):
     current_lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, verbose_name='Текущий урок')
     progress = models.FloatField(default=0.0, verbose_name='Прогресс (%)')
 
+    @classmethod
+    def get_student_progress(cls, course, request):
+        return cls.objects.filter(person=request.user, course=course).all()
+
+
     def __str__(self):
         return f"{self.person.username} - {self.course.title} - {self.current_lesson}"
 
