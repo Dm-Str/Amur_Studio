@@ -6,7 +6,7 @@ from django.template.defaultfilters import first
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review, Topics
 from django.contrib import messages
-from nail_studio.utils import calculation_bonuses_for_buy
+from nail_studio.utils import calculation_bonuses_for_buy, is_completed_course
 from decimal import Decimal
 from nail_studio.views import courses
 
@@ -222,20 +222,18 @@ def next_lesson(request, lesson_id):
             progress=1.0
         )
 
-    last_lesson_course = (course.modules.order_by('-order').first().
-                          lessons.order_by('-order').first())
-    all_lessons_course = course.lessons.all().count()
-    all_completed_lessons_course = student_progress.filter(progress=1.0).count()
-
-    if (current_lesson == last_lesson_course
-            and all_lessons_course == all_completed_lessons_course):
+    if is_completed_course(
+            course=course,
+            student_progress=student_progress,
+            current_lesson=current_lesson
+    ):
         return redirect('complete_current_course', course_id=course.id)
+
+    # Здесь нужно получить все не пройденные уроки,
+    # если они есть, вернуть к первому не пройденному.
 
     current_module = course.modules.get(id=current_lesson.module_id)
     last_lesson_module = current_module.lessons.order_by('-order').first()
-
-    # Здесь нужно получить все не пройденные уроки,
-    # если они есть вернуть к первому не пройденному.
 
     # Код падает здесь, т.к. пытается получить следующий модуль.
     # Либо добавить здесь проверку на последний модуль.
