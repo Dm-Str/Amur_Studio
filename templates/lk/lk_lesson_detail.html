@@ -103,16 +103,21 @@
             <div class="assignment">
                 <h2>Домашнее задание</h2>
                 <p>{{ current_lesson.home_work|safe }}</p>
-                <form method="POST" action="#">
+                <form method="POST" action="{% url 'submit_homework' current_lesson.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <label for="htmlCode"></label>
                     <textarea id="htmlCode" name="html_code" rows="5" placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
-
+            
+                    <label for="homeworkImage">Прикрепить изображение:</label>
+                    <input type="file" id="homeworkImage" name="homework_image" accept="image/*">
+            
                     <div class="button-container">
                         <button type="submit">Отправить</button>
                         <button type="button" onclick="location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 
