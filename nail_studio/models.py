@@ -190,12 +190,35 @@ class StudentCourseProgress(models.Model):
     def get_student_progress(cls, course, request):
         return cls.objects.filter(person=request.user, course=course).all()
 
-
     def __str__(self):
         return f"{self.person.username} - {self.course.title} - {self.current_lesson}"
 
     class Meta:
         verbose_name = 'Прогресс пользователя по курсу'
+
+
+class StudentHomework(models.Model):
+    STATUS_CHOICES = [
+        (0, 'Не сдано'),
+        (1, 'Сдано'),
+        (2, 'На проверке'),
+    ]
+
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='homework',
+                               verbose_name='Студент')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homework',
+                               verbose_name='Урок')
+    description = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Комментарий')
+    image = models.ImageField(upload_to='student_homework/', blank=True, null=True, verbose_name='Изображение')
+    status = models.BooleanField(choices=STATUS_CHOICES, default=0, verbose_name='Статус' )
+
+    class Meta:
+        verbose_name = 'Домашняя работа студента'
+        verbose_name_plural = 'Домашние работы студентов'
+        ordering = ['-id']
+
+    def __str__(self):
+        return f"{self.person} - {self.lesson}"
 
 
 class Discounts(models.Model):
