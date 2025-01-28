@@ -27,5 +27,6 @@ urlpatterns = [
     path('lk_user/lesson/<int:lesson_id>/', lk_views.lesson_detail, name='lesson_detail'),
     path('lk_user/lesson/<int:lesson_id>/next/', lk_views.next_lesson, name='next_lesson'),
     path('lk_user/completed_course/<int:course_id>/', lk_views.complete_current_course, name='complete_current_course'),
+    path('lk_user/lesson/<int:lesson_id>/submit_homework/', lk_views.submit_homework, name='submit_homework'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
