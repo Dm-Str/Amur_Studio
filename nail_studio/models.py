@@ -206,7 +206,8 @@ class StudentHomework(models.Model):
 
     person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='homework',
                                verbose_name='Студент')
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='homework',)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='homework',
+                               verbose_name='Курс')
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homework',
                                verbose_name='Урок')
     description = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Комментарий')
