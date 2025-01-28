@@ -206,19 +206,21 @@ class StudentHomework(models.Model):
 
     person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='homework',
                                verbose_name='Студент')
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='homework',)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homework',
                                verbose_name='Урок')
     description = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Комментарий')
     image = models.ImageField(upload_to='student_homework/', blank=True, null=True, verbose_name='Фото')
-    status = models.BooleanField(choices=STATUS_CHOICES, default=0, verbose_name='Статус' )
+    status = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name='Статус' )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.person} - {self.lesson}"
 
     class Meta:
         verbose_name = 'Домашняя работа студента'
         verbose_name_plural = 'Домашние работы студентов'
         ordering = ['-id']
-
-    def __str__(self):
-        return f"{self.person} - {self.lesson}"
 
 
 class Discounts(models.Model):
