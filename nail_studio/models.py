@@ -199,8 +199,8 @@ class StudentCourseProgress(models.Model):
 
 class StudentHomework(models.Model):
     STATUS_CHOICES = [
-        (0, 'Не сдано'),
-        (1, 'Сдано'),
+        (0, 'Не принято'),
+        (1, 'Принято'),
         (2, 'На проверке'),
     ]
 
@@ -209,7 +209,7 @@ class StudentHomework(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homework',
                                verbose_name='Урок')
     description = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Комментарий')
-    image = models.ImageField(upload_to='student_homework/', blank=True, null=True, verbose_name='Изображение')
+    image = models.ImageField(upload_to='student_homework/', blank=True, null=True, verbose_name='Фото')
     status = models.BooleanField(choices=STATUS_CHOICES, default=0, verbose_name='Статус' )
 
     class Meta:

@@ -130,7 +130,6 @@ def get_bonuses(request):
         'person': person,
         'bonuses': bonuses
     }
-
     return render(request, 'lk/lk_get_bonuses.html', context=context)
 
 
@@ -188,7 +187,6 @@ def lesson_detail(request, lesson_id):
         'lessons': course.lessons.all(),
         'lessons_without_topics': lessons_without_topics,
         'completed_lessons_ids': get_completed_lessons_ids(student_progress),
-
     }
     return render(request, 'lk/lk_lesson_detail.html', context)
 
@@ -228,7 +226,6 @@ def complete_current_course(request, course_id):
     lessons_without_topics = lessons.filter(topic__isnull=True)
 
     context = {
-
         'course': course,
         'lessons': course.lessons.all(),
         'lessons_without_topics': lessons_without_topics,
