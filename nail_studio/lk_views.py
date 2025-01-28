@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.defaultfilters import first
 
 from nail_studio.forms import PersonProfileForm
-from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review, Topics
+from nail_studio.models import *
 from django.contrib import messages
 from nail_studio.utils import *
 from decimal import Decimal
@@ -232,6 +232,23 @@ def complete_current_course(request, course_id):
 
     }
     return render(request, 'lk/lk_complete_current_course.html', context)
+
+
+@login_required
+def submit_homework(request, lesson_id):
+    if request.method == "POST":
+        current_lesson = get_object_or_404(Lesson, id=lesson_id)
+        course = current_lesson.course
+        person = request.user
+        description = request.POST['html_code']
+        homework_image = request.FILES['homework_image']
+
+
+        StudentHomework.objects.create(
+            person=person, course=course, lesson=current_lesson,
+            description=description, image=homework_image)
+
+    return redirect('lesson_detail', lesson_id=lesson_id)
 
 
 @login_required
