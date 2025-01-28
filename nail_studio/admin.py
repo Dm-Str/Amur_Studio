@@ -171,3 +171,17 @@ class StudentsRetrainingPanel(admin.ModelAdmin):
     empty_value_display = '-пустой-'
     list_per_page = 64
     list_max_show_all = 4
+
+
+@admin.register(StudentHomework)
+class StudentHomeworkPanel(admin.ModelAdmin):
+    # TODO: Фильтр по "Курс" недоступен. Почему?
+    fields = ('person', 'course', 'lesson', 'description', 'image', 'status',)
+    list_display = ('person', 'course', 'lesson', 'description', 'image', 'status', 'created_at')
+    list_display_links = ('person', 'course', 'lesson', 'description', 'image', 'status')
+    list_filter = ('person', 'status', 'course')
+
+    empty_value_display = '-пустой-'
+    list_per_page = 64
+    list_max_show_all = 4
+
