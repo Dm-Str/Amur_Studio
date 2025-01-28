@@ -6,9 +6,7 @@ from django.template.defaultfilters import first
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import Person, Courses, StudentCourseProgress, Lesson, Review, Topics
 from django.contrib import messages
-from nail_studio.utils import calculation_bonuses_for_buy, check_completed_course, get_completed_lessons_ids, \
-    get_last_module_course, get_lessons_course, get_last_lesson_course, get_not_completed_lessons, \
-    update_student_progress
+from nail_studio.utils import *
 from decimal import Decimal
 from nail_studio.views import courses
 
@@ -156,8 +154,6 @@ def get_training(request):
 
 @login_required
 def continue_learning(request, course_id):
-    # TODO: Сейчас view возвращает последний пройденный урок,
-    #  возможно, нужно исправить так, чтобы получать следующий урок за последним пройденным.
     course = get_object_or_404(Courses, pk=course_id)
     student_progress = StudentCourseProgress.get_student_progress(course, request)
 
@@ -180,7 +176,6 @@ def continue_learning(request, course_id):
 
 @login_required
 def lesson_detail(request, lesson_id):
-    #TODO: Возможно необходимо получать не id урока, а его номер из модуля?
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
     lessons = get_lessons_course(course) #course.lessons.all()
@@ -200,7 +195,8 @@ def lesson_detail(request, lesson_id):
 
 @login_required
 def next_lesson(request, lesson_id):
-    # TODO: Продолжить рефакторинг.
+    # TODO: Добавить проверку на выполнение ДЗ.
+    #  Продолжить рефакторинг.
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
     student_progress = StudentCourseProgress.get_student_progress(course, request)
@@ -227,8 +223,6 @@ def next_lesson(request, lesson_id):
 
 @login_required
 def complete_current_course(request, course_id):
-    # TODO: добавить логику проверки прохождения всех уроков.
-    #  Определить ответственное view
     course = get_object_or_404(Courses, pk=course_id)
     lessons = course.lessons.all()
     lessons_without_topics = lessons.filter(topic__isnull=True)
