@@ -253,3 +253,56 @@ button:focus {
 .button-container button {
     margin-right: 10px; /* Отступ между кнопками */
 }
+
+.toggle-button {
+    display: flex; /* Включаем flexbox */
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center; /* Выравнивание по вертикали */
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: rgb(251, 251, 251); /* Цвет кнопки */
+    color: #151515; /* Цвет текста */
+    border-radius: 5px;
+    border: 2px solid #ff4c8c; /* Цвет и ширина обводки */
+    width: 242px; /* Фиксированная ширина кнопки */
+    height: 8px;
+}
+
+.toggle-button:hover {
+
+    border-color: #ff4c8c; /* Цвет обводки при наведении */
+}
+
+.custom-file-upload {
+    display: flex; /* Включаем flexbox */
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center; /* Выравнивание по вертикали */
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px; /* Размер текста */
+    color: #151515; /* Цвет текста */
+    border-radius: 5px;
+    border: 2px solid #4c5050; /* Цвет и ширина обводки */
+    width: 208px; /* Фиксированная ширина кнопки */
+    height: 3px;
+}
+
+.custom-file-upload:hover {
+    border-color: #ff4c8c; /* Цвет обводки при наведении */
+}
+
+
+.custom-file-upload:focus {
+    outline: none; /* Убираем обводку при фокусе */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Добавляем тень при фокусе */
+}
+
+/*.custom-file-upload {*/
+/*    display: flex; !* Используем flexbox для выравнивания кнопок *!*/
+/*    justify-content: flex-start; !* Выравнивание кнопок по левому краю *!*/
+/*    margin-top: 1px; !* Отступ сверху для кнопок *!*/
+/*}*/
+
+/*.custom-file-upload button {*/
+/*    margin-right: 1px; !* Отступ между кнопками *!*/
+/*}*/

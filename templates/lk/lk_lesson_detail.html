@@ -103,17 +103,44 @@
             <div class="assignment">
                 <h2>Домашнее задание</h2>
                 <p>{{ current_lesson.home_work|safe }}</p>
-                <form method="POST" action="{% url 'submit_homework' current_lesson.id %}" enctype="multipart/form-data">
+            
+                <form method="POST" action="{% url 'submit_homework' current_lesson.id %}" 
+                      enctype="multipart/form-data">
+                
                     {% csrf_token %}
                     <label for="htmlCode"></label>
-                    <textarea id="htmlCode" name="html_code" rows="5" placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
+                
+                    <textarea id="htmlCode" name="html_code" rows="5" 
+                              placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
             
-                    <label for="homeworkImage">Прикрепить изображение:</label>
-                    <input type="file" id="homeworkImage" name="homework_image" accept="image/*">
+                    {% if homework_image or homework_description %}
+                        <div class="homework-preview">
+             
+                            <button type="button" class="toggle-button" 
+                                    onclick="toggleHomeworkDetails(this)" >Моё решение</button>
+                            
+                            <p style="display: none;">{{ homework_description }}</p>
+                            
+                            <img src="{{ homework_image.url }}" alt="Изображение домашнего задания" 
+                                 style="max-width: 100%; height: auto; display: none;">
+                        
+                        </div>
+                    {% else %}
+                        <label type="button" for="homeworkImage" class="custom-file-upload">
+                            Прикрепить изображение
+                        </label>
+                        
+                        <input type="file" id="homeworkImage" name="homework_image" 
+                               accept="image/*" style="display: none;" onchange="updateFileName(this)">
+                        <span id="file-name" style="margin-left: 10px;"></span>
+                        
+                    {% endif %}
             
                     <div class="button-container">
                         <button type="submit">Отправить</button>
-                        <button type="button" onclick="location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
+                        
+                        <button type="button" onclick="location.href=
+                                '{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
                     </div>
                 </form>
             </div>
@@ -122,6 +149,31 @@
     </div>
 
     <script src="{% static 'js/scrollToCurrentLesson.js' %}"></script>
+
+    <script>
+    function toggleHomeworkDetails(button) {
+        const homeworkPreview = button.parentElement;
+        const img = homeworkPreview.querySelector('img');
+        const description = homeworkPreview.querySelector('p');
+
+        if (img.style.display === 'none' || img.style.display === '') {
+            img.style.display = 'block';
+            description.style.display = 'block';
+            button.textContent = 'Скрыть';
+        } else {
+            img.style.display = 'none';
+            description.style.display = 'none';
+            button.textContent = 'Моё решение';
+        }
+    }
+</script>
+
+<script>
+function updateFileName(input) {
+    const fileName = input.files.length > 0 ? input.files[0].name : '';
+    document.getElementById('file-name').textContent = fileName;
+}
+</script>
 
 </body>
 </html>
