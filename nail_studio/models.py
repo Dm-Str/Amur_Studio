@@ -211,8 +211,7 @@ class StudentHomework(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homework',
                                verbose_name='Урок')
     description = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Комментарий')
-    image = models.ImageField(upload_to='student_homework/', blank=True, null=True, verbose_name='Фото')
-    status = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name='Статус' )
+    status = models.IntegerField(choices=STATUS_CHOICES, default=2, verbose_name='Статус' )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -222,6 +221,14 @@ class StudentHomework(models.Model):
         verbose_name = 'Домашняя работа студента'
         verbose_name_plural = 'Домашние работы студентов'
         ordering = ['-id']
+
+class HomeworkImage(models.Model):
+    homework = models.ForeignKey(StudentHomework, on_delete=models.CASCADE, related_name='images')
+    images = models.ImageField(upload_to='student_homework/', blank=True, null=True, verbose_name='Фото')
+
+    class Meta:
+        verbose_name = 'Фото домашней работы'
+        verbose_name_plural = 'Фото домашних работ'
 
 
 class Discounts(models.Model):
