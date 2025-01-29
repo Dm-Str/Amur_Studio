@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from nail_studio.forms import LessonForm
 from nail_studio.models import *
-
+from django.utils.html import format_html
 
 class ModulesInline(admin.TabularInline):
     model = Modules
@@ -28,6 +28,25 @@ class LessonInline(admin.TabularInline):
     verbose_name_plural = 'Уроки'
     ordering = ('module',)
     form = LessonForm
+
+
+class HomeworkImageInline(admin.TabularInline):
+    model = HomeworkImage
+    extra = 0
+    fields = ('images', 'image_preview')
+    readonly_fields = ('image_preview', )
+    verbose_name = ''
+    verbose_name_plural = ''
+    ordering = ('images',)
+
+    def image_preview(self, obj):
+        if obj.images:
+            return format_html(
+                f'<img src="{obj.images.url}" style="max-width: 200px; max-height: 200px; margin-right: 1px;" />'
+            )
+        return "Нет изображения"
+
+    image_preview.short_description = 'Предпросмотр'  # Название колонки
 
 
 @admin.register(Courses)
@@ -173,15 +192,40 @@ class StudentsRetrainingPanel(admin.ModelAdmin):
     list_max_show_all = 4
 
 
-@admin.register(StudentHomework)
-class StudentHomeworkPanel(admin.ModelAdmin):
-    # TODO: Фильтр по "Курс" недоступен. Почему?
-    fields = ('person', 'course', 'lesson', 'description', 'image', 'status',)
-    list_display = ('person', 'course', 'lesson', 'description', 'image', 'status', 'created_at')
-    list_display_links = ('person', 'course', 'lesson', 'description', 'image', 'status')
-    list_filter = ('person', 'status', 'course')
+@admin.register(HomeworkImage)
+class HomeworkImagePanel(admin.ModelAdmin):
+    fields = ('homework', 'images', 'image_preview')  # Добавьте image_preview здесь
+    readonly_fields = ('image_preview',)
+    list_display = ('homework', 'images', 'image_preview')  # Добавляем image_preview здесь
+    list_display_links = ('homework', 'images')
+    list_filter = ('homework',)
 
     empty_value_display = '-пустой-'
     list_per_page = 64
     list_max_show_all = 4
+
+    def image_preview(self, obj):
+        if obj.images:
+            return format_html(
+                f'<img src="{obj.images.url}" style="max-width: 100px; max-height: 100px; margin-right: 5px;" />'
+            )
+        return "Нет изображения"
+
+    image_preview.short_description = 'Предпросмотр'  # Название колонки
+
+
+@admin.register(StudentHomework)
+class StudentHomeworkPanel(admin.ModelAdmin):
+    # TODO: Фильтр по "Курс" недоступен. Почему?
+    fields = ('person', 'course', 'lesson', 'description', 'status',)
+    list_display = ('person', 'course', 'lesson', 'description', 'status', 'created_at')
+    list_display_links = ('person', 'course', 'lesson', 'description', 'status')
+    list_filter = ('person', 'status', 'course')
+
+    inlines = [HomeworkImageInline]
+    empty_value_display = '-пустой-'
+    list_per_page = 64
+    list_max_show_all = 4
+
+
 
