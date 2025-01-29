@@ -242,13 +242,19 @@ def submit_homework(request, lesson_id):
         current_lesson = get_object_or_404(Lesson, id=lesson_id)
         course = current_lesson.course
         person = request.user
-        description = request.POST['html_code']
-        homework_image = request.FILES['homework_image']
+        description = request.POST.get('html_code', None)
 
+        student_homework = StudentHomework.objects.create(
+            person=person, course=course,
+            lesson=current_lesson, description=description)
 
-        StudentHomework.objects.create(
-            person=person, course=course, lesson=current_lesson,
-            description=description, image=homework_image)
+        homework_images = request.FILES.getlist('homework_images')
+
+        if homework_images:
+            for image in homework_images:
+                HomeworkImage.objects.create(homework=student_homework, images=image)
+
+        return redirect('lesson_detail', lesson_id=lesson_id)
 
     return redirect('lesson_detail', lesson_id=lesson_id)
 
