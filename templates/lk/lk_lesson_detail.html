@@ -102,6 +102,13 @@
 
             <div class="assignment">
                 <h2>Домашнее задание</h2>
+            
+                    <h4>{% if student_homework %}
+                        Статус: {{ student_homework.get_status_display }}
+                    {% else %}
+                        Статус: Не отправлено
+                    {% endif %}</h4>
+            
                 <p>{{ current_lesson.home_work|safe }}</p>
             
                 <form method="POST" action="{% url 'submit_homework' current_lesson.id %}" 
@@ -112,20 +119,21 @@
                 
                     <textarea id="htmlCode" name="html_code" rows="5" 
                               placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
-            
-                    {% if homework_image or homework_description %}
+                
+                    {% if student_homework %}
                         <div class="homework-preview">
              
                             <button type="button" class="toggle-button" 
                                     onclick="toggleHomeworkDetails(this)" >Моё решение</button>
                             
-                            <p style="display: none;">{{ homework_description }}</p>
+                            <p style="display: none;">{{ student_homework.description }}</p>
                             
-                            <img src="{{ homework_image.url }}" alt="Изображение домашнего задания" 
+                            <img src="{{ student_homework.image.url }}" alt="Изображение домашнего задания"
                                  style="max-width: 100%; height: auto; display: none;">
                         
                         </div>
                     {% else %}
+                        
                         <label type="button" for="homeworkImage" class="custom-file-upload">
                             Прикрепить изображение
                         </label>
