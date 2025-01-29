@@ -177,9 +177,13 @@ def continue_learning(request, course_id):
 def lesson_detail(request, lesson_id):
     current_lesson = get_object_or_404(Lesson, id=lesson_id)
     course = current_lesson.course
-    lessons = get_lessons_course(course) #course.lessons.all()
+    lessons = get_lessons_course(course)
     lessons_without_topics = lessons.filter(topic__isnull=True)
     student_progress = StudentCourseProgress.get_student_progress(course, request)
+
+    student_homework = request.user.homework.filter(lesson__id=lesson_id).first()
+    homework_image = student_homework.image if student_homework else None
+    homework_description = student_homework.description if student_homework else None
 
     context = {
         'current_lesson': current_lesson,
@@ -187,6 +191,8 @@ def lesson_detail(request, lesson_id):
         'lessons': course.lessons.all(),
         'lessons_without_topics': lessons_without_topics,
         'completed_lessons_ids': get_completed_lessons_ids(student_progress),
+        'homework_image': homework_image,
+        'homework_description': homework_description,
     }
     return render(request, 'lk/lk_lesson_detail.html', context)
 
