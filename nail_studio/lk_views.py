@@ -205,8 +205,10 @@ def next_lesson(request, lesson_id):
 
     update_student_progress(current_lesson, course, student_progress, request.user)
 
-    if check_completed_course(course, student_progress,current_lesson):
-        return redirect('complete_current_course', course_id=course.id)
+    if check_completed_course(course, student_progress, current_lesson):
+        if check_completed_homework(request, course) is True:
+            return redirect('complete_current_course', course_id=course.id)
+        return redirect('lesson_detail', lesson_id=check_completed_homework(request, course))
 
     if current_lesson == get_last_lesson_course(course):
         if get_completed_lessons_ids(student_progress).count() != get_lessons_course(course).count():
