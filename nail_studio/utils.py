@@ -44,7 +44,7 @@ def get_not_completed_lessons(course, student_progress):
 
 def check_completed_homework(request, course):
     sent_homeworks_lessons = Lesson.objects.filter(homework__isnull=False)
-    all_homeworks = course.lessons.exclude(home_work__icontains='нет')
+    all_homeworks = course.lessons.exclude(home_work__icontains='Нет')
 
     if set(sent_homeworks_lessons) == set(all_homeworks):
         student_homework = request.user.homework.all()
