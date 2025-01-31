@@ -11,32 +11,30 @@
 
     <div class="header">
         <div class="logo">
-         <img src="{% static 'images/../../static/images/logo.png' %}" alt="Стрела Амура" />
+            <img src="{% static 'images/logo.png' %}" alt="Стрела Амура" />
         </div>
         
         <div class="cur-lesson">
-            <a href="#">{{ course.title| safe }}</a>
+            <a href="#">{{ course.title|safe }}</a>
         </div>
 
         <div class="user-avatar">
             <a href="{% url 'get_training' %}">Личный кабинет</a>
             <img src="{{ user.photo.url }}" alt="Аватар пользователя" />
         </div>
-
     </div>
 
     <div class="container">
-    <div class="sidebar-continue">
-        
-        {% for module in course.modules.all %}
-            <div class="module">
-                <h3 style="margin: 3px;">{{ module.title }}</h3>
-                
-                {% if module.topics.all %}
-                    {% for topic in module.topics.all %}
-                        <div class="topic-container">
-                        <h4 style="margin: 0; margin-left: 5px;">Тема {{ topic.order }}: {{ topic.title }}</h4>
-                        </div>
+        <div class="sidebar-continue">
+            {% for module in course.modules.all %}
+                <div class="module">
+                    <h3 style="margin: 3px;">{{ module.title }}</h3>
+                    
+                    {% if module.topics.all %}
+                        {% for topic in module.topics.all %}
+                            <div class="topic-container">
+                                <h4 style="margin: 0; margin-left: 5px;">Тема {{ topic.order }}: {{ topic.title }}</h4>
+                            </div>
                             <ul class="lesson-list">
                                 {% for lesson in topic.lessons.all %}
                                     <li>
@@ -49,133 +47,142 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                    {% endfor %}
-                {% endif %}
-    
-                {% if lessons_without_topics %}
-{#                    <h4 style="margin: 0; margin-left: 5px;">Уроки без тем:</h4>#}
-                    <ul class="lesson-list">
-                        {% for lesson in lessons_without_topics %}
-                            {% if lesson.module == module %}
-                                <a href="{% url 'lesson_detail' lesson.id %}" 
-                           class="{% if lesson.id in completed_lessons_ids %}completed{% endif %} 
-                                  {% if lesson.id == current_lesson.id %}current{% endif %}" 
-                                   id="lesson-{{ lesson.id }}">
-                            Урок {{ lesson.order }}: {{ lesson.title }}
-                        </a>
-                            {% endif %}
                         {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
+                    {% endif %}
+    
+                    {% if lessons_without_topics %}
+                        <ul class="lesson-list">
+                            {% for lesson in lessons_without_topics %}
+                                {% if lesson.module == module %}
+                                    <li>
+                                        <a href="{% url 'lesson_detail' lesson.id %}" 
+                                           class="{% if lesson.id in completed_lessons_ids %}completed{% endif %} 
+                                           {% if lesson.id == current_lesson.id %}current{% endif %}" 
+                                           id="lesson-{{ lesson.id }}">
+                                            Урок {{ lesson.order }}: {{ lesson.title }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
 
         <div class="main-content">
             {% if current_lesson %}
-            <div class="lesson">
-                <h3>Урок {{ current_lesson.order }}: {{ current_lesson.title }}</h3>
-                <p class="lesson-content">{{ current_lesson.content }}</p>
+                <div class="lesson">
+                    <h3>Урок {{ current_lesson.order }}: {{ current_lesson.title }}</h3>
+                    <p class="lesson-content">{{ current_lesson.content }}</p>
 
                     {% if current_lesson.image %}
                         <div class="images-container">
-
                             <img src="{{ current_lesson.image.url }}" alt="Изображение урока" class="lesson-image">
                         </div>
                     {% endif %}
 
-                   {% if current_lesson.video %}
-                    <div class="video-container">
-                        <video controls class="responsive-video">
-                            <source src="{{ current_lesson.video.url }}" type="video/mp4">
-                            Ваш браузер не поддерживает видео.
-                        </video>
-                    </div>
+                    {% if current_lesson.video %}
+                        <div class="video-container">
+                            <video controls class="responsive-video">
+                                <source src="{{ current_lesson.video.url }}" type="video/mp4">
+                                Ваш браузер не поддерживает видео.
+                            </video>
+                        </div>
                     {% endif %}
-
-            </div>
+                </div>
             {% else %}
-            <div class="lesson">
-                <h3>Выберите урок для просмотра</h3>
-            </div>
+                <div class="lesson">
+                    <h3>Выберите урок для просмотра</h3>
+                </div>
             {% endif %}
 
             <div class="assignment">
                 <h2>Домашнее задание</h2>
-            
-                <h4>{% if student_homework %}
-                    Статус: {{ student_homework.get_status_display }}
-                {% else %}
-                    Статус: Не отправлено
-                {% endif %}</h4>
-            
-                <p>{{ current_lesson.home_work|safe }}</p>
-            
-                <form method="POST" action="{% url 'submit_homework' current_lesson.id %}" 
-                      enctype="multipart/form-data">
-                    
-                    {% csrf_token %}
-                    <label for="htmlCode"></label>
-                    
-                    <textarea id="htmlCode" name="html_code" rows="5" 
-                              placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
-            
-                    {% if student_homework %}
-    <div class="homework-preview">
-        <button type="button" class="toggle-button"
-                onclick="toggleHomeworkDetails(this)">Моё решение</button>
-        
-        <p style="display: none;">{{ student_homework.description }}</p>
-        
-        {% for image in student_homework.images.all %}
-            <p></p>
-            <img src="{{ image.images.url }}" alt="Изображение домашнего задания"
-                 style="max-width: 1000px; height: auto; display: none;">
-        {% endfor %}
-                        </div>
+
+                {% if current_lesson.home_work != 'Нет' %}
+                    <h4>{% if student_homework %}
+                        Статус: {{ student_homework.get_status_display }}
                     {% else %}
-                        <label type="button" for="homeworkImages" class="custom-file-upload">
-                            Прикрепить изображения
-                        </label>
-            
-                        <input type="file" id="homeworkImages" name="homework_images" 
-                               accept="image/*" multiple style="display: none;" onchange="updateFileNames(this)">
-                        <span id="file-names" style="margin-left: 10px;"></span>
-                    {% endif %}
-                    
-                    <div class="button-container">
-                        <button type="submit">Отправить</button>
+                        Статус: Не отправлено
+                    {% endif %}</h4>
+
+                    <p>{{ current_lesson.home_work|safe }}</p>
+
+                    <form method="POST" action="{% url 'submit_homework' current_lesson.id %}" 
+                          enctype="multipart/form-data">
                         
+                        {% csrf_token %}
+                        <label for="htmlCode"></label>
+        
+    
+    
+    
+                                <textarea id="htmlCode" name="html_code" rows="5" 
+                                  placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
+
+                        {% if student_homework %}
+                            <div class="homework-preview">
+                                <button type="button" class="toggle-button"
+                                        onclick="toggleHomeworkDetails(this)">Моё решение</button>
+
+                                <p style="display: none;">{{ student_homework.description }}</p>
+
+                                {% for image in student_homework.images.all %}
+                                    <p></p>
+                                    <img src="{{ image.images.url }}" alt="Изображение домашнего задания"
+                                         style="max-width: 1000px; height: auto; display: none;">
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <label type="button" for="homeworkImages" class="custom-file-upload">
+                                Прикрепить изображения
+                            </label>
+
+                            <input type="file" id="homeworkImages" name="homework_images" 
+                                   accept="image/*" multiple style="display: none;" onchange="updateFileNames(this)">
+                            <span id="file-names" style="margin-left: 10px;"></span>
+                        {% endif %}
+                        
+                        <div class="button-container">
+                            <button type="submit">Отправить</button>
+                            <button type="button" onclick="location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
+                        </div>
+                    </form>
+                {% else %}
+                    <h4>ДЗ нет!</h4>
+                    <div class="button-container">
                         <button type="button" onclick="location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
                     </div>
-                </form>
+                {% endif %}
             </div>
+        </div>
+    </div>
 
-<script src="{% static 'js/scrollToCurrentLesson.js' %}"></script>
+    <script src="{% static 'js/scrollToCurrentLesson.js' %}"></script>
 
-<script>
-function toggleHomeworkDetails(button) {
-    const homeworkPreview = button.parentElement;
-    const imgElements = homeworkPreview.querySelectorAll('img');
-    const description = homeworkPreview.querySelector('p');
+    <script>
+    function toggleHomeworkDetails(button) {
+        const homeworkPreview = button.parentElement;
+        const imgElements = homeworkPreview.querySelectorAll('img');
+        const description = homeworkPreview.querySelector('p');
 
-    if (description.style.display === 'none' || description.style.display === '') {
-        description.style.display = 'block';
-        imgElements.forEach(img => img.style.display = 'block'); // Показываем все изображения
-        button.textContent = 'Скрыть';
-    } else {
-        description.style.display = 'none';
-        imgElements.forEach(img => img.style.display = 'none'); // Скрываем все изображения
-        button.textContent = 'Моё решение';
+        if (description.style.display === 'none' || description.style.display === '') {
+            description.style.display = 'block';
+            imgElements.forEach(img => img.style.display = 'block'); // Показываем все изображения
+            button.textContent = 'Скрыть';
+        } else {
+            description.style.display = 'none';
+            imgElements.forEach(img => img.style.display = 'none'); // Скрываем все изображения
+            button.textContent = 'Моё решение';
+        }
     }
-}
 
-function updateFileNames(input) {
-    const fileNames = Array.from(input.files).map(file => file.name).join(', ');
-    document.getElementById('file-names').textContent = fileNames;
-}
-</script>
-
+    function updateFileNames(input) {
+        const fileNames = Array.from(input.files).map(file => file.name).join(', ');
+        document.getElementById('file-names').textContent = fileNames;
+    }
+    </script>
 
 </body>
 </html>
