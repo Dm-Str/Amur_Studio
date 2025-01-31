@@ -98,9 +98,10 @@
             {% endif %}
 
             <div class="assignment">
-                <h2>Домашнее задание</h2>
+                
 
                 {% if current_lesson.home_work != 'Нет' %}
+                    <h2>Домашнее задание</h2>
                     <h4>{% if student_homework %}
                         Статус: {{ student_homework.get_status_display }}
                     {% else %}
@@ -114,9 +115,7 @@
                         
                         {% csrf_token %}
                         <label for="htmlCode"></label>
-        
-    
-    
+                    
     
                                 <textarea id="htmlCode" name="html_code" rows="5" 
                                   placeholder="Моё домашнее задание" style="width: 100%;"></textarea>
@@ -146,43 +145,24 @@
                         
                         <div class="button-container">
                             <button type="submit">Отправить</button>
-                            <button type="button" onclick="location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
+                            <button type="button" onclick="goToNextLesson(
+                                '{% url 'next_lesson' current_lesson.id %}')">Следующий урок</button>
+
                         </div>
                     </form>
                 {% else %}
-                    <h4>ДЗ нет!</h4>
+                    <h4></h4>
                     <div class="button-container">
-                        <button type="button" onclick="location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
+                        <button type="button" onclick=
+                                "location.href='{% url 'next_lesson' current_lesson.id %}'">Следующий урок</button>
                     </div>
                 {% endif %}
             </div>
         </div>
     </div>
 
-    <script src="{% static 'js/scrollToCurrentLesson.js' %}"></script>
-
-    <script>
-    function toggleHomeworkDetails(button) {
-        const homeworkPreview = button.parentElement;
-        const imgElements = homeworkPreview.querySelectorAll('img');
-        const description = homeworkPreview.querySelector('p');
-
-        if (description.style.display === 'none' || description.style.display === '') {
-            description.style.display = 'block';
-            imgElements.forEach(img => img.style.display = 'block'); // Показываем все изображения
-            button.textContent = 'Скрыть';
-        } else {
-            description.style.display = 'none';
-            imgElements.forEach(img => img.style.display = 'none'); // Скрываем все изображения
-            button.textContent = 'Моё решение';
-        }
-    }
-
-    function updateFileNames(input) {
-        const fileNames = Array.from(input.files).map(file => file.name).join(', ');
-        document.getElementById('file-names').textContent = fileNames;
-    }
-    </script>
+    <script src="{% static 'js/lk_lesson_detail/scrollToCurrentLesson.js' %}"></script>
+    <script src="{% static 'js/lk_lesson_detail/homework.js' %}"></script>
 
 </body>
 </html>
