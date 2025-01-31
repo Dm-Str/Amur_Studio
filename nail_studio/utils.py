@@ -1,5 +1,6 @@
 from decimal import Decimal
-from nail_studio.models import StudentCourseProgress
+from nail_studio.models import StudentCourseProgress, Lesson
+from django.db.models import Q
 
 
 def calculation_bonuses_for_buy(price_course):
@@ -41,6 +42,25 @@ def get_not_completed_lessons(course, student_progress):
     return not_completed_lessons
 
 
+def check_completed_homework(request, course):
+    sent_homeworks_lessons = Lesson.objects.filter(homework__isnull=False)
+    all_homeworks = course.lessons.exclude(home_work__icontains='нет')
+
+    if set(sent_homeworks_lessons) == set(all_homeworks):
+        student_homework = request.user.homework.all()
+        all_checked = all(homework.status == 1 for homework in student_homework)
+
+        if all_checked:
+            return all_checked
+
+        homework_on_check = student_homework.exclude(status=1).first()
+        return homework_on_check.lesson_id
+
+    no_solution_homework = all_homeworks.exclude(
+        id__in=sent_homeworks_lessons.values_list('id', flat=True)).first()
+    return no_solution_homework.pk
+
+
 def check_completed_course(course, student_progress, current_lesson):
     lessons_course = get_lessons_course(course).count()
     completed_lessons_course = student_progress.filter(progress=1.0).count()
@@ -48,6 +68,8 @@ def check_completed_course(course, student_progress, current_lesson):
     if (current_lesson == get_last_lesson_course(course) and
             lessons_course == completed_lessons_course):
         return True
+    # except:
+    #     return None
 
 
 def update_student_progress(current_lesson, course, student_progress, user):
