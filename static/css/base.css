@@ -23,6 +23,13 @@ body {
     border-radius: 8px; /* Закругленные углы (по желанию) */
 }
 
+/*Сброс стилей браузера*/
+/** {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box; !* Это поможет избежать проблем с шириной *!*/
+/*}*/
+
 header {
     background-color: #ffffff;
     color: #333435; /* Цвет для текста заголовка */
@@ -31,21 +38,24 @@ header {
     align-items: center; /* Центрируем элементы по вертикали */
     font-family: 'Roboto', serif; /* Шрифт для заголовка */
     height: 100px;
-    width: 100%; /* Устанавливаем ширину заголовка на 100% */
+    /*width: 100%; !* Устанавливаем ширину заголовка на 100% *!*/
+    /*max-width: 1200px; !* Установите максимальную ширину *!*/
+    /*margin: 0 auto; !* Центрируйте заголовок *!*/
     justify-content: space-between; /* Распределяем пространство между элементами */
 }
 
 .header-left {
-    display: flex; /* Используем flexbox для выравнивания элементов в левой части */
-    align-items: center; /* Центрируем элементы по вертикали */
-    margin-left: 50px; /* Отступ слева от края страницы */
+    display: flex;
+    align-items: center;
+    padding-left: 0; /* Измените margin на padding */
 }
 
 .header-right {
-    display: flex; /* Используем flexbox для выравнивания элементов в правой части */
-    align-items: center; /* Центрируем элементы по вертикали */
-    margin-right: 50px; /* Отступ справа от края страницы */
+    display: flex;
+    align-items: center;
+    padding-right: 0; /* Измените margin на padding */
 }
+
 
 footer {
     background-color: #ffffff;
