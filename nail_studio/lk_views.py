@@ -226,6 +226,7 @@ def next_lesson(request, lesson_id):
 @login_required
 def complete_current_course(request, course_id):
     course = get_object_or_404(Courses, pk=course_id)
+    student_progress = StudentCourseProgress.get_student_progress(course, request)
     lessons = course.lessons.all()
     lessons_without_topics = lessons.filter(topic__isnull=True)
 
@@ -233,7 +234,7 @@ def complete_current_course(request, course_id):
         'course': course,
         'lessons': course.lessons.all(),
         'lessons_without_topics': lessons_without_topics,
-
+        'completed_lessons_ids': get_completed_lessons_ids(student_progress),
     }
     return render(request, 'lk/lk_complete_current_course.html', context)
 
