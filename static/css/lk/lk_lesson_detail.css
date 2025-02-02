@@ -154,6 +154,7 @@ body {
 
 .lesson-list a.completed {
     background-color: rgba(250, 152, 191, 0.9); /* Цвет кнопки */
+    border-radius: 15px; /* Закругление углов (по желанию) */
     color: #151515; /* Цвет текста на кнопке */
 
     border: 2px solid #D0D0D0; /* Розовая рамка для завершенных уроков */

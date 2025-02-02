@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обучение - Онлайн Школа</title>
- 
+    
+    <link rel="stylesheet" href="{% static 'css/lk/lk_lesson_detail.css' %}">
     <link rel="stylesheet" href="{% static 'css/lk/lk_complete_current_course.css' %}">
 </head>
 <body>
@@ -22,42 +23,54 @@
             <a href="{% url 'get_training' %}">Личный кабинет</a>
             <img src="{{ user.photo.url }}" alt="Аватар пользователя" />
         </div>
-
     </div>
 
-    <div class="container">
-    <div class="sidebar-continue">
-        
-        {% for module in course.modules.all %}
-            <div class="module">
-                <h3 style="margin: 3px;">{{ module.title }}</h3>
-                
-                {% if module.topics.all %}
-                    {% for topic in module.topics.all %}
-                        <div class="topic-container">
-                        <h4 style="margin: 0; margin-left: 5px;">Тема {{ topic.order }}: {{ topic.title }}</h4>
-                        </div>
+   <div class="container">
+        <div class="sidebar-continue">
+            {% for module in course.modules.all %}
+                <div class="module">
+                    <h3 style="margin: 3px;">{{ module.title }}</h3>
+                    
+                    {% if module.topics.all %}
+                        {% for topic in module.topics.all %}
+                            <div class="topic-container">
+                                <h4 style="margin: 0; margin-left: 5px;">Тема {{ topic.order }}: {{ topic.title }}</h4>
+                            </div>
                             <ul class="lesson-list">
                                 {% for lesson in topic.lessons.all %}
-                                    <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
+                                    <li>
+                                        <a href="{% url 'lesson_detail' lesson.id %}" 
+                                           class="{% if lesson.id in completed_lessons_ids %}completed{% endif %}
+                                           {% if lesson.id == current_lesson.id %}current{% endif %}"
+                                            id="lesson-{{ lesson.id }}">
+                                            Урок {{ lesson.order }}: {{ lesson.title }}
+                                        </a>
+                                    </li>
                                 {% endfor %}
                             </ul>
-                    {% endfor %}
-                {% endif %}
-    
-                {% if lessons_without_topics %}
-{#                    <h4 style="margin: 0; margin-left: 5px;">Уроки без тем:</h4>#}
-                    <ul class="lesson-list">
-                        {% for lesson in lessons_without_topics %}
-                            {% if lesson.module == module %}
-                                <li><a href="{% url 'lesson_detail' lesson.id %}">Урок {{ lesson.order }}: {{ lesson.title }}</a></li>
-                            {% endif %}
                         {% endfor %}
-                    </ul>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
+                    {% endif %}
+    
+                    {% if lessons_without_topics %}
+                        <ul class="lesson-list">
+                            {% for lesson in lessons_without_topics %}
+                                {% if lesson.module == module %}
+                                    <li>
+                                        <a href="{% url 'lesson_detail' lesson.id %}" 
+                                           class="{% if lesson.id in completed_lessons_ids %}completed{% endif %} 
+                                           {% if lesson.id == current_lesson.id %}current{% endif %}" 
+                                           id="lesson-{{ lesson.id }}">
+                                            Урок {{ lesson.order }}: {{ lesson.title }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+   
         <div class="main-content">
         <div class="main-content-congratulate">
                     <h2>Поздравляем Вы успешно завершили курс! </h2>
