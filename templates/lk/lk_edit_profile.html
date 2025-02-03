@@ -33,36 +33,70 @@
         </form>
     </aside>
 
-    <div style="display: flex; flex: 1; padding: 20px; align-items: flex-start;">
-        <section id="content-section" style="flex: 1;">
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Сохранить изменения</button>
-            </form>
-        </section>
-
-        <div class="profile-container" style="margin-left: 20px;"> <!-- Добавьте отступ между секциями -->
-            <div>
-{#                <h4 style="margin: 0; line-height: 1.2; font-size: 20px">Логин: {{ user.username }}</h4>#}
-                <h4 style="margin: 0; line-height: 1.5; font-size: 20px">Почта: {{ user.email }}</h4>
-                <h4 style="margin: 0; line-height: 1.5; font-size: 20px">Телефон: {{ user.number }}</h4>
+    <div class="content-container-edit-profile">
+    <section id="content-section" style="flex: 1;">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <form class="person-profile-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+        <div class="form-group">
+            <label for="date_of_birth">{{ form.date_of_birth.label }}</label><br>
+            {{ form.date_of_birth }}
+        </div>
+        <div class="form-group">
+            <label for="country">{{ form.country.label }}</label><br>
+            {{ form.country }}
+        </div>
             </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">{{ form.city.label }}</label><br>
+                    {{ form.city }}
+                </div>
+                <div class="form-group">
+                    <label for="experience">{{ form.experience.label }}</label><br>
+                    {{ form.experience }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="messenger">{{ form.messenger.label }}</label><br>
+                    {{ form.messenger }}
+                </div>
+                <div class="form-group">
+                    <label for="photo">{{ form.photo.label }}</label><br>
+                    {{ form.photo }}
+                </div>
+            </div>
+            
+            <div class="button-container-save-profile">
+                <button class="save-edit-profile-button">Сохранить изменения</button>
+            </div>
+            
+        </form>
+    </section>
+
+
+        <div class="profile-container">
+        <div>
+            <h4 style="margin: 0; line-height: 1.5; font-size: 20px">Почта: {{ user.email }}</h4>
+            <h4 style="margin: 0; line-height: 1.5; font-size: 20px">Телефон: {{ user.number }}</h4>
+        </div>
             {% if user.photo %}
                 <img src="{{ user.photo.url }}" alt="Фото пользователя" width="100%" height="150">
-            {% else %}
+                        {% else %}
                 <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Фото пользователя" width="150" height="150">
             {% endif %}
         </div>
     </div>
+
 </main>
 
 {% endblock %}

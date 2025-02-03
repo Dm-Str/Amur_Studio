@@ -10,7 +10,6 @@
     margin-right: 20px; /* Отступ справа от фото */
 }
 
-
 .profile-container {
     display: flex;
     align-items: center; /* Выравнивание по вертикали */
@@ -23,3 +22,86 @@
     border-radius: 50%; /* Круглая форма */
     margin-left: 20px; /* Отступ слева от фото */
 }
+
+.content-container-edit-profile {
+    display: flex;
+    flex: 1;
+    padding: 23px;
+    align-items: flex-start; /* Выравнивание по верхнему краю */
+    justify-content: center; /* Центрирование содержимого */
+}
+
+.person-profile-form {
+    display: flex; /* Используем Flexbox для выравнивания */
+    flex-direction: column; /* Вертикальное расположение строк */
+    margin-bottom: 5px; /* Отступ между строками */
+    max-width: 800px; /* Максимальная ширина формы */
+}
+
+.form-row {
+    display: flex; /* Используем Flexbox для выравнивания элементов в строке */
+    justify-content: space-between; /* Распределяем пространство между элементами */
+}
+
+.form-group {
+    font-family: 'Roboto', serif;
+    font-size: 20px;
+    flex: 1; /* Каждый элемент занимает равное пространство */
+    margin-right: 20px; /* Отступ справа для всех, кроме последнего элемента */
+}
+
+.form-group:last-child {
+    margin-right: 0; /* Убираем отступ у последнего элемента */
+}
+
+.form-group label {
+    font-size: 18px; /* Увеличение размера шрифта для меток */
+    margin-bottom: -15px; /* Отступ между меткой и полем ввода */
+}
+
+/* Добавьте отступы для полей ввода */
+.form-group input,
+.form-group select {
+    width: 300px; /* Ширина поля ввода */
+    height: 20px;
+    padding: 15px; /* Отступ внутри поля ввода */
+    margin-bottom: 30px; /* Отступ снизу для создания пространства между меткой и полем ввода */
+    border: 1px solid rgba(255, 129, 197, 0.9); /* Рамка для поля ввода */
+    border-radius: 5px; /* Закругленные углы */
+    font-family: 'Roboto', serif;
+    font-size: 20px;
+}
+
+/* Убедитесь, что у вас есть отступы между полями ввода по горизонтали */
+.form-row {
+    gap: 20px; /* Отступ между элементами в строке */
+}
+
+.button-container-save-profile {
+    display: flex; /* Используем Flexbox для контейнера */
+    justify-content: flex-end; /* Выравнивание кнопки вправо */
+    margin-top: 20px; /* Отступ сверху, если необходимо */
+}
+
+.save-edit-profile-button {
+    text-align: center;
+    padding: 20px; /* Увеличьте отступы внутри кнопки для лучшего восприятия */
+    background-color: #FBA1CC87; /* Цвет фона кнопок */
+    color: #242626; /* Цвет текста на кнопках */
+    border: 0; /* Убираем рамку */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Указатель при наведении */
+    width: 300px; /* Убираем фиксированную ширину, чтобы кнопка подстраивалась под текст */
+    margin: 5px 0; /* Отступы между кнопками */
+    font-family: 'Roboto', serif;
+    font-size: 23px; /* Уменьшите размер шрифта */
+}
+
+.save-edit-profile-button:hover {
+    background-color: #F83C86E5; /* Цвет фона при наведении */
+}
+
+.save-edit-profile-button:focus {
+    outline: none; /* Убираем обводку при фокусе */
+}
+
