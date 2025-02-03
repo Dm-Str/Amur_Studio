@@ -3,22 +3,22 @@
     flex-direction: column;
     width: 200px; /* Установите фиксированную ширину */
     margin-top: 14px;
-    padding-left: 150px;
-    padding-right: 30px;
+    padding-left: 50px;
+    padding-right: 100px;
 }
 
 .sidebar-button {
-    padding: 10px; /* Отступы внутри кнопок */
+    padding: 20px; /* Отступы внутри кнопок */
     background-color: #FBA1CC87; /* Цвет фона кнопок */
     color: #242626; /* Цвет текста на кнопках */
     border: 0; /* Убираем рамку */
     border-radius: 5px; /* Закругленные углы */
     cursor: pointer; /* Указатель при наведении */
     text-align: left; /* Выравнивание текста */
-    width: 200px; /* Установите фиксированную ширину для кнопок */
+    width: 250px; /* Установите фиксированную ширину для кнопок */
     margin: 5px 0; /* Отступы между кнопками */
     font-family: 'Roboto', serif;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .sidebar-button:hover {
