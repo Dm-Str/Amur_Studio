@@ -69,7 +69,11 @@
                 <label for="review">Отзыв:</label>
                 <textarea id="review" name="review" rows="4" required></textarea>
             </div>
-            <button type="submit">Отправить отзыв</button>
+
+            <div class="submit-button-review-block"> <!-- Применение нового класса -->
+                <button class="submit-button-review" type="submit">Отправить отзыв</button>
+            </div>
+
         </form>
         
         <form class="reviews-form" method="post" action="{% url 'submit_review' %}" style="flex: 1;">

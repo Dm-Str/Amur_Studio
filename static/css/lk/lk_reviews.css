@@ -53,3 +53,30 @@
     font-weight: bold; /* Жирный шрифт для ошибок */
 }
 
+.submit-button-review-block {
+    text-align: right; /* Выравнивание по правому краю */
+     width: 100%; /* Убедитесь, что блок занимает всю ширину родителя */
+}
+
+
+.submit-button-review {
+    text-align: center;
+    padding: 20px; /* Увеличьте отступы внутри кнопки для лучшего восприятия */
+    background-color: #FBA1CC87; /* Цвет фона кнопок */
+    color: #242626; /* Цвет текста на кнопках */
+    border: 0; /* Убираем рамку */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Указатель при наведении */
+    width: 230px; /* Убираем фиксированную ширину, чтобы кнопка подстраивалась под текст */
+    margin: 5px 0; /* Отступы между кнопками */
+    font-family: 'Roboto', serif;
+    font-size: 25px; /* Уменьшите размер шрифта */
+}
+
+.submit-button-review:hover {
+    background-color: #F83C86E5; /* Цвет фона при наведении */
+}
+
+.submit-button-review:focus {
+    outline: none; /* Убираем обводку при фокусе */
+}
