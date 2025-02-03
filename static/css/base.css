@@ -3,6 +3,21 @@ html, body {
     margin: 0; /* Убираем отступы по умолчанию */
 }
 
+/*Сброс стилей браузера*/
+/** {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    box-sizing: border-box; !* Это поможет избежать проблем с шириной *!*/
+/*}*/
+
+body {
+    display: flex;
+    flex-direction: column; /* Устанавливаем вертикальное направление */
+    min-height: 100vh; /* Минимальная высота 100% от высоты окна */
+    font-family: 'Roboto', serif; /* Основной шрифт */
+    background-color: rgb(255, 255, 255); /* Светлый нейтральный цвет фона */
+}
+
 header {
     background-color: #ffffff;
     color: #333435; /* Цвет для текста заголовка */
@@ -11,17 +26,13 @@ header {
     align-items: center; /* Центрируем элементы по вертикали */
     font-family: 'Roboto', serif; /* Шрифт для заголовка */
     height: 100px;
-    /*width: 100%; !* Устанавливаем ширину заголовка на 100% *!*/
-    /*max-width: 1200px; !* Установите максимальную ширину *!*/
-    /*margin: 0 auto; !* Центрируйте заголовок *!*/
     justify-content: space-between; /* Распределяем пространство между элементами */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Более тусклая тень по умолчанию */
+    box-shadow: 0 4px 20px rgba(251, 145, 190, 0.9); /* Более тусклая тень по умолчанию */
     transition: box-shadow 0.3s ease; /* Плавный переход для тени */
 }
 
-/* Пример эффекта при наведении */
 header:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5); /* Ярче тень при наведении */
+    box-shadow: 0 8px 30px rgb(246, 105, 172); /* Ярче тень при наведении */
 }
 
 .header-left {
@@ -36,49 +47,34 @@ header:hover {
     padding-right: 0; /* Измените margin на padding */
 }
 
-body {
+.base-container {
     display: flex;
-    /*grid-template-rows: auto 1fr auto; !* Заголовок, контент, футер *!*/
     flex-direction: column;
-    min-height: 100vh;
-    font-family: 'Roboto', serif; /* Основной шрифт */
-    margin: 0;
-    padding: 0;
-    background-color: rgba(255, 230, 244, 0.9); /* Светлый нейтральный цвет фона */
-    /*background-size: contain; !* Заполнение всего экрана *!*/
-    /*background-position: center; !* Центрирование изображения *!*/
+    min-height: 100vh; /* Минимальная высота контейнера равна высоте окна */
 }
 
-/*.content-block {*/
-/*    flex: 1;*/
-/*    display: flex; !* Используем flexbox для выравнивания содержимого *!*/
-/*    flex-direction: column; !* Устанавливаем направление по вертикали *!*/
-/*    background-color: #f0f0f0; !* Замените на нужный вам цвет *!*/
-/*    padding: 20px; !* Добавьте отступы для лучшего отображения *!*/
-/*    border-radius: 8px; !* Закругленные углы (по желанию) *!*/
-
-/*}*/
-
-/*Сброс стилей браузера*/
-/** {*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*    box-sizing: border-box; !* Это поможет избежать проблем с шириной *!*/
-/*}*/
-
-
-
+.content-block {
+    flex: 1; /* Позволяет контенту занимать оставшееся пространство */
+}
 
 footer {
     background-color: #ffffff;
     background-size: cover; /* Заполнение всего подвала */
     background-position: bottom; /* Отображение нижней части изображения */
     text-align: center;
-    padding: 10px 0;
-    color: #fff; /* Белый цвет для текста в подвале */
-    text-shadow: 1px 1px 0 #000; /* Черная обводка для текста в подвале */
+    padding: 0; /* Убираем отступы */
+    color: #333333; /* Белый цвет для текста в подвале */
+
     width: 100%;
+    height: 80px; /* Устанавливаем фиксированную высоту футера */
+    min-height: 80px; /* Устанавливаем минимальную высоту футера */
+    border-top: 2px solid #e4e3e3; /* Темный контур сверху */
+    z-index: 1; /* Убедитесь, что футер находится под другими элементами, если это необходимо */
 }
+
+
+
+
 
 .logo-main {
     height: 110%; /* Высота логотипа, можно настроить по желанию */

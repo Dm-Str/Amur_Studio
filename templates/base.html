@@ -11,65 +11,59 @@
     {% load static %}
     {% block style %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
-
     {% endblock %}
 </head>
 <body>
-    <header>
-    
-    <a href="{% url 'index' %}">
-        <img src="{% static 'images/logo.png' %}" alt="Логотип" class="logo-main">
-    </a>
-    
-     <div class="button-container-course-and-lk">
-        <div class="courses-dropdown">
-            <a href="#" class="courses-button">Все курсы</a>
-            <div class="dropdown-content">
-                <a href="#" class="dropdown-item">Живое обучение</a>
-                <a href="{% url 'courses' %}" class="dropdown-item">Онлайн</a>
+    <div class="base-container"> 
+        <header>
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Логотип" class="logo-main">
+            </a>
+            
+            <div class="button-container-course-and-lk">
+                <div class="courses-dropdown">
+                    <a href="#" class="courses-button">Все курсы</a>
+                    <div class="dropdown-content">
+                        <a href="#" class="dropdown-item">Живое обучение</a>
+                        <a href="{% url 'courses' %}" class="dropdown-item">Онлайн</a>
+                    </div>
+                </div>
+                
+                <div class="lk-dropdown">
+                    <a href="{% url 'lk_user' %}" class="lk-button">Личный кабинет</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'register' %}" class="dropdown-item">Регистрация</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <div class="lk-dropdown">
-            <a href="{% url 'lk_user' %}" class="lk-button">Личный кабинет</a>
-            <div class="dropdown-content">
-                <a href="{% url 'register' %}" class="dropdown-item">Регистрация</a>
+            
+            <div class="contact-block">
+                <img src="{% static 'images/map-marker-icon.png' %}" alt="Иконка отметки на карте" class="map-icon"> <!-- Иконка отметки на карте -->
+                <a href="{% url 'contacts' %}" class="contacts-link">8 (931) 200-9-200</a> <!-- Ссылка "Контакты" -->
+                
+                <a href="https://t.me/your_telegram_username" target="_blank" class="social-icon">
+                    <img src="{% static 'images/telegram-icon.png'%}" alt="Telegram" class="icon"> <!-- Иконка Telegram -->
+                </a>
+                
+                <a href="https://wa.me/your_whatsapp_number" target="_blank" class="social-icon">
+                    <img src="{% static 'images/whatsapp-icon.png' %}" alt="WhatsApp" class="icon"> <!-- Иконка WhatsApp -->
+                </a>
             </div>
-        </div>
-    </div>
-    
-    <div class="contact-block">
-        
-        <img src="{% static 'images/map-marker-icon.png' %}" alt="Иконка отметки на карте" class="map-icon"> <!-- Иконка отметки на карте -->
-    
-        <a href="{% url 'contacts' %}" class="contacts-link">8 (931) 200-9-200</a> <!-- Ссылка "Контакты" -->
-        
-        <a href="https://t.me/your_telegram_username" target="_blank" class="social-icon">
-            <img src="{% static 'images/telegram-icon.png'%}" alt="Telegram" class="icon"> <!-- Иконка Telegram -->
-        </a>
-        
-        <a href="https://wa.me/your_whatsapp_number" target="_blank" class="social-icon">
-            <img src="{% static 'images/whatsapp-icon.png' %}" alt="WhatsApp" class="icon"> <!-- Иконка WhatsApp -->
-        </a>
-        
-    </div>
-    
-        <h1>
-            {% block name %}
+            
+            <h1>
+                {% block name %}
+                {% endblock %}
+            </h1>
+        </header>
+
+        <div class="content-block">
+            {% block content %}
             {% endblock %}
-        </h1>
-    
-    </header>
+        </div>
 
-    <div class="content-block">
-        {% block content %}
-        {% endblock %}
-    </div>
-
-    {% block footer %}
-    <footer>
-        <p>&copy; 2023 Strela Amura. Все права защищены.</p>
-    </footer>
-    {% endblock %}
+        <footer>
+            <p>&copy; 2023 Strela Amura. Все права защищены.</p>
+        </footer>
+    </div> <!-- Закрытие контейнера -->
 </body>
 </html>

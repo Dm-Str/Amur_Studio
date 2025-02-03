@@ -4,8 +4,9 @@
     align-items: flex-start; /* Выравнивание по левому краю */
     width: 600px; /* Установите ширину формы на 100% или укажите конкретное значение */
     max-width: 600px; /* Максимальная ширина формы, если необходимо */
-    margin: 0 auto; /* Центрирование формы */
     font-family: 'Roboto', serif;
+    margin-top: 85px;
+    margin-left: 150px;
 }
 
 .form-review textarea {
@@ -25,6 +26,7 @@
 }
 
 .reviews-form {
+    margin-top: 85px;
     width: 400px;
     margin-left: 100px;
 }

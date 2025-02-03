@@ -36,6 +36,7 @@
     flex-direction: column; /* Вертикальное расположение строк */
     margin-bottom: 5px; /* Отступ между строками */
     max-width: 800px; /* Максимальная ширина формы */
+    margin-top: 70px;
 }
 
 .form-row {
