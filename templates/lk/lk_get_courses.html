@@ -33,34 +33,41 @@
         </aside>
 
          <section class="course-section">
-            <div id="courseContainer">
-                {% if user.courses.all %}
-                    <div id="availableCourses">
-                        <h2>Мои курсы:</h2>
-                        <div class="course-list">
-                            {% for course in user.courses.all %}
-                                <div class="course-item">
-                                    <!-- Фоновое изображение курса -->
-                                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
-                                    <!-- Карточка с информацией о курсе -->
-                                    <div class="course-info">
-                                        <h4>{{ course.title|safe }}</h4>
-                                        <p><strong>Тип курса:</strong> {{ course.get_course_type_display }}</p>
-                                        <p><strong>Кол-во уроков:</strong> {{ course.lessons.count }}</p>
-                                    </div>
-                                    <!-- Кнопка "Продолжить обучение!" -->
-                                    <div class="course-button">
-                                        <button class="sidebar-button" onclick="location.href='{% url 'continue_learning' course.id %}'">Продолжить обучение</button>
+    <div id="courseContainer">
+        {% if user.courses.all %}
+            <div id="availableCourses">
+                <h2>Мои курсы:</h2>
+                <div class="course-list">
+                    {% for course in user.courses.all %}
+                        <div class="course-item">
+                            <!-- Фоновое изображение курса -->
+                            <img src="{{ course.image.url }}" alt="{{ course.title }}" class="course-image">
+
+                            <!-- Карточка с информацией о курсе -->
+                            <div class="course-info">
+                                <div class="course-details">
+                                    <h4>{{ course.title|safe }}</h4>
+                                    <p><strong>Тип курса:</strong> {{ course.get_course_type_display }}</p>
+                                    <p><strong>Кол-во уроков:</strong> {{ course.lessons.count }}</p>
+                                    
+                                    <div class="course-button-course">
+                                    <button class="course-button-continue" onclick="location.href='{% url 'continue_learning' course.id %}'">Продолжить обучение</button>
                                     </div>
                                 </div>
-                            {% endfor %}
+
+                                
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                    <h4>У вас нет записанных курсов.</h4>
-                {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-        </section>
+        {% else %}
+            <h4>У вас нет записанных курсов.</h4>
+        {% endif %}
+    </div>
+</section>
+
+
 
     </main>
 {% endblock %}

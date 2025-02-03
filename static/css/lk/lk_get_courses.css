@@ -11,41 +11,65 @@
 }
 
 .course-item {
-    flex: 1 0 300px;
-    max-width: 300px;
-    position: relative;
-    height: 400px;
+    display: flex; /* Используем flexbox для расположения элементов */
+    background: #fff; /* Фоновый цвет карточки */
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для карточки */
+    margin: 10px; /* Отступы между карточками */
+    width: 800px; /* Увеличьте ширину карточки */
+    padding: 20px; /* Добавьте отступы внутри карточки */
+    position: relative; /* Для позиционирования кнопки */
 }
 
 .course-image {
-    width: 100%;
-    height: 100%; /* Установите фиксированную высоту */
-    opacity: 0.5;
-    border-radius: 8px;
+    width: 400px; /* Установите фиксированную ширину для изображения */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    border-radius: 8px; /* Закругленные углы только слева */
 }
-
 
 .course-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.0);
-    padding: 10px;
-    border-radius: 8px 8px 0 0;
+    display: flex; /* Используем flexbox для вертикального расположения элементов */
+    flex-direction: column; /* Располагаем элементы вертикально */
+    justify-content: space-between; /* Распределяем пространство между элементами */
+    padding-left: 50px;
+    flex: 1; /* Позволяет этому блоку занимать все доступное пространство */
+    padding-bottom: 150px; /* Увеличьте нижний отступ, чтобы текст не перекрывался кнопкой */
 }
 
-.course-button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+
+.course-details {
+    font-family: 'Roboto', serif;
+    font-size: 20px; /* Уменьшите размер шрифта */
+    margin-right: 10px; /* Небольшой отступ справа */
+    flex-grow: 1; /* Позволяет тексту занимать доступное пространство */
+}
+
+
+.course-button-course {
+    position: absolute; /* Позиционируем кнопку абсолютно */
+    bottom: 20px; /* Отступ от нижней грани карточки */
+    right: 20px; /* Отступ от правой грани карточки */
+    width: auto; /* Убираем фиксированную ширину, чтобы кнопка подстраивалась под текст */
+}
+
+.course-button-continue {
     text-align: center;
+    padding: 20px; /* Увеличьте отступы внутри кнопки для лучшего восприятия */
+    background-color: #FBA1CC87; /* Цвет фона кнопок */
+    color: #242626; /* Цвет текста на кнопках */
+    border: 0; /* Убираем рамку */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Указатель при наведении */
+    width: 380px; /* Убираем фиксированную ширину, чтобы кнопка подстраивалась под текст */
+    margin: 5px 0; /* Отступы между кнопками */
+    font-family: 'Roboto', serif;
+    font-size: 25px; /* Уменьшите размер шрифта */
 }
 
-.sidebar-button {
-    width: 100%;
-    padding: 10px;
+.course-button-continue:hover {
+    background-color: #F83C86E5; /* Цвет фона при наведении */
 }
 
-
+.course-button-continue:focus {
+    outline: none; /* Убираем обводку при фокусе */
+}
