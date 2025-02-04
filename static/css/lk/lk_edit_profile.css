@@ -37,6 +37,7 @@
     margin-bottom: 5px; /* Отступ между строками */
     max-width: 800px; /* Максимальная ширина формы */
     margin-top: 70px;
+    padding-bottom: 10px;
 }
 
 .form-row {
@@ -81,7 +82,8 @@
 .button-container-save-profile {
     display: flex; /* Используем Flexbox для контейнера */
     justify-content: flex-end; /* Выравнивание кнопки вправо */
-    margin-top: 20px; /* Отступ сверху, если необходимо */
+    margin-top: 5px; /* Отступ сверху, если необходимо */
+
 }
 
 .save-edit-profile-button {
