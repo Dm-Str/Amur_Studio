@@ -1,6 +1,14 @@
 from decimal import Decimal
 from nail_studio.models import StudentCourseProgress, Lesson
-from django.db.models import Q
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from io import BytesIO
+from datetime import datetime
+from pdfrw import PdfReader, PdfWriter, PageMerge
+
+pdfmetrics.registerFont(TTFont('Lato', 'Lato-Regular.ttf'))
+pdfmetrics.registerFont(TTFont('Lato-Bold', 'Lato-Bold.ttf'))
 
 
 def calculation_bonuses_for_buy(price_course):
@@ -68,8 +76,6 @@ def check_completed_course(course, student_progress, current_lesson):
     if (current_lesson == get_last_lesson_course(course) and
             lessons_course == completed_lessons_course):
         return True
-    # except:
-    #     return None
 
 
 def update_student_progress(current_lesson, course, student_progress, user):
@@ -82,15 +88,62 @@ def update_student_progress(current_lesson, course, student_progress, user):
         )
 
 
-# def handle_last_lesson(course, student_progress):
-#     if get_completed_lessons_ids(student_progress).count() != get_lessons_course(course).count():
-#         not_completed_lessons = get_not_completed_lessons(course, student_progress)
-#         return not_completed_lessons[0]
-#     return None
-#
-#
-# def get_next_lesson(current_lesson, current_module, course):
-#     last_lesson_module = current_module.lessons.order_by('-order').first()
-#     if current_lesson == last_lesson_module:
-#         if get_last_module_course(course) == current_module:
-#             return True
+def create_text_pdf(student_name, student_surname, course_title):
+    page_width = 3400
+    page_height = 1900
+
+    # Временный PDF с текстом
+    packet = BytesIO()
+    can = canvas.Canvas(packet, pagesize=(page_width, page_height))
+
+    # Шрифт и размер
+    can.setFillColorRGB(0.25, 0.25, 0.25)
+    can.setFont("Lato-Bold", 170)
+
+    # Вычисляем ширину имени, пробела и фамилии
+    name_width = can.stringWidth(student_name, "Lato-Bold", 170)
+    surname_width = can.stringWidth(student_surname, "Lato-Bold", 170)
+    space_width = can.stringWidth(" ", "Lato-Bold", 170)
+
+    # Общая ширина текста имени и фамилии
+    total_width = name_width + space_width + surname_width
+
+    # Центрирование текста по координате x
+    center_x_position = 1465
+    start_x_position = center_x_position - (total_width / 2)
+
+    can.drawString(start_x_position, 930, student_name)
+    can.drawString(start_x_position + name_width + space_width, 930, student_surname)
+
+    # Шрифт для названия курса
+    can.setFont("Lato-Bold", 85)
+
+    # Вычисляем ширину названия курса, центрируем название
+    course_width = can.stringWidth(course_title, "Lato-Bold", 85)
+    course_x_position = center_x_position - (course_width / 2)
+    can.drawString(course_x_position, 700, f"«{course_title}»")
+
+    # Шрифт для даты
+    can.setFont("Lato", 50)
+    can.drawString(515, 270, f"{datetime.now().strftime('%d.%m.%Y')}")
+
+    can.save()
+    packet.seek(0)
+    return PdfReader(packet)
+
+def generate_certificate(template_path, output_path,
+                         student_name, student_surname, course_title):
+
+    text_pdf = create_text_pdf(student_name, student_surname, course_title)
+    existing_pdf = PdfReader(template_path)
+    output = PdfWriter()
+
+    for page in existing_pdf.pages:
+
+        if existing_pdf.pages.index(page) < len(text_pdf.pages):
+            overlay_page = text_pdf.pages[0]
+            PageMerge(page).add(overlay_page).render()
+
+        output.addPage(page)
+
+    output.write(output_path)
