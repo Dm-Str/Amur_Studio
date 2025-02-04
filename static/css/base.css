@@ -72,10 +72,6 @@ footer {
     z-index: 1; /* Убедитесь, что футер находится под другими элементами, если это необходимо */
 }
 
-
-
-
-
 .logo-main {
     height: 110%; /* Высота логотипа, можно настроить по желанию */
     max-width: 100px; /* Максимальная ширина логотипа, чтобы он не выходил за границы */
@@ -107,7 +103,7 @@ footer {
     font-size: 18px; /* Размер шрифта */
     font-weight: bold; /* Делаем шрифт жирным */
     transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
-    font-family: 'Roboto', serif;
+    font-family: "Raleway", sans-serif;
 }
 
 .courses-button:hover {
@@ -176,7 +172,7 @@ footer {
     font-size: 18px; /* Размер шрифта */
     font-weight: bold; /* Делаем шрифт жирным */
     transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета фона и текста */
-    font-family: 'Roboto', serif;
+    font-family: "Raleway", sans-serif;
     /*margin-left: 500px; !* Отступ слева *!*/
 }
 
@@ -228,9 +224,11 @@ footer {
     text-decoration: none; /* Убираем подчеркивание */
     color: #333435; /* Цвет текста ссылки */
     font-size: 20px; /* Размер шрифта */
-    font-weight: bold; /* Делаем шрифт жирным */
     transition: text-shadow 0.3s ease; /* Плавный переход для тени текста */
     margin-right: 15px;
+    font-family: "Raleway", sans-serif;
+    -webkit-font-feature-settings: 'lnum'; /* Для браузеров на основе WebKit */
+    font-feature-settings: 'lnum'; /* Для других браузеров */
 }
 
 .contacts-link:hover {
