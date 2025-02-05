@@ -72,25 +72,56 @@
         </div>
    
         <div class="main-content">
-        <div class="main-content-congratulate">
-                    <h2>Поздравляем Вы успешно завершили курс! </h2>
-                    <p>Мы гордимся вашим достижением и желаем вам дальнейших успехов в обучении!</p>
-{#                    <p>{{ course.title| safe }}</p>#}
-            
-{#                    {% if certificate_image %}#}
-                        <div class="certificate-container">
-                            <img src="{% static 'images/../../static/images/certificate1.png' %}" alt="Сертификат" 
-                                 class="certificate-image">
-                        </div>
-                    <p class="school-name">Школа маникюра "Стрела Амура"</p>
-{#                    {% else %}#}
-{#                        <p>Ваш сертификат будет доступен после завершения всех уроков.</p>#}
-{#                    {% endif %}#}
-                    
+            <div class="main-content-congratulate">
+                <h2>Поздравляем Вы успешно завершили курс!</h2>
+                <p>Мы гордимся вашим достижением и желаем вам дальнейших успехов в обучении!</p>
+
+                <div class="certificate-container">
+                    <div id="pdf-viewer" style="width: 100%; height: 600px;"></div>
                 </div>
-    
+
+                 <h4>Если сертификат не отображается, вы можете<a href="{{ student_certificate }}"> скачать PDF</a></h4>
+
+            </div>
         </div>
 </div>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script>
+    const url = "{{ student_certificate }}";  // URL вашего PDF
+
+    const loadingTask = pdfjsLib.getDocument(url);
+    loadingTask.promise.then(pdf => {
+        console.log('PDF загружен');
+
+        // Вы можете отобразить первую страницу
+        pdf.getPage(1).then(page => {
+            console.log('Страница загружена');
+
+            const scale = 0.4;
+            const viewport = page.getViewport({ scale: scale });
+
+            // Подготовка канваса
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            // Добавление канваса в контейнер
+            document.getElementById('pdf-viewer').appendChild(canvas);
+
+            // Рендеринг страницы
+            const renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    }, reason => {
+        console.error(reason);
+    });
+</script>
  
 </body>
 </html>
+

@@ -6,15 +6,33 @@
     color: #4c5050; /* Цвет текста (белый для контраста) */
     border-radius: 8px; /* Закругленные углы */
     padding: 20px; /* Отступы внутри блока */
-    margin: 10px 0; /* Отступы сверху и снизу */
+    margin: 30px 0; /* Отступы сверху и снизу */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень для глубины */
 }
 
 .main-content h2 {
     color: #F4297AE5; /* Цвет заголовка */
-    font-size: 33px; /* Размер шрифта заголовка */
-    margin-bottom: 15px; /* Отступ снизу заголовка */
+    font-size: 30px; /* Размер шрифта заголовка */
+    margin-bottom: 5px; /* Отступ снизу заголовка */
     text-align: center; /* Центрирование заголовка */
+    margin-top: 0;
+}
+
+.main-content h4 {
+    color: #4c5050; /* Цвет заголовка */
+    font-size: 20px; /* Размер шрифта заголовка */
+    margin-bottom: 5px; /* Отступ снизу заголовка */
+    text-align: right; /* Центрирование заголовка */
+}
+
+.main-content h4 a {
+    color: #f669ac; /* Замените на желаемый цвет */
+    text-decoration: none; /* Убирает подчеркивание, если нужно */
+}
+
+.main-content h4 a:hover {
+    color: rgba(244, 41, 122, 0.9); /* Цвет ссылки при наведении */
+    text-decoration: underline; /* Подчеркивание при наведении, если нужно */
 }
 
 .school-name {
@@ -30,15 +48,15 @@
 
 .main-content p {
     color: #333; /* Цвет текста */
-    font-size: 33px; /* Размер шрифта текста */
+    font-size: 27px; /* Размер шрифта текста */
     line-height: 1.6; /* Межстрочный интервал */
-    margin: 20px 0; /* Отступы сверху и снизу для параграфов */
+    margin: 1px 0; /* Отступы сверху и снизу для параграфов */
     text-align: center; /* Центрирование текста */
 }
 
 .certificate-container {
-    margin-top: 20px; /* Отступ сверху для контейнера сертификата */
-    margin-bottom: 480px;
+    margin-top: 15px; /* Отступ сверху для контейнера сертификата */
+    padding-bottom: 250px;
     text-align: center; /* Центрирование контейнера сертификата */
 }
 
