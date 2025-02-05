@@ -228,4 +228,15 @@ class StudentHomeworkPanel(admin.ModelAdmin):
     list_max_show_all = 4
 
 
+@admin.register(Certificates)
+class CertificatesPanel(admin.ModelAdmin):
+    fields = ('user', 'course', 'certificate_file', 'issued_at')
+    list_display = ('user', 'course', 'certificate_file', 'issued_at')
+    list_display_links = ('user', 'course', 'certificate_file', 'issued_at')
+    list_filter = ('user', 'course')
+
+    empty_value_display = '-пустой-'
+    list_per_page = 64
+    list_max_show_all = 4
+
 
