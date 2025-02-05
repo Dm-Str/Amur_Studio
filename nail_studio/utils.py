@@ -1,4 +1,6 @@
 from decimal import Decimal
+import os
+from django.conf import settings
 from nail_studio.models import StudentCourseProgress, Lesson
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
@@ -100,7 +102,7 @@ def create_text_pdf(student_name, student_surname, course_title):
     can.setFillColorRGB(0.25, 0.25, 0.25)
     can.setFont("Lato-Bold", 170)
 
-    # Вычисляем ширину имени, пробела и фамилии
+    # Вычисление ширину имени, пробела и фамилии
     name_width = can.stringWidth(student_name, "Lato-Bold", 170)
     surname_width = can.stringWidth(student_surname, "Lato-Bold", 170)
     space_width = can.stringWidth(" ", "Lato-Bold", 170)
@@ -118,7 +120,7 @@ def create_text_pdf(student_name, student_surname, course_title):
     # Шрифт для названия курса
     can.setFont("Lato-Bold", 85)
 
-    # Вычисляем ширину названия курса, центрируем название
+    # Вычисление ширины названия курса, центрирование названия
     course_width = can.stringWidth(course_title, "Lato-Bold", 85)
     course_x_position = center_x_position - (course_width / 2)
     can.drawString(course_x_position, 700, f"«{course_title}»")
@@ -131,8 +133,15 @@ def create_text_pdf(student_name, student_surname, course_title):
     packet.seek(0)
     return PdfReader(packet)
 
-def generate_certificate(template_path, output_path,
-                         student_name, student_surname, course_title):
+
+def generate_certificate(student_id, student_name, student_surname, course):
+    template_path = os.path.join(
+        settings.MEDIA_ROOT,'template_certificate/certificate_template.pdf')
+
+    output_path = os.path.join(
+        settings.MEDIA_ROOT,f'students_certificates/student_{student_id}_certificate_{course.id}.pdf')
+
+    course_title = ''.join([i for i in course.title if i not in '<h2>«»</h2>'])
 
     text_pdf = create_text_pdf(student_name, student_surname, course_title)
     existing_pdf = PdfReader(template_path)
@@ -147,3 +156,8 @@ def generate_certificate(template_path, output_path,
         output.addPage(page)
 
     output.write(output_path)
+
+    student_certificate_url = os.path.join(
+        settings.MEDIA_URL,f'students_certificates/student_{student_id}_certificate_{course.id}.pdf')
+
+    return student_certificate_url
