@@ -81,21 +81,28 @@
 
 .button-container-save-profile {
     display: flex; /* Используем Flexbox для контейнера */
-    justify-content: flex-end; /* Выравнивание кнопки вправо */
+    /*justify-content: flex-end; !* Выравнивание кнопки вправо *!*/
     margin-top: 5px; /* Отступ сверху, если необходимо */
-
+    margin-bottom: 20px;
+    margin-left: 420px; /* Сдвиг влево (можно настроить значение) */
 }
+
+.button-container-save-profile button {
+    margin-top: -85px; /* Сдвиг вверх (можно настроить значение) */
+}
+
 
 .save-edit-profile-button {
     text-align: center;
-    padding: 20px; /* Увеличьте отступы внутри кнопки для лучшего восприятия */
+    padding: 10px; /* Увеличьте отступы внутри кнопки для лучшего восприятия */
     background-color: #FBA1CC87; /* Цвет фона кнопок */
     color: #242626; /* Цвет текста на кнопках */
     border: 0; /* Убираем рамку */
     border-radius: 5px; /* Закругленные углы */
     cursor: pointer; /* Указатель при наведении */
-    width: 300px; /* Убираем фиксированную ширину, чтобы кнопка подстраивалась под текст */
+    width: 330px; /* Убираем фиксированную ширину, чтобы кнопка подстраивалась под текст */
     margin: 5px 0; /* Отступы между кнопками */
+    height: 55px;
     font-family: 'Roboto', serif;
     font-size: 23px; /* Уменьшите размер шрифта */
 }
