@@ -1,12 +1,18 @@
 form {
     max-width: 400px;
-    margin: 0 auto;
+    margin: 100px auto;
     background: #fff; /* Белый фон для формы */
-    padding: 35px;
+    padding: 85px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Начальная тень */
+    transition: box-shadow 0.3s ease; /* Плавный переход для тени */
 }
 
+form:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Ярче тень при наведении */
+}
+
+/* Остальные стили остаются без изменений */
 form label {
     display: block;
     margin-bottom: 15px;
@@ -37,4 +43,13 @@ form button {
 form button:hover {
     background-color: #FB91BEE5; /* Цвет фона при наведении */
     color: white; /* Цвет текста при наведении */
+}
+
+.authorization-title {
+    text-align: center; /* Выравнивание по центру */
+    color: #151515; /* Цвет текста */
+    font-size: 24px; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+    margin: 1px 0; /* Отступы сверху и снизу */
+    margin-bottom: 50px;
 }

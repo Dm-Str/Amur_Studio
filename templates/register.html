@@ -18,7 +18,8 @@
         <form method="post" id="registration-form" novalidate>
             {% csrf_token %}
             
-            <h3 style="text-align: center;">РЕГИСТРАЦИЯ</h3>
+            <h3 class="registration-title">РЕГИСТРАЦИЯ</h3>
+
             
             {% if errors %}
                 <div class="error-messages">
