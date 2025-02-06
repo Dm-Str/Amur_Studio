@@ -161,3 +161,16 @@ def generate_certificate(student_id, student_name, student_surname, course):
         settings.MEDIA_URL,f'students_certificates/student_{student_id}_certificate_{course.id}.pdf')
 
     return student_certificate_url
+
+
+def check_required_fields_filled(request):
+    required_fields = [
+        request.user.first_name.replace(' ', ''),
+        request.user.last_name.replace(' ', ''),
+        request.user.messenger.replace(' ', ''),
+    ]
+
+    for field in required_fields:
+        if not field:
+            return True
+    return False

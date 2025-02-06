@@ -1,14 +1,12 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.defaultfilters import first
 
 from nail_studio.forms import PersonProfileForm
 from nail_studio.models import *
 from django.contrib import messages
 from nail_studio.utils import *
 from decimal import Decimal
-from nail_studio.views import courses
 
 
 def make_logout(request):
@@ -156,6 +154,9 @@ def continue_learning(request, course_id):
     course = get_object_or_404(Courses, pk=course_id)
     student_progress = StudentCourseProgress.get_student_progress(course, request)
 
+    if check_required_fields_filled(request):
+        return redirect('edit_profile')
+
     if not student_progress:
         first_module = course.modules.first()
 
@@ -224,23 +225,37 @@ def next_lesson(request, lesson_id):
 
 
 @login_required
-def complete_current_course(request, course_id):
+def check_required_fields_filled(request, course_id):
+    # TODO: обработать исключения, если юзер
+    #  не заполнил профиль first_name/last_name.
+    #  Дописать логику сохранения сертификата студетна в БД.
+    #  Также нужно, обработать случай когда пользователь прошел курс,
+    #  то при повторном завершении этого курса, не должен формироваться
+    #  новый сертификат и начисляться бонусы.
     course = get_object_or_404(Courses, pk=course_id)
     student_progress = StudentCourseProgress.get_student_progress(course, request)
     lessons = course.lessons.all()
     lessons_without_topics = lessons.filter(topic__isnull=True)
+
+    student_certificate = generate_certificate(student_id=request.user.id,
+                         student_name=request.user.first_name,
+                         student_surname=request.user.last_name,
+                         course=course)
 
     context = {
         'course': course,
         'lessons': course.lessons.all(),
         'lessons_without_topics': lessons_without_topics,
         'completed_lessons_ids': get_completed_lessons_ids(student_progress),
+        'student_certificate': student_certificate,
     }
     return render(request, 'lk/lk_complete_current_course.html', context)
 
 
 @login_required
 def submit_homework(request, lesson_id):
+    # TODO: обработать случай, если юзер отправляет пустое дз,
+    #  без фото и без описания
     if request.method == "POST":
         current_lesson = get_object_or_404(Lesson, id=lesson_id)
         course = current_lesson.course
