@@ -14,6 +14,7 @@ class LessonForm(forms.ModelForm):
 
 
 class PersonProfileForm(forms.ModelForm):
+    # TODO: Добавить валидацю ля поля messenger (username для ТГ и WhatsApp)
     class Meta:
         model = Person
         fields = ['first_name', 'last_name', 'date_of_birth',
