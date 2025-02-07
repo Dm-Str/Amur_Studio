@@ -225,13 +225,16 @@ def next_lesson(request, lesson_id):
 
 
 @login_required
-def check_required_fields_filled(request, course_id):
+def complete_current_course(request, course_id):
     # TODO: обработать исключения, если юзер
     #  не заполнил профиль first_name/last_name.
     #  Дописать логику сохранения сертификата студетна в БД.
     #  Также нужно, обработать случай когда пользователь прошел курс,
     #  то при повторном завершении этого курса, не должен формироваться
     #  новый сертификат и начисляться бонусы.
+    #  Добавить на выбор васап или тг, если тг то ник. В дате рождения
+    #  оставить комментарий, что это нужно для начилсения бонусов.
+    #  Опыт работы мастером для корректной консультации.
     course = get_object_or_404(Courses, pk=course_id)
     student_progress = StudentCourseProgress.get_student_progress(course, request)
     lessons = course.lessons.all()
