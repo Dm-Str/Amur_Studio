@@ -115,3 +115,37 @@
     outline: none; /* Убираем обводку при фокусе */
 }
 
+.bonus-info {
+    font-size: 14px; /* Размер шрифта */
+    color: #4c5050; /* Цвет текста */
+    margin-top: 5px; /* Отступ сверху */
+    margin-bottom: 10px; /* Отступ снизу */
+    font-weight: bold; /* Жирный шрифт */
+}
+
+.messenger-container {
+    position: relative; /* Для позиционирования подсказки */
+    display: inline-block; /* Чтобы подсказка отображалась рядом с полем */
+}
+
+.tooltip {
+    visibility: hidden; /* Скрываем подсказку по умолчанию */
+    width: 310px; /* Ширина подсказки */
+    background-color: #555; /* Цвет фона подсказки */
+    color: #fff; /* Цвет текста */
+    text-align: center; /* Выравнивание текста */
+    border-radius: 5px; /* Закругленные углы */
+    padding: 5px; /* Отступы внутри подсказки */
+    position: absolute; /* Абсолютное позиционирование */
+    z-index: 1; /* Уровень наложения */
+    bottom: 135%; /* Позиция подсказки */
+    left: 50%; /* Центрирование по горизонтали */
+    margin-left: -160px; /* Сдвиг влево для центрирования */
+    opacity: 0; /* Прозрачность */
+    transition: opacity 0.3s; /* Плавный переход */
+}
+
+.messenger-container:hover .tooltip {
+    visibility: visible; /* Показываем подсказку при наведении */
+    opacity: 1; /* Делаем подсказку видимой */
+}
