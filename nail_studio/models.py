@@ -104,7 +104,7 @@ class Person(AbstractUser):
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='День рождения')
     city = models.CharField(max_length=50, blank=True, null=True, verbose_name='Город')
-    messenger= models.CharField(max_length=50, verbose_name='Мессенджер')
+    messenger= models.CharField(max_length=50, default='WhatsApp', verbose_name='Мессенджер')
     photo = models.ImageField(upload_to='images/', default='images/default_prof_img.jpg', verbose_name='Фото профиля')
     experience = models.CharField(max_length=50, blank=True, null=True, verbose_name='Опыт работы')
     bonuses = models.IntegerField(default=50, verbose_name='Бонусы')
