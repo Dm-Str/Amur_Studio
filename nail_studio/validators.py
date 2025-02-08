@@ -53,3 +53,16 @@ def validate_password(value):
 
     if len(value) < 6:
         raise ValidationError("Пароль должен содержать не менее 6 символов.")
+
+
+def validate_messenger(value):
+    # Валидация для поля messenger (username для ТГ и WhatsApp)
+    if not (5 <= len(value) <= 32):
+        raise ValidationError("Длина 'Мессенджер' должна быть от 5 до 32 символов "
+                              "<br>Пример: @user001")
+    if not re.match(r'^@[a-zA-Z0-9_-]+$', value):
+        raise ValidationError("'Мессенджер' должен начинаться с символа @ <br>и содержать только буквы, цифры, а также символы _ и - "
+                              "<br>Пример: @user001")
+    if value[0] != '@':
+        raise ValidationError("'Мессенджер' должен начинаться с символа @ "
+                              "<br>Пример: @user001")
