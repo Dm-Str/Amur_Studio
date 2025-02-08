@@ -69,6 +69,13 @@ def edit_profile(request):
     if request.method == 'POST':
         form = PersonProfileForm(request.POST, request.FILES, instance=request.user)
 
+        if request.POST['messenger'] != 'WhatsApp':
+            try:
+                validate_messenger(request.POST['messenger'])
+            except ValidationError as e:
+                messages.error(request, e.messages[0])
+                return render(request, 'lk/lk_edit_profile.html', {'form': form})
+
         if form.is_valid():
             form.save()
             messages.success(request, 'Профиль обновлен успешно!')
