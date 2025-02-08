@@ -35,13 +35,6 @@
 
     <div class="content-container-edit-profile">
     <section id="content-section" style="flex: 1;">
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
         
         <form class="person-profile-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -79,19 +72,19 @@
                     <div class="messenger-container">
                         {{ form.messenger }}
                         <span class="tooltip"> 
-                            Для пользователей Telegram: укажите ваш username, <br>например: @user_tg1.<br>
+                            Для пользователей Telegram: укажите ваш username, <br>например: @usertg1.<br>
                             Если вы используете WhatsApp, можете оставить поле без изменений.
                         </span>
                     </div>
                 </div>
-
-
+                
                 <div class="form-group">
                     <label for="date_of_birth">{{ form.date_of_birth.label }}</label><br>
                     <div class="messenger-container">
                         {{ form.date_of_birth }}
                         <span class="tooltip"> 
-                            Дата вашего рождения необходима для начисления бонусов.<br> Пожалуйста, укажите её.
+                            Дата вашего рождения необходима для начисления бонусов.<br> 
+                            Пожалуйста, укажите её в формате: дд.мм.гггг/01.01.2001
                         </span>
                     </div>
                     
@@ -129,6 +122,13 @@
             <div class="button-container-save-profile">
                 <button class="save-edit-profile-button">Сохранить изменения</button>
             </div>
+                {% if messages %}
+                    <ul class="error-messages">
+                        {% for message in messages %}
+                            <h3{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message| safe }}</h3>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
         </form>
     </section>
