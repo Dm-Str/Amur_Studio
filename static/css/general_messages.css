@@ -23,10 +23,10 @@
 }
 
 .error-messages {
-    color: red; /* Цвет текста */
-    background-color: #f8d7da; /* Светлый фон для выделения */
-    border: 1px solid #f5c6cb; /* Рамка для выделения */
+    color: #F83C86E5; /* Цвет текста */
+    background-color: #e1dede; /* Светлый фон для выделения */
     padding: 2px; /* Отступы внутри блока */
     margin: 10px 0; /* Отступы сверху и снизу */
     border-radius: 5px; /* Закругленные углы */
+    text-align: center; /* Центрирование текста */
 }
