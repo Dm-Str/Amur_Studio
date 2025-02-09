@@ -1,0 +1,117 @@
+.content-section-help {
+    margin-top: 77px; /* Внутренний отступ сверху */
+    margin-bottom: 40px;
+    padding-left: 130px; /* Внутренний отступ слева */
+    font-size: 20px; /* Размер шрифта */
+    width: 840px; /* Фиксированная ширина */
+}
+
+.h2-help {
+    padding-left: 40px;
+}
+
+.faq {
+    border: 1px solid #bfbfbf; /* Цвет и стиль рамки */
+    border-radius: 5px; /* Скругление углов */
+    margin-bottom: 10px; /* Отступ между вопросами */
+    padding: 30px; /* Внутренний отступ */
+    padding-left: 40px; /* Отступ слева */
+    background-color: #ffffff; /* Цвет фона */
+    color: #F83C86E5; /* Цвет текста */
+    cursor: pointer; /* Указатель при наведении на всю область */
+    display: flex; /* Используем flexbox для выравнивания элементов */
+    flex-direction: column; /* Устанавливаем направление по колонкам */
+}
+
+.faq-header {
+    display: flex; /* Используем flexbox для выравнивания заголовка и значка */
+    justify-content: space-between; /* Разделяем пространство между заголовком и значком */
+    align-items: center; /* Выравниваем элементы по центру по вертикали */
+    width: 100%; /* Занимаем всю ширину родителя */
+}
+
+.faq h3 {
+    margin: 0; /* Убираем отступы у заголовка */
+    font-size: 20px; /* Размер шрифта заголовка */
+    transition: font-size 0.3s ease, transform 0.3s ease; /* Плавный переход для размера шрифта и трансформации */
+}
+
+.faq:hover h3 {
+    /* font-size: 1.3em; */
+    transform: scale(1.1);
+}
+
+.arrow-icon {
+    margin-left: 10px;
+    font-size: 1.2em; /* Размер значка */
+    color: #F83C86E5; /* Цвет значка */
+    transition: transform 0.3s ease; /* Плавный переход для анимации */
+}
+
+.faq:hover .arrow-icon {
+    /*transform: rotate(90deg); !* Поворачиваем значок при наведении *!*/
+    transform: rotate(90deg) scale(1.1); /* Поворачиваем и увеличиваем значок при наведении */
+
+}
+
+.faq-answer {
+    display: none; /* Скрыть ответ по умолчанию */
+    /*padding: 10px; !* Внутренний отступ для ответа *!*/
+    color: #333; /* Цвет текста ответа */
+    transition: max-height 0.3s ease; /* Плавный переход для высоты */
+    overflow: hidden; /* Скрыть переполнение */
+    font-size: 25px; /* Размер шрифта ответа */
+    margin-top: 15px; /* Отступ сверху для ответа */
+    margin-bottom: -5px;
+}
+
+#show-more {
+    margin-left: 340px;
+    margin-top: 20px; /* Отступ сверху */
+    border: 1px solid #bfbfbf; /* Цвет и стиль рамки */
+    padding: 20px 40px; /* Внутренние отступы */
+    background-color: #ffffff; /* Цвет фона */
+    color:  #F83C86E5; /* Цвет текста */
+    border-radius: 5px; /* Скругление углов */
+    cursor: pointer; /* Указатель при наведении */
+    font-size: 20px; /* Размер шрифта */
+    font-family: 'Roboto Serif', serif;
+}
+
+#show-more:hover {
+    border: 1px solid #e4e3e3; /* Цвет и стиль рамки */
+    background-color: #FB91BEE5; /* Цвет фона при наведении */
+    color: white; /* Цвет текста при наведении */
+}
+
+/*.help-icon {*/
+/*    display: inline-block;*/
+/*    margin-left: 5px;*/
+/*    position: relative;*/
+/*    cursor: pointer;*/
+/*    color: #F83C86E5; !* Цвет текста *!*/
+/*    text-align: center; !* Центрирование текста *!*/
+/*    line-height: 25px; !* Вертикальное центрирование текста *!*/
+/*    background-color: transparent; !* Прозрачный фон *!*/
+/*}*/
+
+/*.help-icon .tooltip {*/
+/*    display: none;*/
+/*    position: absolute;*/
+/*    color: #4c5050;*/
+/*    padding: 5px;*/
+/*    border-radius: 5px;*/
+/*    top: 0; !* Положение подсказки *!*/
+/*    left: 40px;*/
+/*    z-index: 10;*/
+/*    white-space: nowrap;*/
+/*    font-size: 22px; !* Уменьшенный размер шрифта *!*/
+/*    opacity: 0; !* Начальная непрозрачность *!*/
+/*    transition: opacity 0.9s ease; !* Плавный переход для непрозрачности *!*/
+/*}*/
+
+/*.help-icon:hover .tooltip {*/
+/*    display: block;*/
+/*    opacity: 1; !* Полная непрозрачность при наведении *!*/
+/*}*/
+

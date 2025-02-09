@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Личный кабинет - Стрела Амура
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lk/lk.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lk/lk_help.css' %}"> <!-- Подключение нового CSS-файла -->
+{% endblock %}
+
+{% block name %}
+
+{% endblock %}
+
+{% block content %}
+    <main style="display: flex;">
+
+        <aside class="sidebar">
+            <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'submit_review' %}'">Мои отзывы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
+            <form class="logout-form" method="post" action="{% url 'make_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="sidebar-button logout-button">Выйти из ЛК</button>
+            </form>
+        </aside>
+
+        <section>
+            
+            <div class="content-section-help">
+                <h2 class="h2-help">Часто задаваемые вопросы
+{#                    <span class="help-icon">?#}
+{#                        <span class="tooltip">Если остались вопрсы, задайте их в ТГ или WhatsApp.</span>#}
+{#                    </span>#}
+                </h2>
+                <div id="faq-container">
+                    <div class="faq" onclick="toggleAnswer('faq1')">
+                        <div class="faq-header">
+                            <h3>Что такое курс маникюра?</h3>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                        <p id="faq1" class="faq-answer">Курс маникюра - это программа обучения, которая включает в себя теоретические и практические занятия по маникюру.</p>
+                    </div>
+                    <div class="faq" onclick="toggleAnswer('faq2')">
+                        <div class="faq-header">
+                            <h3>Как записаться на курс?</h3>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                        <p id="faq2" class="faq-answer">Записаться на курс можно через наш сайт, выбрав удобное время и дату.</p>
+                    </div>
+                    <div class="faq" onclick="toggleAnswer('faq3')">
+                        <div class="faq-header">
+                            <h3>Сколько длится курс?</h3>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                        <p id="faq3" class="faq-answer">Курс длится 4 недели, с занятиями два раза в неделю.</p>
+                    </div>
+                    <div class="faq" onclick="toggleAnswer('faq4')">
+                        <div class="faq-header">
+                            <h3>Какие материалы нужны для курса?</h3>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                        <p id="faq4" class="faq-answer">Для курса вам понадобятся базовые инструменты для маникюра, такие как пилки, ножницы, и лаки для ногтей. Полный список будет предоставлен перед началом курса.</p>
+                    </div>
+                    <div class="faq" onclick="toggleAnswer('faq5')">
+                        <div class="faq-header">
+                            <h3>Есть ли у вас скидки на курсы?</h3>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                        <p id="faq5" class="faq-answer">Да, мы предлагаем скидки на групповые записи и специальные предложения для постоянных клиентов. Подробности можно узнать на нашем сайте.</p>
+                    </div>
+                    <div class="faq" onclick="toggleAnswer('faq6')">
+                        <div class="faq-header">
+                            <h3>Какова стоимость курса?</h3>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                        <p id="faq6" class="faq-answer">Стоимость курса зависит от выбранной программы и составляет от 5000 до 15000 рублей.</p>
+                    </div>
+                    <div class="faq" onclick="toggleAnswer('faq7')">
+                        <div class="faq-header">
+                            <h3>Где проходят занятия?</h3>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                        <p id="faq7" class="faq-answer">Занятия проходят в нашем учебном центре, расположенном в центре города.</p>
+                    </div>
+                </div>
+                <button id="show-more" onclick="showMore()">Еще вопросы</button>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+    let currentVisible = 5; // Количество видимых вопросов
+
+function showMore() {
+    const faqs = document.querySelectorAll('.faq');
+    for (let i = currentVisible; i < faqs.length; i++) {
+        faqs[i].style.display = 'block'; // Показываем скрытые вопросы
+    }
+    currentVisible = faqs.length; // Обновляем количество видимых вопросов
+    document.getElementById('show-more').style.display = 'none'; // Скрываем кнопку "ЕЩЕ"
+}
+
+function toggleAnswer(faqId) {
+    const answer = document.getElementById(faqId);
+    if (answer.style.display === "none" || answer.style.display === "") {
+        answer.style.display = "block"; // Показываем ответ
+    } else {
+        answer.style.display = "none"; // Скрываем ответ
+    }
+}
+
+// Изначально скрываем все вопросы, кроме первых 5
+document.addEventListener('DOMContentLoaded', () => {
+    const faqs = document.querySelectorAll('.faq');
+    for (let i = 5; i < faqs.length; i++) {
+        faqs[i].style.display = 'none'; // Скрываем все вопросы, начиная с 6-го
+    }
+});
+</script>
+
+{% endblock %}
