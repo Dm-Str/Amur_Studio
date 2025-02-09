@@ -293,4 +293,4 @@ def lk_user(request):
 
 
 def get_help(request):
-    return render(request, 'lk/lk.html')
+    return render(request, 'lk/lk_help.html')
