@@ -174,3 +174,9 @@ def check_required_fields_filled(request):
         if not field:
             return True
     return False
+
+
+def send_message_student():
+    # TODO: реализовать логику.
+    #  Аргументы: messenger, contact, message_text ?
+    pass
