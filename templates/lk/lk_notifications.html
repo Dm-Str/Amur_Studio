@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Личный кабинет - Стрела Амура
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lk/lk.css' %}">
+{% endblock %}
+
+{% block name %}
+
+{% endblock %}
+
+{% block content %}
+    <main style="display: flex;">
+    
+        <aside class="sidebar">
+            <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'submit_review' %}'">Мои отзывы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
+            <form class="logout-form" method="post" action="{% url 'make_logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="sidebar-button logout-button">Выйти из ЛК</button>
+            </form>
+        </aside>
+
+        <section>
+            <h2>Текущий курс: {{ user.courses }}</h2>
+            <p>Информация о текущем прохождении курса маникюра:</p>
+            <ul>
+                <li>Статус: В процессе</li>
+                <li>Прогресс: 75%</li>
+                <li>Осталось занятий: 3</li>
+            </ul>
+        </section>
+    </main>
+    
+{% endblock %}
