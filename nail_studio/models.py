@@ -231,7 +231,7 @@ class HomeworkImage(models.Model):
 
 
 class Discounts(models.Model):
-    courses = models.ManyToManyField(Courses, related_name='discounts')  # ???
+    courses = models.ManyToManyField(Courses, related_name='discounts')
     title = models.CharField(max_length=200, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     date_start = models.DateField(verbose_name='Начало скидки')
@@ -259,6 +259,7 @@ class Certificates(models.Model):
 
 
 class Notifications(models.Model):
+    # TODO: Исправить поля. is_read изменить на статус.
     user = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='notifications',
                              verbose_name='Пользователь')
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='notifications',
