@@ -37,3 +37,19 @@
     background-color: #f6f6f6;
     color: #f6f6f6;
 }
+
+.notification-count {
+    background-color: #F83C86E5; /* Цвет фона */
+    color: #ffffff; /* Цвет текста */
+    border-radius: 50%; /* Круглая форма */
+    min-width: 20px; /* Минимальная ширина */
+    min-height: 20px; /* Минимальная высота */
+    padding: 2px; /* Отступы */
+    display: inline-flex; /* Используем flexbox для центрирования текста */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    margin-left: 5px; /* Отступ слева */
+    font-size: 0.8em; /* Размер шрифта */
+    font-weight: bold; /* Жирный шрифт */
+}
+
