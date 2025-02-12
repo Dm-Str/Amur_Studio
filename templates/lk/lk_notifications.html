@@ -9,6 +9,7 @@
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/lk/lk.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lk/lk_notifications.css' %}">
 {% endblock %}
 
 {% block name %}
@@ -31,15 +32,43 @@
             </form>
         </aside>
 
-        <section>
-            <h2>Текущий курс: {{ user.courses }}</h2>
-            <p>Информация о текущем прохождении курса маникюра:</p>
-            <ul>
-                <li>Статус: В процессе</li>
-                <li>Прогресс: 75%</li>
-                <li>Осталось занятий: 3</li>
-            </ul>
+        <section >
+            <div class="notifications">
+                <h2>Уведомления</h2>
+                <ul class="notification-list">
+                    {% for notification in person_notifications %}
+                        <li class="notification-item" onclick="toggleNotification('notification{{ forloop.counter }}')">
+                            <h3 class="notification-subject">{{ notification.topic }}</h3>
+                            <p class="notification-preview" id="notification{{ forloop.counter }}" style="display: none;">
+                                {{ notification.message }}
+                            </p>
+                        </li>
+                    {% empty %}
+                        <li class="notification-item">
+                            <h3 class="notification-subject">Нет уведомлений</h3>
+                            <p class="notification-preview">У вас нет новых уведомлений.</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </section>
     </main>
+    
+    <script>
+        function toggleNotification(id) {
+            const notification = document.getElementById(id);
+            const parentItem = notification.closest('.notification-item');
+    
+            // Переключаем класс active для родительского элемента
+            parentItem.classList.toggle('active');
+    
+            // Проверяем, отображается ли текст уведомления
+            if (notification.style.display === "none" || notification.style.display === "") {
+                notification.style.display = "block";
+            } else {
+                notification.style.display = "none";
+            }
+        }
+    </script>
     
 {% endblock %}

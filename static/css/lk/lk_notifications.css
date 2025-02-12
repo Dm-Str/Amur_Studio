@@ -1,0 +1,44 @@
+.notifications {
+    margin-top: 77px; /* Внутренний отступ сверху */
+    margin-bottom: 40px;
+    padding-left: 130px; /* Внутренний отступ слева */
+    font-size: 20px; /* Размер шрифта */
+    width: 840px; /* Фиксированная ширина */
+}
+
+.notifications h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.notification-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.notification-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.notification-item:hover {
+    background-color: #f0f0f0;
+}
+
+.notification-subject {
+    font-size: 18px;
+    margin: 0;
+    color: #F83C86E5; /* Цвет текста */
+}
+
+.notification-preview {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+}
