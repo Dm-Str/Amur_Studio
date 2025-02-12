@@ -140,7 +140,18 @@ def get_bonuses(request):
 
 @login_required
 def get_notifications(request):
-    return render(request, 'lk/lk.html')
+    person = get_object_or_404(Person, pk=request.user.id)
+    person_notifications = person.notifications.all()
+
+    context = {
+        'person_notifications': person_notifications,
+    }
+    return render(request, 'lk/lk_notifications.html', context)
+
+
+@login_required
+def get_notification_details(request, notification_id):
+    pass
 
 
 @login_required
