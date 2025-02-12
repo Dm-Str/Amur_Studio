@@ -18,6 +18,7 @@
 }
 
 .notification-item {
+    position: relative; /* Убедитесь, что родительский элемент имеет относительное позиционирование */
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -38,7 +39,18 @@
 }
 
 .notification-preview {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
+    font-size: 22px;
+    color: #4c5050;
+    margin-top: 15px;
+}
+
+.notification-indicator {
+    position: absolute; /* Устанавливаем абсолютное позиционирование для кружка */
+    top: 50%; /* Позиционируем по центру вертикально */
+    right: 30px; /* Располагаем кружок на 10px от правой границы */
+    transform: translateY(-50%); /* Сдвигаем кружок на половину его высоты для центрирования */
+    width: 10px; /* Ширина кружка */
+    height: 10px; /* Высота кружка */
+    background-color: rgb(246, 105, 172); /* Цвет кружка */
+    border-radius: 50%; /* Делаем кружок круглым */
 }

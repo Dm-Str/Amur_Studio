@@ -180,3 +180,8 @@ def send_message_student():
     # TODO: реализовать логику.
     #  Аргументы: messenger, contact, message_text ?
     pass
+
+
+def get_unread_notifications_count(request):
+    person_notifications_count = request.user.notifications.filter(status=0).count()
+    return person_notifications_count

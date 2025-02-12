@@ -22,7 +22,12 @@
         <aside class="sidebar">
             <button class="sidebar-button" onclick="location.href='{% url 'edit_profile' %}'">Профиль</button>
             <button class="sidebar-button" onclick="location.href='{% url 'submit_review' %}'">Мои отзывы</button>
-            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">Уведомления</button>
+            <button class="sidebar-button" onclick="location.href='{% url 'get_notifications' %}'">
+                Уведомления 
+                <span class="notification-count" style="{% if unread_notifications_count < 1 %}
+                    display: none;{% endif %}">{{ unread_notifications_count }}
+                </span>
+            </button>
             <button class="sidebar-button" onclick="location.href='{% url 'get_bonuses' %}'">Бонусы</button>
             <button class="sidebar-button" onclick="location.href='{% url 'get_training' %}'">Обучение</button>
             <button class="sidebar-button" onclick="location.href='{% url 'get_help' %}'">Помощь</button>
@@ -32,16 +37,20 @@
             </form>
         </aside>
 
-        <section >
+        <section>
             <div class="notifications">
                 <h2>Уведомления</h2>
                 <ul class="notification-list">
                     {% for notification in person_notifications %}
-                        <li class="notification-item" onclick="toggleNotification('notification{{ forloop.counter }}')">
-                            <h3 class="notification-subject">{{ notification.topic }}</h3>
-                            <p class="notification-preview" id="notification{{ forloop.counter }}" style="display: none;">
-                                {{ notification.message }}
+                        <li class="notification-item" data-read="{{ notification.status }}" 
+                            onclick="markAsRead({{ notification.id }})">
+                            <h3 class="notification-subject">{{ notification.topic|safe }}</h3>
+                            <p class="notification-preview" id="notification{{ notification.id }}" style="display: none;">
+                                {{ notification.message|safe }}
                             </p>
+                            {% if notification.status == 0 %}
+                                <span class="notification-indicator"></span>
+                            {% endif %}
                         </li>
                     {% empty %}
                         <li class="notification-item">
@@ -52,6 +61,7 @@
                 </ul>
             </div>
         </section>
+    
     </main>
     
     <script>
@@ -69,6 +79,59 @@
                 notification.style.display = "none";
             }
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function markAsRead(notificationId) {
+            // Находим элемент уведомления
+            var notificationPreview = $('#notification' + notificationId);
+            var parentItem = notificationPreview.closest('.notification-item');
+        
+            // Проверяем, было ли уведомление уже прочитано
+            if (parentItem.data('read') === 0) {
+                // Скрываем индикатор
+                parentItem.find('.notification-indicator').hide();
+        
+                // Уменьшаем счетчик непрочитанных уведомлений
+                var unreadCountElement = $('.notification-count');
+                var unreadCount = parseInt(unreadCountElement.text()) || 0;
+                if (unreadCount > 0) {
+                    unreadCountElement.text(unreadCount - 1);
+        
+                    // Если счетчик меньше 1, скрываем его
+                    if (unreadCount - 1 < 1) {
+                        unreadCountElement.hide();
+                    }
+                }
+        
+                // Показываем текст уведомления
+                notificationPreview.show();
+        
+                // Отправляем AJAX-запрос для изменения статуса
+                $.ajax({
+                    url: '{% url "mark_notification_read" 0 %}'.replace('0', notificationId),
+                    type: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Передаем CSRF-токен
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            // Обновляем атрибут data-read на 1 (прочитано)
+                            parentItem.data('read', 1);
+                        } else {
+                            console.error(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error: ' + status + error);
+                    }
+                });
+            } else {
+                // Если уведомление уже прочитано, просто показываем текст
+                notificationPreview.show();
+            }
+        }
+
     </script>
     
 {% endblock %}
