@@ -259,23 +259,26 @@ class Certificates(models.Model):
 
 
 class Notifications(models.Model):
-    # TODO: Исправить поля. is_read изменить на статус.
+    STATUS_CHOICES = [
+        (0, 'Не прочитано'),
+        (1, 'Прочитано'),
+    ]
+
     user = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='notifications',
-                             verbose_name='Пользователь')
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE, related_name='notifications',
-                               verbose_name='Курс')
-    message = models.TextField(verbose_name='Сообщение')
+                             verbose_name='Студент')
+    topic = models.CharField(max_length=400, verbose_name='Тема')
+    message = models.TextField(verbose_name='Текст')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
-    is_read = models.BooleanField(default=False, verbose_name='Прочитано')
+    status = models.IntegerField(choices=STATUS_CHOICES, default=0, verbose_name='Статус')
 
     class Meta:
-        verbose_name = 'Оповещение'
-        verbose_name_plural = 'Оповещения'
+        verbose_name = 'Уведомление'
+        verbose_name_plural = 'Уведомления'
 
 
 class BonusTransaction(models.Model):
     user = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='bonus_transactions',
-                             verbose_name='Пользователь')
+                             verbose_name='Студент')
     amount = models.IntegerField(verbose_name='Сумма бонусов')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     transaction_type = models.CharField(max_length=20, choices=[('earn', 'Начисление'), ('spend', 'Списание')],
