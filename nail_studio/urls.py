@@ -18,6 +18,8 @@ urlpatterns = [
     path('lk_user/bonuses/', lk_views.get_bonuses, name='get_bonuses'),
     path('lk_user/submit_reviews/', lk_views.submit_review, name='submit_review'),
     path('lk_user/notifications/', lk_views.get_notifications, name='get_notifications'),
+    path('lk_user/notifications/<int:notification_id>/', lk_views.mark_notification_read,
+         name='mark_notification_read'),
     path('lk_user/', lk_views.change_password, name='change_password'),
     path('lk_user/get_training/', lk_views.get_training, name="get_training"),
     path('lk_user/<int:course_id>/', lk_views.submit_course, name='submit_course'),

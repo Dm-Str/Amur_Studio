@@ -1,5 +1,6 @@
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from nail_studio.forms import PersonProfileForm
@@ -30,13 +31,11 @@ def enroll_course(request, course_id):
         max_bonus_spend = course_price * Decimal("0.5")
         used_bonuses = min(bonuses_person, max_bonus_spend)
         final_price = course_price - used_bonuses
-
         context = {
             'course': course,
             'final_price': final_price,
             'bonuses_person': bonuses_person,
         }
-
         return render(request, 'lk/lk_submit_course.html', context=context)
 
     return render(request, 'lk/lk_submit_course.html',
@@ -52,7 +51,8 @@ def submit_course(request, course_id):
         if course in user.courses.all():
             return render(request, 'lk/lk_submit_course.html', {
                 'course': course,
-                'error': 'Вы уже записаны на этот курс!'
+                'error': 'Вы уже записаны на этот курс!',
+                'unread_notifications_count': get_unread_notifications_count(request),
             })
         else:
             user.courses.add(course)
@@ -68,24 +68,32 @@ def submit_course(request, course_id):
 def edit_profile(request):
     if request.method == 'POST':
         form = PersonProfileForm(request.POST, request.FILES, instance=request.user)
+        context = {
+            'form': form,
+            'unread_notifications_count': get_unread_notifications_count(request),
+        }
 
         if request.POST['messenger'] != 'WhatsApp':
             try:
                 validate_messenger(request.POST['messenger'])
             except ValidationError as e:
                 messages.error(request, e.messages[0])
-                return render(request, 'lk/lk_edit_profile.html', {'form': form})
+                return render(request, 'lk/lk_edit_profile.html', context)
 
         if form.is_valid():
             form.save()
             messages.success(request, 'Профиль обновлен успешно!')
-            return render(request, 'lk/lk_edit_profile.html', {'form': form})
+            return render(request, 'lk/lk_edit_profile.html', context)
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
 
     else:
         form = PersonProfileForm(instance=request.user)
-    return render(request, 'lk/lk_edit_profile.html', {'form': form})
+        context = {
+            'form': form,
+            'unread_notifications_count': get_unread_notifications_count(request),
+        }
+    return render(request, 'lk/lk_edit_profile.html', context)
 
 
 @login_required
@@ -113,7 +121,8 @@ def submit_review(request):
 
     context = {
             'courses': courses,
-            'reviews': reviews
+            'reviews': reviews,
+            'unread_notifications_count': get_unread_notifications_count(request),
     }
     return render(request, 'lk/lk_reviews.html', context)
 
@@ -133,7 +142,8 @@ def get_bonuses(request):
     bonuses = person.bonuses
     context = {
         'person': person,
-        'bonuses': bonuses
+        'bonuses': bonuses,
+        'unread_notifications_count': get_unread_notifications_count(request),
     }
     return render(request, 'lk/lk_get_bonuses.html', context=context)
 
@@ -145,6 +155,7 @@ def get_notifications(request):
 
     context = {
         'person_notifications': person_notifications,
+        'unread_notifications_count': get_unread_notifications_count(request),
     }
     return render(request, 'lk/lk_notifications.html', context)
 
@@ -152,6 +163,19 @@ def get_notifications(request):
 @login_required
 def get_notification_details(request, notification_id):
     pass
+
+
+@login_required
+def mark_notification_read(request, notification_id):
+    if request.method == 'POST':
+        try:
+            notification = Notifications.objects.get(pk=notification_id)
+            notification.status = 1
+            notification.save()
+            return JsonResponse({'status': 'success'})
+        except Notifications.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Notification not found.'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
 
 
 @login_required
@@ -164,7 +188,10 @@ def get_training(request):
     user_courses = request.user.courses.all()
     if not user_courses:
         return redirect('courses')
-    return render(request, 'lk/lk_get_courses.html')
+    context = {
+        'unread_notifications_count': get_unread_notifications_count(request),
+    }
+    return render(request, 'lk/lk_get_courses.html', context)
 
 
 @login_required
@@ -300,8 +327,14 @@ def submit_homework(request, lesson_id):
 
 @login_required
 def lk_user(request):
-    return render(request, 'lk/lk.html')
+    context = {
+        'unread_notifications_count': get_unread_notifications_count(request),
+    }
+    return render(request, 'lk/lk.html', context)
 
 
 def get_help(request):
-    return render(request, 'lk/lk_help.html')
+    context = {
+        'unread_notifications_count': get_unread_notifications_count(request),
+    }
+    return render(request, 'lk/lk_help.html', context)
