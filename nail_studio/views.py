@@ -37,7 +37,7 @@ def register(request):
 
             login(request, user)
             messages.success(request, 'Ваш аккаунт успешно создан!')
-            return redirect('lk_user')
+            return redirect('edit_profile')
 
         except ValidationError as e:
             return render(request, 'register.html', {
@@ -59,7 +59,7 @@ def make_login(request):
 
         if user and user.check_password(password):
             login(request, user)
-            return redirect('lk_user')
+            return redirect('get_training')
         else:
             messages.error(request, 'Неверный номер телефона или пароль!')
 
