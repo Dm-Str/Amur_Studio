@@ -161,11 +161,6 @@ def get_notifications(request):
 
 
 @login_required
-def get_notification_details(request, notification_id):
-    pass
-
-
-@login_required
 def mark_notification_read(request, notification_id):
     if request.method == 'POST':
         try:
