@@ -18,6 +18,7 @@ def make_logout(request):
 
 @login_required
 def enroll_course(request, course_id):
+    # TODO: Вынести логуику начисления бонусов в модел BonusTransaction
     course = get_object_or_404(Courses, pk=course_id)
     person = request.user
 
@@ -44,6 +45,7 @@ def enroll_course(request, course_id):
 
 @login_required
 def submit_course(request, course_id):
+    # TODO: Вынести логуику начисления бонусов в модел BonusTransaction
     course = get_object_or_404(Courses, pk=course_id)
     user = request.user
 
@@ -98,6 +100,7 @@ def edit_profile(request):
 
 @login_required
 def submit_review(request):
+    # TODO: Вынести логуику начисления бонусов в модел BonusTransaction
     person = get_object_or_404(Person, pk=request.user.id)
     courses = person.courses.all()
     reviews = Review.objects.filter(person=person)
