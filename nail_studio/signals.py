@@ -4,6 +4,12 @@ from .models import Courses, Discounts, StudentHomework, BonusTransaction
 from .notifications import *
 
 
+@receiver(post_save, sender=Person)
+def registration_completed(sender, instance, created, **kwargs):
+    if created:
+        notify_welcome_student(instance)
+
+
 @receiver(post_save, sender=Courses)
 def course_created(sender, instance, created, **kwargs):
     if created:
