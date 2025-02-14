@@ -22,25 +22,19 @@ def enroll_course(request, course_id):
     course = get_object_or_404(Courses, pk=course_id)
     person = request.user
 
-    bonuses_person = person.bonuses
-    course_price = course.price
-
-    bonuses_person = Decimal(bonuses_person)
-    course_price = Decimal(course_price)
-
-    if bonuses_person:
-        max_bonus_spend = course_price * Decimal("0.5")
-        used_bonuses = min(bonuses_person, max_bonus_spend)
-        final_price = course_price - used_bonuses
+    if person:
+        final_price = BonusTransaction.get_price_with_bonuses(course)
         context = {
             'course': course,
             'final_price': final_price,
-            'bonuses_person': bonuses_person,
+            'bonuses_person': person.bonuses,
         }
-        return render(request, 'lk/lk_submit_course.html', context=context)
+
+
+        return render(request, 'lk/lk_submit_course.html', context)
 
     return render(request, 'lk/lk_submit_course.html',
-                  {'course': course, 'final_price': course_price})
+                  {'course': course, 'final_price': course.price})
 
 
 @login_required

@@ -6,6 +6,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 import datetime
 from nail_studio.validators import *
+from decimal import Decimal
 
 
 class Courses(models.Model):
@@ -277,16 +278,38 @@ class Notifications(models.Model):
 
 
 class BonusTransaction(models.Model):
-    user = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='bonus_transactions',
+    CHOICES = [
+        ('earn', 'Начисление'),
+        ('spend', 'Списание')
+    ]
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='bonus_transaction',
                              verbose_name='Студент')
     amount = models.IntegerField(verbose_name='Сумма бонусов')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
-    transaction_type = models.CharField(max_length=20, choices=[('earn', 'Начисление'), ('spend', 'Списание')],
-                                        verbose_name='Тип транзакции')
+    transaction_type = models.CharField(max_length=20, choices=CHOICES,verbose_name='Тип транзакции')
+
+    def __str__(self):
+        return f"{self.person} - {self.amount}"
+
+    @classmethod
+    def get_price_with_bonuses(cls, course):
+        bonuses_person = Decimal(cls.person.bonuses)
+        course_price = Decimal(course.price)
+
+        if bonuses_person:
+            max_bonus_spend = course_price * Decimal("0.5")
+            used_bonuses = min(bonuses_person, max_bonus_spend)
+            final_price = course_price - used_bonuses
+            return final_price
+
+        return None
+
 
     class Meta:
         verbose_name = 'Транзакция бонусов'
         verbose_name_plural = 'Транзакции бонусов'
+
+
 
 
 class Questions(models.Model):
