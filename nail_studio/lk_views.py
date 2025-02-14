@@ -18,11 +18,11 @@ def make_logout(request):
 
 @login_required
 def enroll_course(request, course_id):
-    # TODO: Вынести логуику начисления бонусов в модел BonusTransaction
     course = get_object_or_404(Courses, pk=course_id)
     person = request.user
 
     if person:
+        # обработать слуяй если у студента нет бонусов
         final_price = BonusTransaction.get_price_with_bonuses(course)
         context = {
             'course': course,
