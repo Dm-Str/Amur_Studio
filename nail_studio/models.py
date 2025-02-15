@@ -122,12 +122,12 @@ class Person(AbstractUser):
         new_username = username + str(last_pk)
         return new_username
 
-    def calculate_review_bonuses(self, amount):
-        """
-            Увеличивает количество бонусов на указанную сумму.
-        """
-        self.bonuses += amount
-        self.save()
+    # def calculate_review_bonuses(self, amount):
+    #     """
+    #         Увеличивает количество бонусов на указанную сумму.
+    #     """
+    #     self.bonuses += amount
+    #     self.save()
 
     def calculate_birthday_bonuses(self):
         """
@@ -303,6 +303,14 @@ class BonusTransaction(models.Model):
             return final_price
 
         return None
+
+
+    def calculate_review_bonuses(self, amount):
+        """
+            Увеличивает количество бонусов на указанную сумму.
+        """
+        self.bonuses += amount
+        self.save()
 
 
     class Meta:

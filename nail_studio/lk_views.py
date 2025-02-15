@@ -22,7 +22,7 @@ def enroll_course(request, course_id):
     person = request.user
 
     if person:
-        # обработать слуяй если у студента нет бонусов
+        # обработать случай если у студента нет бонусов
         final_price = BonusTransaction.get_price_with_bonuses(course)
         context = {
             'course': course,
@@ -110,10 +110,10 @@ def submit_review(request):
                         text=review_text)
         review.save()
 
-        #Бонусы за отзыв
-        person.calculate_review_bonuses(100)
-        messages.success(request, 'Ваш отзыв был успешно добавлен!\n'
-                                           'И вам начисленно 100 бонусов!')
+        # #Бонусы за отзыв
+        # person.calculate_review_bonuses(100)
+        # messages.success(request, 'Ваш отзыв был успешно добавлен!\n'
+        #                                    'И вам начисленно 100 бонусов!')
         return redirect('submit_review')
 
     context = {
