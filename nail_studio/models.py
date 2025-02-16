@@ -304,13 +304,12 @@ class BonusTransaction(models.Model):
 
         return None
 
-
-    def calculate_review_bonuses(self, amount):
+    @classmethod
+    def put_bonuses_student(cls, amount):
         """
             Увеличивает количество бонусов на указанную сумму.
         """
-        self.bonuses += amount
-        self.save()
+        cls.person.bonuses += amount
 
 
     class Meta:
