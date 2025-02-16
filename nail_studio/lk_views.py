@@ -110,10 +110,11 @@ def submit_review(request):
                         text=review_text)
         review.save()
 
-        # #Бонусы за отзыв
-        # person.calculate_review_bonuses(100)
-        # messages.success(request, 'Ваш отзыв был успешно добавлен!\n'
-        #                                    'И вам начисленно 100 бонусов!')
+        # Бонусы за отзыв
+        # TODO: Нужно ли установить минимальное кол-во символов?
+        BonusTransaction.put_bonuses_student(100)
+        messages.success(request, 'Ваш отзыв был успешно добавлен!\n'
+                                           'И вам начисленно 100 бонусов!')
         return redirect('submit_review')
 
     context = {
