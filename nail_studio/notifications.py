@@ -46,3 +46,12 @@ def notify_homework_accepted(instance):
                 f'Урок: «{instance.lesson.title}»',
     )
 
+
+def notify_put_bonuses_student(instance):
+    # TODO: Использовать одно уведомление для всех начислений?
+    #  Либо создать под каждое начисление отдельное.
+    Notifications.objects.create(
+        user=instance.person,
+        topic=f'Начисление бонусов. {datetime.now(timezone.utc).strftime("%d.%m.%Y")}',
+        message=f'Вам начислены бонусы за!'
+    )
